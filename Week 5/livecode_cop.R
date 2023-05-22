@@ -37,29 +37,6 @@ pcos_links <-entrez_link(dbfrom="pubmed", id="27312935", db= "all")
 
 
 
-#-------------------------------------------------------------------------------
-#hiv_pm <- entrez_search(db="pubmed", term = "hiv[all]")
-#pcos_con_pm <- entrez_search(db="pubmed", term= "PCOS[all] AND contraceptives[all]")
-#pcos_not_con_pm <- entrez_search(db="pubmed", term= "PCOS[all] AND contraceptives[all] NOT birth control")
 
-#hiv_pm_author <- entrez_search(db="pubmed", term = "hiv[ALL] AND Kristen Stafford[AUTH]")
-#hiv_pm_affiliation <- entrez_search(db="pubmed", term= "hiv[ALL] AND University of Maryland Baltimore[AFFL]")
-#hiv_aids <- entrez_search(db="pubmed", term= "hiv[TITL] OR AIDS[TITL]")
-
-#making id lists
-#id_hiv <- c(hiv_pm$ids)
-#author_hiv <- c(hiv_pm_author$ids)
-#affl_hiv <- c(hiv_pm_affiliation$ids)
-#aids_hiv <- c(hiv_aids$ids)
-
-#hiv_summ <- entrez_summary(db= "pubmed", id= hiv_pm$ids)
-
-
-#Making a dataframe of the ids 
-#data <- tibble(id_hiv,author_hiv,affl_hiv,aids_hiv)
-
-#Verifiying that ids are not duplicated
-#duplicated(data)
-#unique(data)
 
 
