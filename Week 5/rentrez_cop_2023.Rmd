@@ -1,0 +1,216 @@
+---
+title: "Doing bibliometrics using Rentrez, An API interface for NCBI databases."
+author: "Irmarie Fraticelli-Rodriguez"
+date: "2023-05-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+##### Learning Objectives:
+
+The objective of this session is to:
+
+1. Understand how to use/read API documentation. 
+2. Learn how to pull data from API. 
+3. Learn how to select and execute API commands.  
+4. Wrangle data to usable form (like csv or a graph).  
+
+##### Course Activities: 
+
+This section activities are: 
+
+1. Explore the Rentrez API documentation. 
+2. Download Rentrez and learn basic search commands.
+3. Perform simple and Boolean searches.  
+4. Convert data into a friendly reporting format. 
+
+##### How to interact with this document and session:
+
+The code has already been pre-written so you can focus on the presentation.
+
+This document is yours, so you can modify the search terms, commands and their arguments according to your interests.
+
+##### Output of this session:
+
+TEXT TEXT TEXT TEXT
+
+## Basics of an API (Application Programming Interface)
+
+### What is an API?
+
+Is a way that two or more computers programs communicate with each other.
+ 
+For this communication to be successful, there are specifications to follow to ensure that both sides have: 
+
+1. The appropriate credentials to request information.
+2. The information requested is organized in the appropriate format.
+
+It is like a waiter running back and forth in between you and the kitchen to deliver information requested.You **request** information to a device, and the device returns request with a **response**.
+ 
+An API can operate in different ways, but for this excersice we will be working under a HTTP Request Methods. 
+What that means?
+
+The HTTP Request Method is the format that the text should be arranged so that the two or more computers understand what is being requested.
+With an HTTP Protocol you can: 
+
+1. **Get** information
+2. **Post** information which creates/updates a resource
+3. **Delete** information
+4. **Patch** information which applies partial modifications
+5. An many other functions...
+
+In our context, the method that applies to us is the GET method since we will be only **requesting information** to the NCBI API using the rentrez R package. 
+
+If you want to learn more about API, you can see this video on Youtube called [What is an API?](https://youtu.be/s7wmiS2mSXY)
+
+If you want to learn more about HTTP Request Methods, you can visit this [w3school website](https://www.w3schools.com/tags/ref_httpmethods.asp)
+
+## What is Rentrez?
+
+TEXT TEXT TEXT TEXT TEXT TEXT
+TEXT TEXT TEXT TEXT TEXT TEXT
+
+### What is so different about Rentrez?
+
+TEXT TEXT TEXT TEXT TEXT TEXT
+TEXT TEXT TEXT TEXT TEXT TEXT
+
+## Install and Load Rentrez
+Now, remember that you need to install any new package that you want to use in RStudio. 
+Also, once you have the package you need to load it. 
+How can we do that?
+
+```{r}
+#install.packages('rentrez')
+library(rentrez)
+```
+
+Now that we know that we have installed the package and load it into Rstudio. 
+Lets take a look at the documentation available about this this resource.
+
+Lets visit the NCBI, E-utilities website. 
+
+[Entrez Programming Utilities Help](https://www.ncbi.nlm.nih.gov/books/NBK25497/?report=classic)
+
+This website provides a general introduction to the Entrez API. 
+You can find information about how the Entrez search engine works, available search commands, syntax for search terms, how you can fetch a record and more. 
+
+When using an API it is always useful to spend sometime evaluating its documentation. 
+This can help you get acquainted with 
+
+## Rentrez Commands
+
+### Helper Commands
+
+The commands listed below helps you learn a little bit more about the NCBI API called Entrez. 
+
+entrez_dbs():           List of Entrez Databases
+entrez_db_summary():    Brief description of what the database is
+entrez_db_searchable():	Set of search terms that can used with this database
+entrez_db_links():	    Set of databases that might contain linked records
+
+Lets see what entrez_dbs() returns: 
+```{r}
+entrez_dbs()
+```
+Want to learn more about NCBI databases, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3531099/
+The command entrez_dbs() returns a list of databases that we can query. 
+
+[TODO!!!]
+Since we are working on a bibliometric report, lets see what the command entrez_db_searchable() can tell us about the PubMed Database. 
+```{r}
+entrez_db_summary("pubmed")
+```
+[TODO!!!]
+For our bibliometric report it is important to see that the PubMed database is up to date, or at least that it has been updated in the last few weeks. 
+
+### PubMed Search Terms
+
+Now that we know that the PubMed database has been updated recently lets see what search fields the PubMed Database has.  
+```{r}
+entrez_db_searchable("pubmed")
+```
+Lets strategize our search!
+Now that we know the search terms you can use to build a query in the PubMed database, lets perform our first search. 
+
+## Performing search in PubMed
+
+## PubMed Search fields 
+
+https://www.nlm.nih.gov/bsd/mms/medlineelements.html
+
+## entrez_search()
+
+First lets learn the syntax for a simple search:
+
+>entrez_search(db= [database name], term= "searchword[field]")
+
+
+[TODO!!!]
+For this bibliometric report we want to search publications related to TEXT TEXT TEXT, and how many of those have are affiliated to TEXT TEXT TEXT. 
+
+
+The entrez_search command has 5 arguments but you dont need to use them all. Those are: 
+
+| Argument      | Use           |
+| ------------- | ------------- |
+| db            | to specify the database to perform a search  |
+| term          | this is the word,topic,term that you are interested in searching  |
+| retmode       | to select the format of your output (XML or JSON), by default will be XML  |
+ 
+
+EXAMPLES: 
+```{r}
+pm_search <- entrez_search(db="pubmed", term= "hiv")
+```
+*What this command returns:* 
+
+This simple search returns a list of 5 elements. 
+What are those elements? What they mean?
+
+| Argument      | Use           |
+| ------------- | ------------- |
+| ids           | is an identifying number for each publication record  |
+| count         | is the number of publication records retrieved  |
+| retmax        | controls the maximum number of returned values, if this is not set the default value is 20  |
+| QueryTranslation        | search term as the NCBI interpreted it  |
+| file | type of file resulted from search |
+  
+An important field here is the QueryTranslation value which allows you to see how Entrez API has interpreted your selected term words according to MESH Terms.
+
+### Boolean Searches
+
+Since now we have performed a simple search, lets see how complex queries can be built.
+First lets learn the syntax for a boolean search:
+
+>entrez_search(db= [database name], term= "searchword[field]" <logic operator> "searchword[field]")
+
+ 
+Rentrez allows you to perform boolean searches inside the term argument. 
+The allowed boolean terms are **AND, OR, and NOT**. 
+
+
+Examples:
+```{r}
+umb_hiv <- entrez_search(db ="pubmed", term = "HIV[ALL] AND University of Maryland, Baltimore County[AFFL]")
+umb_cancer <- entrez_search(db ="pubmed", term = "cancer[ALL] AND University of Maryland, Baltimore County[AFFL]")
+
+stafford_umb <- entrez_search(db ="pubmed", term = "HIV[ALL] AND University of Maryland[AFFL] AND Kristen Stafford[AUTH]")
+
+```
+## entrez_links()
+
+## Fetching Queries
+
+XML Return 
+https://www.nlm.nih.gov/bsd/licensee/elements_descriptions.html
+```{r}
+fetching <- entrez_fetch(db="pubmed", id= stafford_umb$ids, rettype = "xml")
+fetch_list <- XML::xmlToList(fetching)
+
+```
+
