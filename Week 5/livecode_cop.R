@@ -18,6 +18,7 @@ entrez_db_summary("pubmed")
 #List of PubMed Search Fields
 entrez_db_searchable("pubmed")
 
+#PRACTICING SEARCHES
 #Doing a simple search using search fields
 pcos_pm <- entrez_search(db="pubmed", term = "pcos[all]")
 
@@ -30,10 +31,11 @@ pcos_ir_ct_pm <- entrez_search(db="pubmed", term= "pcos[all] AND insulin resista
 #Articles that include PCOS + Insulin Resistance AND have Authors affiliated with UMD
 pcos_ir_umb_pm <- entrez_search(db="pubmed", term= "pcos[ALL] AND insulin resistance[ALL] AND University of Maryland[AFFL]")
 
-#Rentrez summary to get publication information
-
+#Rentrez summary command to get publication information
+#In this command we are giving a list of ids by using pcos_pm$ids. The $ operator extract or subset a specific part of a data object in R. 
 summary_pcos_pm <- entrez_summary(db="pubmed", id=pcos_pm$ids, rettype = "xml")
 
+#SEARCH RELATED ARTICLES USING ENTREZ_LINK
 #Searching for related articles in other database
 #Evaluating links for PCOS between NCBI databases
 #Lets select an article that is related with two characteristics of PCOS, Insulin Resistance and Metabolic Syndrome
@@ -54,10 +56,35 @@ summary_pcos_sra <- entrez_summary(db="sra", id=pcos_links$links$pubmed_sra, ret
 summary_pcos_snp <- entrez_summary(db="snp", id=pcos_links$links$pubmed_snp, rettype = "xml")
 
 
-#Crear un reporte que sea 
-#Papers por universidad relacionados a un tema en especifico
-#El reporte debe contener los papers publicados en el ultimo mes, ultimos tres meses, seis, y ano
-#Ver si la actividad investigativa se ha mantenido o mejorado
+#Now that we know how to use rentrez lets move this information to a friendly format!
+#We are going to learn how to use Rentrez helper function to extract data from the XML given by the entrez_summary command
+
+#Our objective is to: 
+#1. Select the values that you would like to save (example: author, title, source)
+#2. Create and format a cvs document
+
+#1. Select the values that you would like to save (example: author, title, source) ## TODO: GET AUTHORS, ARTICLES IDS CORRECTLY
+uids <- extract_from_esummary(summary_pcos_pm,"uid")
+authors <- extract_from_esummary(summary_pcos_pm,"authors")["name",]
+pubdate <- extract_from_esummary(summary_pcos_pm,"pubdate")
+title <- extract_from_esummary(summary_pcos_pm,"title")
+pubtype <- extract_from_esummary(summary_pcos_pm,"pubtype")
+source <- extract_from_esummary(summary_pcos_pm,"source")
+issue <- extract_from_esummary(summary_pcos_pm,"issue")
+volume <- extract_from_esummary(summary_pcos_pm,"volume")
+pages <- extract_from_esummary(summary_pcos_pm,"pages")
+articleids <- extract_from_esummary(summary_pcos_pm,"articleids", simplify=FALSE)
+
+articleid_df <- bind_rows(articleids, .id="pmid")
+filter(articleid_df, articleids$idtype=="doi")
+
+#2. Create and format a cvs document
+data <- tibble(authors,title,pubtype,source,issue,volume,pages,pubdate,uids)
+write.csv(data, "pcos.csv")
+
+
+
+
 
 
 
