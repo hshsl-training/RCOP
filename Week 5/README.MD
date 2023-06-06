@@ -43,7 +43,7 @@ For this communication to be successful, there are specifications to follow to e
 
 It is like a waiter running back and forth in between you and the kitchen to deliver information requested.You **request** information to a device, and the device returns request with a **response**.
  
-An API can operate in different ways, but for this excersice we will be working under a HTTP Request Methods. 
+An API can operate in different ways, but for this exercise we will be working under a HTTP Request Methods. 
 What that means?
 
 The HTTP Request Method is the format that the text should be arranged so that the two or more computers understand what is being requested.
@@ -52,18 +52,17 @@ With an HTTP Protocol you can:
 1. **Get** information
 2. **Post** information which creates/updates a resource
 3. **Delete** information
-4. **Patch** information which applies partial modifications
-5. An many other functions...
+4. An many other functions...
 
 ## Why do I need to know this?
 
 Rentrez is an R interface that allows its users to interact with NCBI API. 
 With Rentrez, you do not need to use any additional program or terminal to access NCBI Data. 
-This means that you can request data to multiple databases (PubMed, SNP,Clinvar,DRA, Gene and others) in the same RStudio Session. 
+This means that you can request data to multiple databases (PubMed, SNP,Clinvar,SRA, Gene and others) in the same RStudio Session. 
 
 In our context, the method that applies to us is the GET method since we will be only **requesting information** to the NCBI API using the rentrez R package. 
 
 If you want to learn more about API, you can see this video on Youtube called [What is an API?](https://youtu.be/s7wmiS2mSXY)
 
-If you want to learn more about HTTP Request Methods, you can visit this [w3school website](https://www.w3schools.com/tags/ref_httpmethods.asp)
+If you want to learn more about Rentrez, you can access this [Rentrez Tutorial](https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html)
 
