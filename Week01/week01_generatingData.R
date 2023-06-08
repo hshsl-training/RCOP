@@ -1,3 +1,4 @@
+library(fs)
 library(tidyverse)
 library(randomNames)
 
@@ -8,9 +9,6 @@ workshops <- replicate(10, tibble(attendees = randomNames(n=sample(5:30,1), name
 affiliation = sample(Schools, length(attendees), replace = TRUE),
 status = sample(Status_options, length(attendees), replace = TRUE)), simplify = FALSE)
 
-
-
-workshop_names <- paste0("Workshop0", 1:10)
 
 names(workshops) <- workshop_names
 
