@@ -1,0 +1,354 @@
+---
+title: "Accessing NCBI data with the Rentrez package"
+subtitle: "R Community of Practice June 15 - July 20"
+author: "Irmarie Fraticelli-Rodriguez"
+format:
+  revealjs:
+   slide-number: true
+   smaller: true
+   scrollable: true
+   code-fold: true
+   code-tools: true
+   code-summary: "Show the code"
+footer: <https://www2.hshsl.umaryland.edu/cdabs/>
+preview-links: auto
+---
+
+# What is Rentrez?
+
+Rentrez is an R interface that allows its users to interact with NCBI API. With Rentrez, you do not need to use any additional program or terminal to access NCBI Data. This means that you can request data from multiple databases (PubMed, SNP,Clinvar,SRA, Gene and others) in the same RStudio Session.
+
+If you want to learn more about Rentrez, you can access this [Rentrez Tutorial](https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html)
+
+------------------------------------------------------------------------
+
+# Install and Load Rentrez
+
+Now, remember that you need to install any new package that you want to use in RStudio. Also, once you have the package you need to load it. How can we do that?
+
+```{r}
+
+#install.packages('rentrez')
+library(rentrez)
+
+```
+
+Now that we know that we have installed the package and load it into Rstudio. Lets take a look at the documentation available about this this resource.
+
+**Lets visit the [Rentrez Documentation](https://cran.r-project.org/web/packages/rentrez/rentrez.pdf)**
+
+This pdf provides details about each function that the R Package Rentrez has. For each command you may find a description, usage example, arguments and return value type. Remember that you can always use the help(<function>) in R to search command descriptions.
+
+# Rentrez Functions
+
+The functions listed below helps you learn a little bit more about Rentrez and NCBI Databases.
+
+| Function                | Usage                                                |
+|------------------------------------|------------------------------------|
+| entrez_dbs()            | List of Entrez Databases                             |
+| entrez_db_summary()     | Brief description of what the database is            |
+| entrez_db_searchable()  | Set of search terms that can used with this database |
+| entrez_db_links()       | Set of databases that might contain linked records   |
+| extract_from_esummary() | Extract elements from a list of esummary records     |
+
+# entrez_dbs()
+
+Lets see what entrez_dbs() returns:
+
+```{r}
+
+entrez_dbs()
+
+```
+
+The function entrez_dbs() returns a list of databases that we can query.
+
+# entrez_db_summary()
+
+How do we know that the database is up to date? We can use the entrez_db_summary function to see the latest updates of the selected NCBI database.
+
+```{r}
+
+entrez_db_summary("pubmed")
+
+```
+
+# entrez_db_searchable()
+
+How can I build PubMed queries? What search fields does the database has? We can use the entrez_db_searchable function to see searchable fields and its description.
+
+```{r}
+
+entrez_db_searchable("pubmed")
+
+```
+
+Lets strategize our search! Now that we know the search fields you can use to build a query, lets perform our first search.
+
+------------------------------------------------------------------------
+
+# Performing searches in NCBI API
+
+# entrez_search()
+
+Similar to PubMed, Rentrez allows you to perform simple or boolean searches using the same structure that you would use in the PubMed search bar. The allowed boolean terms are **AND, OR, and NOT**.
+
+First lets learn the syntax for a simple and a boolean search:
+
+Simple Search:
+
+`entrez_search(db= [database name], term= "searchword[field]")`
+
+Boolean search:
+
+`entrez_search(db= [database name], term= "searchword[field]" <boolean term> "searchword[field]")`
+
+------------------------------------------------------------------------
+
+The entrez_search function takes 4 arguments but you don't need to use them all, but the db and term arguments are required.
+
+| Argument    | Type      | Use                                                                                                       |
+|------------------------|------------------------|------------------------|
+| db          | CHARACTER | Name of the database to search for                                                                        |
+| term        | CHARACTER | The search term. In here you can use MESH terms, or any of the search fields by using PubMed Query Syntax |
+| retmode     | VECTOR    | To select the format of your output (XML or JSON), by default will be XML                                 |
+| use_history | LOGICAL   | To store a history of searches in NCBI's server                                                           |
+
+------------------------------------------------------------------------
+
+EXAMPLES:
+
+```{r}
+
+simple_search <- entrez_search(db="pubmed", term = "pcos[all]")
+boolean_search <- entrez_search(db="pubmed", term= "pcos[all] AND insulin resistance[all]")
+search_fields <- entrez_search(db="pubmed", term= "pcos[ALL] AND insulin resistance[ALL] AND University of Maryland[AFFL]")
+
+```
+
+# What does the entrez_search() function returns?
+
+The entrez_search function returns a list of elements that includes the following:
+
+| Value            | Type                | Description                                                                                |
+|------------------------|------------------------|------------------------|
+| ids              | INTEGER             | is an identifying number for each publication record                                       |
+| count            | INTEGER             | is the number of publication records retrieved                                             |
+| retmax           | INTEGER             | controls the maximum number of returned values, if this is not set the default value is 20 |
+| web_history      | WEB HISTORY OBJECT  | A key of your stored history search                                                        |
+| QueryTranslation | CHARACTER           | search term as the NCBI interpreted it                                                     |
+| file             | XMLInternalDocument | type of file resulted from search                                                          |
+
+An important field here is the QueryTranslation value which allows you to see how NCBI API has interpreted your selected term words according to MESH Terms.
+
+# entrez_summary()
+
+Now lets retrieve basic information about the records we collected in one of our searches. But, first lest learn the syntax of the entrez_summary function.
+
+`entrez_summary(db="", id=, rettype = "")`
+
+------------------------------------------------------------------------
+
+The entrez_summary function takes 7 arguments but you dont need to use them all. Those are:
+
+| Argument           | Type               | Use                                                                         |
+|------------------------|------------------------|------------------------|
+| db                 | CHARACTER          | Name of the database to search for                                          |
+| id                 | VECTOR             | Unique ID(s) for records in database                                        |
+| web_history        | WEB HISTORY OBJECT | A web_history object                                                        |
+| version            | CHARACTER          | Either 1.0 or 2.0                                                           |
+| always_return_list | LOGICAL            | Return a list of esummary objects even when only one ID is provided         |
+| retmode            | CHARACTER          | By default, xml will be used for version 1.0 records, json for version 2.0. |
+| config             | VECTOR             | Configuration options passed to httr::GET                                   |
+
+------------------------------------------------------------------------
+
+EXAMPLES:
+
+```{r}
+
+summary <- entrez_summary(db="pubmed", id=simple_search$ids, rettype = "xml")
+
+```
+
+# What does the entrez_summary() function returns?
+
+This function returns an NCBI API object called esummary, which means a list of items for multiple or a single record.
+
+# entrez_fetch()
+
+Another way to get records from the NBCI API, is by using the entrez_fetch function. entrez_summary and entrez_fetch are almost the same function, both of them will help you extract data from the NCBI API. But the difference between entrez_summary and entrez_fetch is in the way both functions arranges the data in RStudio. The entrez_summary returns a dataframe with lists of records while entrez_fetch returns an XML document.
+
+For the entrez_summary function, rentrez has created a function that allows you to extract information from each metadata field avoiding the challenges that comes with navigating an XML parsed documents.
+
+------------------------------------------------------------------------
+
+EXAMPLE:
+
+```{r}
+
+fetch <- entrez_fetch(db= "pubmed", id = simple_search$ids, rettype = "xml")
+
+```
+
+Now that we now how to get data full records in Rentrez using entrez_esummary and entrez_fetch, lets learn a helper function that will allows us to get specific data fields from NCBI API XML document.
+
+------------------------------------------------------------------------
+
+# extract_from_esummary()
+
+This function helps you navigate through an XMLInternalDocument and extract elements from a list of esummary records. But, first lest learn the syntax of the extract_from_esummary function.
+
+`extract_from_esummary(esummaries, elements, simplify = TRUE)`
+
+------------------------------------------------------------------------
+
+The extract_from_summary function takes 3 arguments but you dont need to use them all. Those are:
+
+| Argument  | Type                | Use                                                                    |
+|------------------------|------------------------|------------------------|
+| esumaries | ENTREZ_SUMMARY ITEM | Either an esummary or an esummary_list (as returned by entrez_summary) |
+| elements  | CHARACTER           | Unique ID(s) for records in database                                   |
+| simplify  | LOGICAL             | If possible return a vector                                            |
+
+------------------------------------------------------------------------
+
+EXAMPLE:
+
+```{r}
+
+# If you have been performing searches in PubMed, you can use the following coding lines as guide.
+
+uids <- extract_from_esummary(summary,"uid")
+authors <- extract_from_esummary(summary,"authors")["name",]
+
+```
+
+# What does the extract_from_esummary() function returns?
+
+This function returns a list or vector containing information of the requested item.
+
+------------------------------------------------------------------------
+
+# Contrasting NCBI Databases
+
+# entrez_global_query()
+
+The entrez_global_query() function allows you to search a term on all NCBI Entrez Databases.
+
+The syntax for this function is
+
+`entrez_global_query(term, config = NULL, ...)`
+
+------------------------------------------------------------------------
+
+As you can see the function takes config= NULL as an argument, but we are not going to use that. The argument config in this context means the type of connection that you are requesting from the API, this could be GET or POST. In the entrez context if you are performing big data requests they recommend you to use a combination of web_history and config = POST arguments to not saturate their servers. They also ask for big data request to be done at night, again to not saturate their servers.
+
+Lets test this function and see what it returns.
+
+------------------------------------------------------------------------
+
+EXAMPLE:
+
+```{r}
+
+global_query <- ("HIV")
+all_databases <- entrez_global_query(global_query)
+
+```
+
+# What does the entrez_global_query() function returns?
+
+This function returns a named vector with counts for each a database. This means a list of totals of articles found related to your search term by database.
+
+Another function that allows you to contrast searches within the NBCI databases is the entrez_links() function.
+
+------------------------------------------------------------------------
+
+# entrez_links()
+
+The entrez_link() function allows you to get links of related records from an NCBI database. This function uses a unique identifier or a set of unique identifiers to search related articles in other NCBI databases.
+
+Lets have a look at the syntax of this function.
+
+`entrez_link(dbfrom = "" , web_history = "" , id = "" , db = "", cmd = "", by_id = FALSE, config = "")`
+
+------------------------------------------------------------------------
+
+Lets have a look of the arguments required for this function.
+
+| Argument           | Type               | Use                                                                                                                                                       |
+|------------------------|------------------------|------------------------|
+| dbfrom             | CHARACTER          | Name of database from which the Id(s) originate                                                                                                           |
+| web_history        | WEB HISTORY OBJECT | a web_history object                                                                                                                                      |
+| id                 | VECTOR             | vector with unique ID(s) for records in database db                                                                                                       |
+| db                 | CHARACTER          | Name of the database to search for links                                                                                                                  |
+| cmd                | CHARACER           | Select an option from a defined list: neighbor, neighbor_score, neighbor_hsitory, acheck, ncheck, lcheck, llinks, llinkslib, prlinks                      |
+| by_id              | LOGICAL            | If FALSE (default) return a single elink objects containing links for all of the provided ids. Alternatively, if TRUE return a list of elink objects, one |
+| for each ID in id. |                    |                                                                                                                                                           |
+| config             | VECTOR             | configuration options passed to httr::GET                                                                                                                 |
+
+------------------------------------------------------------------------
+
+Lets test this variable!
+
+EXAMPLE:
+
+```{r}
+
+#If using pubmed, select an article and perform a search using a DOI, PMID or PCMID
+links <-entrez_link(dbfrom="pubmed", id="10.1007/s11886-016-0755-4", db= "all")
+
+```
+
+------------------------------------------------------------------------
+
+# What does the entrez_link function returns?
+
+This function returns an NCBI API object called, "elink", which is a list of id's by database.
+
+------------------------------------------------------------------------
+
+# Excersice: Lets practice!
+
+Now that we know how to use rentrez lets move this information to a friendly format! We are going to learn how to use Rentrez helper function to extract data from the XML given by the entrez_summary function
+
+Our objective is to: 1. Build your query: Identify your search terms, adequate database, search fields and perform the search using rentrez\
+2. Get article/object summaries.\
+3. Select the values that you would like to save (example: author, title, source). 4. Create and format a CSV or any other type of document appropriate for your search.
+
+STEP #1 
+Build your query: Identify your search terms, adequate database, search fields and perform the search using rentrez.
+
+```{r}
+
+#<YOUR ANSWER HERE>
+
+```
+
+STEP #2 
+Get article summaries
+
+```{r}
+
+#<YOUR ANSWER HERE>
+  
+```
+
+STEP #3 
+Select the values that you would like to save (example: author, title, source)
+
+```{r}
+
+#<YOUR ANSWER HERE>
+  
+```
+
+STEP #4 
+Create and format a CSV or any other type of document appropiate for your search.
+
+```{r}
+
+#<YOUR ANSWER HERE>
+
+```

@@ -35,6 +35,16 @@ pcos_ir_umb_pm <- entrez_search(db="pubmed", term= "pcos[ALL] AND insulin resist
 #In this command we are giving a list of ids by using pcos_pm$ids. The $ operator extract or subset a specific part of a data object in R. 
 summary_pcos_pm <- entrez_summary(db="pubmed", id=pcos_pm$ids, rettype = "xml")
 
+# Entrez Fetch
+fetch <- entrez_fetch(db= "pubmed", id = pcos_pm$ids, rettype = "xml")
+
+
+#Entrez Global Query
+#This command Find the number of records that match a given term across all NCBI Entrez databases
+
+global_query <- ("HIV")
+all_databases <- entrez_global_query(global_query)
+
 #SEARCH RELATED ARTICLES USING ENTREZ_LINK
 #Searching for related articles in other database
 #Evaluating links for PCOS between NCBI databases
@@ -75,12 +85,12 @@ volume <- extract_from_esummary(summary_pcos_pm,"volume")
 pages <- extract_from_esummary(summary_pcos_pm,"pages")
 articleids <- extract_from_esummary(summary_pcos_pm,"articleids", simplify=FALSE)
 
-articleid_df <- bind_rows(articleids, .id="pmid")
-filter(articleid_df, articleids$idtype=="doi")
 
 #2. Create and format a cvs document
 data <- tibble(authors,title,pubtype,source,issue,volume,pages,pubdate,uids)
-write.csv(data, "pcos.csv")
+write.csv(data,"pcos.csv", col.names = NA)
+
+
 
 
 
