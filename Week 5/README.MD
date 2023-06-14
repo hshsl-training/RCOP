@@ -58,7 +58,7 @@ With an HTTP Protocol you can:
 
 Rentrez is an R interface that allows its users to interact with NCBI API. 
 With Rentrez, you do not need to use any additional program or terminal to access NCBI Data. 
-This means that you can request data to multiple databases (PubMed, SNP,Clinvar,SRA, Gene and others) in the same RStudio Session. 
+This means that you can request data from multiple databases (PubMed, SNP,Clinvar,SRA, Gene and others) in the same RStudio Session. 
 
 In our context, the method that applies to us is the GET method since we will be only **requesting information** to the NCBI API using the rentrez R package. 
 
