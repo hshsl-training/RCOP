@@ -1,19 +1,19 @@
 affiliation,status,n
-Dentistry,Faculty,10
-Dentistry,Staff,9
-Dentistry,Student,8
+Dentistry,Faculty,9
+Dentistry,Staff,7
+Dentistry,Student,5
 Graduate,Faculty,7
-Graduate,Staff,5
-Graduate,Student,10
+Graduate,Staff,7
+Graduate,Student,11
 Medicine,Faculty,10
-Medicine,Staff,11
-Medicine,Student,10
-Nursing,Faculty,7
-Nursing,Staff,10
+Medicine,Staff,14
+Medicine,Student,6
+Nursing,Faculty,15
+Nursing,Staff,12
 Nursing,Student,8
-Pharmacy,Faculty,8
+Pharmacy,Faculty,14
 Pharmacy,Staff,9
 Pharmacy,Student,8
-Social Work,Faculty,12
+Social Work,Faculty,7
 Social Work,Staff,11
-Social Work,Student,10
+Social Work,Student,13
