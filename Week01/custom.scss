@@ -1,0 +1,19 @@
+/*-- scss:defaults --*/
+$body-bg: #191919 !default;
+$body-color: #fff !default;
+$link-color: #42affa !default;
+$input-panel-bg: rgba(233, 236, 239, 0.2) !default;
+$code-block-font-size: 0.8em;
+$code-block-bg: #fff;
+$code-block-border-color: darken($link-color, 20%);
+
+
+
+
+/*-- scss:rules --*/
+.reveal pre code {
+  code-block-font-size: 0.8em;
+  background-color: #fff;
+  color: black;
+  border: $code-block-border-color;
+}
