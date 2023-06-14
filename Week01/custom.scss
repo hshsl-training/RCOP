@@ -8,12 +8,27 @@ $code-block-bg: #fff;
 $code-block-border-color: darken($link-color, 20%);
 
 
-
-
 /*-- scss:rules --*/
+
+.reveal h1 {
+  font-size: 2em;
+}
 .reveal pre code {
-  code-block-font-size: 0.8em;
+  font-size: 0.8em;
   background-color: #fff;
   color: black;
-  border: $code-block-border-color;
+  padding: 30px;
+ }
+ 
+ .v-center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
 }
+.reveal h2 {
+  padding-bottom: 10px;
+ }
+
+
+

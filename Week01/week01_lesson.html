@@ -153,58 +153,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Our scenario this week is that we have a folder of registration data for workshops that we want to combine and analyze. We have a separate spreadsheet for each workshop with a list of attendees, their affiliations, and status. This data has been generated and does not contain any names or information of actual workshop participants, but is based on the structure of registration data we use here at UMB.</p>
 <p>Let’s load the packages we’ll be working with today.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.2     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.2     ✔ tibble    3.2.1
-✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-✔ purrr     1.0.1     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fs)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'kableExtra'
-
-The following object is masked from 'package:dplyr':
-
-    group_rows</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="review---importing-data" class="level2">
 <h2 class="anchored" data-anchor-id="review---importing-data">Review - Importing data</h2>
 <p>To import one csv file, we can use the function <code>read_csv()</code> from the <code>readr</code> package, part of the <strong><code>tidyverse</code></strong>. You can also use the Import Dataset widget in the RStudio GUI.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: FALSE</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Workshop01 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Workshop01.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 10 Columns: 3
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (3): attendees, affiliation, status
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Workshop01 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Workshop_01.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="the-power-of-iteration" class="level2">
 <h2 class="anchored" data-anchor-id="the-power-of-iteration">The Power of Iteration</h2>
 <p>To read in multiple files, we could copy and paste that code a bunch of times with different names each time.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Workshop02 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Workshop02.csv"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Workshop03 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Workshop03.csv"</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>Workshop04 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Workshop04.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Workshop02 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Workshop_02.csv"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Workshop03 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Workshop_03.csv"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Workshop04 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Workshop_04.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>But! That’s a really good way to make mistakes, and part of the benefit of learning to code is to avoid the need to repeat things. Most programming languages, including R, have ways of iterating, or repeating, an operation over multiple objects based on some instructions. Often this iteration takes place in some kind of loop operation, e.g.</p>
 <pre><code>for (thing in list_of_things) {
@@ -224,14 +192,14 @@ chr (3): attendees, affiliation, status
 <h2 class="anchored" data-anchor-id="step-1-create-a-vector-of-file-names">Step 1: Create a vector of file names</h2>
 <p>First, you’ll want to have all the files you need saved in the same directory. Then we can use the base R function <code>list.files()</code> on that directory. We’ll save this an object so we can use this later.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">"data/"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">"data/"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "data/Workshop01.csv" "data/Workshop02.csv" "data/Workshop03.csv"
- [4] "data/Workshop04.csv" "data/Workshop05.csv" "data/Workshop06.csv"
- [7] "data/Workshop07.csv" "data/Workshop08.csv" "data/Workshop09.csv"
-[10] "data/Workshop10.csv"</code></pre>
+<pre><code> [1] "data/Workshop_01.csv" "data/Workshop_02.csv" "data/Workshop_03.csv"
+ [4] "data/Workshop_04.csv" "data/Workshop_05.csv" "data/Workshop_06.csv"
+ [7] "data/Workshop_07.csv" "data/Workshop_08.csv" "data/Workshop_09.csv"
+[10] "data/Workshop_10.csv"</code></pre>
 </div>
 </div>
 </section>
@@ -239,8 +207,7 @@ chr (3): attendees, affiliation, status
 <h2 class="anchored" data-anchor-id="step-2-iterate-over-file-names">Step 2: Iterate over file names</h2>
 <p>As mentioned before, now we have an object to stand in for the <code>.x</code> argument of <code>map()</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>workshop_list <span class="ot">&lt;-</span> <span class="fu">map</span>(files, read_csv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>workshop_list <span class="ot">&lt;-</span> <span class="fu">map</span>(files, read_csv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="step-3-combine-into-one-data-frame" class="level2">
@@ -281,31 +248,31 @@ chr (3): attendees, affiliation, status
 <h3 class="anchored" data-anchor-id="adding-names-to-lists">Adding names to lists</h3>
 <p>Each element of the list is given an index number. But it will be helpful to us to give the elements names. We do this with the <code>names()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(workshop_list) <span class="co">#currently no names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(workshop_list) <span class="co">#currently no names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NULL</code></pre>
 </div>
 </div>
 <p>Let’s name each element the same as the file, this way when we combine the data, we can keep track of which rows came from which data frame. We’ll use the <strong><code>fs</code></strong> package which contains tools for working with file names.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">path_file</span>(files) <span class="co"># keeps only file part of path</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">path_file</span>(files) <span class="co"># keeps only file part of path</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "Workshop01.csv" "Workshop02.csv" "Workshop03.csv" "Workshop04.csv"
- [5] "Workshop05.csv" "Workshop06.csv" "Workshop07.csv" "Workshop08.csv"
- [9] "Workshop09.csv" "Workshop10.csv"</code></pre>
+<pre><code> [1] "Workshop_01.csv" "Workshop_02.csv" "Workshop_03.csv" "Workshop_04.csv"
+ [5] "Workshop_05.csv" "Workshop_06.csv" "Workshop_07.csv" "Workshop_08.csv"
+ [9] "Workshop_09.csv" "Workshop_10.csv"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">path_ext_remove</span>(files) <span class="co">#keeps just </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">path_ext_remove</span>(files) <span class="co">#keeps just </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "data/Workshop01" "data/Workshop02" "data/Workshop03" "data/Workshop04"
- [5] "data/Workshop05" "data/Workshop06" "data/Workshop07" "data/Workshop08"
- [9] "data/Workshop09" "data/Workshop10"</code></pre>
+<pre><code> [1] "data/Workshop_01" "data/Workshop_02" "data/Workshop_03" "data/Workshop_04"
+ [5] "data/Workshop_05" "data/Workshop_06" "data/Workshop_07" "data/Workshop_08"
+ [9] "data/Workshop_09" "data/Workshop_10"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(workshop_list) <span class="ot">&lt;-</span><span class="fu">path_ext_remove</span>(<span class="fu">path_file</span>(files))</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(workshop_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(workshop_list) <span class="ot">&lt;-</span><span class="fu">path_ext_remove</span>(<span class="fu">path_file</span>(files))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(workshop_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "Workshop01" "Workshop02" "Workshop03" "Workshop04" "Workshop05"
- [6] "Workshop06" "Workshop07" "Workshop08" "Workshop09" "Workshop10"</code></pre>
+<pre><code> [1] "Workshop_01" "Workshop_02" "Workshop_03" "Workshop_04" "Workshop_05"
+ [6] "Workshop_06" "Workshop_07" "Workshop_08" "Workshop_09" "Workshop_10"</code></pre>
 </div>
 </div>
 </section>
@@ -313,22 +280,22 @@ chr (3): attendees, affiliation, status
 <h3 class="anchored" data-anchor-id="binding-rows">Binding rows</h3>
 <p>We’ll use the <code>bind_rows()</code> function from <strong><code>dplyr</code></strong> to paste each element in our list into one data frame. The .id argument will allow us to keep track of which row came from which original dataset. It uses the names of the list elements as values.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>all_workshops <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(workshop_list, <span class="at">.id =</span> <span class="st">"Workshop"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(attendees)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(all_workshops)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>all_workshops <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(workshop_list, <span class="at">.id =</span> <span class="st">"Workshop"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(attendees)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(all_workshops)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 4
-  Workshop   attendees       affiliation status 
-  &lt;chr&gt;      &lt;chr&gt;           &lt;chr&gt;       &lt;chr&gt;  
-1 Workshop06 Aaliyah Hayes   Social Work Student
-2 Workshop02 Aaqil el-Azam   Medicine    Faculty
-3 Workshop07 Aatif el-Abdi   Nursing     Faculty
-4 Workshop05 Abyad al-Salik  Medicine    Student
-5 Workshop02 Adeeb al-Mattar Medicine    Staff  
-6 Workshop01 Adeeba el-Aboud Dentistry   Faculty</code></pre>
+  Workshop    attendees                affiliation status 
+  &lt;chr&gt;       &lt;chr&gt;                    &lt;chr&gt;       &lt;chr&gt;  
+1 Workshop_06 Abdul Waahid al-Jaber    Nursing     Faculty
+2 Workshop_10 Addison Elkins           Graduate    Staff  
+3 Workshop_07 Adriana Picazo           Medicine    Staff  
+4 Workshop_05 Alexander Garcia-Marrufo Nursing     Faculty
+5 Workshop_09 Alexandra Willis         Social Work Staff  
+6 Workshop_06 Alexis Wright            Medicine    Faculty</code></pre>
 </div>
 </div>
 </section>
@@ -337,28 +304,28 @@ chr (3): attendees, affiliation, status
 <h2 class="anchored" data-anchor-id="step-4-summarize-the-data">Step 4: Summarize the data</h2>
 <p>Now we can work with our data in the more familiar structure of a data frame. This allows us to do things like get a count of how many of each affiliation and status attended all workshops put together.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>all_workshops <span class="sc">%&gt;%</span> </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(affiliation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>all_workshops <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(affiliation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
   affiliation     n
   &lt;chr&gt;       &lt;int&gt;
-1 Dentistry      27
-2 Graduate       22
-3 Medicine       31
-4 Nursing        25
-5 Pharmacy       25
-6 Social Work    33</code></pre>
+1 Dentistry      21
+2 Graduate       25
+3 Medicine       30
+4 Nursing        35
+5 Pharmacy       31
+6 Social Work    31</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>all_workshops <span class="sc">%&gt;%</span> </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>all_workshops <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 2
   status      n
   &lt;chr&gt;   &lt;int&gt;
-1 Faculty    54
-2 Staff      55
-3 Student    54</code></pre>
+1 Faculty    62
+2 Staff      60
+3 Student    51</code></pre>
 </div>
 </div>
 </section>
@@ -366,18 +333,13 @@ chr (3): attendees, affiliation, status
 <h2 class="anchored" data-anchor-id="wrapping-up">Wrapping up</h2>
 <p>We might want to work with this data again later so let’s be sure to save it. We can write it back out to a CSV file, or we can save it directly as an R object. Let’s try both ways and save these to our <code>data_outputs</code> folder.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>workshop_breakdown <span class="ot">&lt;-</span> </span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  all_workshops <span class="sc">%&gt;%</span> </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(affiliation, status)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(all_workshops, <span class="st">"data_output/all_workshops.csv"</span>)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(all_workshops, <span class="st">"data_output/all_workshops.RDS"</span>)</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(workshop_breakdown, <span class="st">"data_output/workshop_breakdown.csv"</span>)</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(workshop_breakdown, <span class="st">"data_output/workshop_breakdown.RDS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>workshop_breakdown <span class="ot">&lt;-</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  all_workshops <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(affiliation, status)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(all_workshops, <span class="st">"data_output/all_workshops.RDS"</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(workshop_breakdown, <span class="st">"data_output/workshop_breakdown.RDS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 

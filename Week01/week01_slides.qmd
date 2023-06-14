@@ -1,0 +1,95 @@
+---
+title: "R Community of Practice"
+subtitle: "Week 1"
+format: 
+  revealjs:
+    theme: custom.scss
+    editor: source
+---
+
+## Learning Goals
+
+::: incremental
+1.  import multiple files into RStudio at a time
+1. use tools for working with directories and file paths
+1.  become familiar with concept of iteration
+1.  understand how to work with a list structure
+:::
+
+## The Data {.smaller}
+
+**Scenario**: we want to combine and analyze several spreadsheets containing workshop registration data. Each spreadsheet has the same structure - name of attendee ^[Note: This data has been generated and contains no real personally identifiable information.], school affiliation, and status (faculty, student, staff).
+
+<br/>
+
+
+```{r}
+library(tidyverse)
+library(fs)
+
+dir_tree("data")
+```
+
+# The Power of Iteration
+
+## Loops
+
+Loops are used in most programming languages when you want to repeat some set of code for multiple inputs.
+
+<br/>
+
+```         
+for (thing in list_of_things) {
+  do_some_function()
+}
+```
+
+## Functional Programming in R
+
+In R, there are several functions that accomplish the same thing as loops, in particular:
+
+-   The `apply()` family of functions in **`Base R`**
+-   The `map()` family of functions from the **`purrr`** package in the **`tidyverse`**
+
+```         
+map(.x, .f)
+
+map(function-args, function)
+```
+
+------------------------------------------------------------------------
+
+{{< video data-autoplay src="read_csv_loop.mp4" aspect-ratio="4x3">}}
+
+--------------------------------------------------
+
+
+## Next Steps
+
+So, we have our function `read_csv()`, and now we want it to repeat for all the file names in our directory. So - how do we accomplish this?
+
+1.  Create a vector of file names
+2.  Use `map()` to run `read_csv()` on each file name.
+3.  Combine files into one data frame.
+4.  Summarize data frame
+
+## Working with lists
+
+::: {.columns .v-center-container}
+
+::: {.column width="40%"}
+-   Like vectors, lists are made up of elements, but those elements can be anything.
+-   Often we use lists to work with several data frames at one time.
+:::
+
+::: {.column width="60%"}
+|     | homogeneous | heterogenous |
+|-----|-------------|--------------|
+| 1d  | vector      | **list**     |
+| 2d  | matrix      | data frame   |
+| nd  | array       |              |
+
+: R Data Structures ^[Fig from [Advanced R](http://adv-r.had.co.nz/Data-structures.html) by Hadley Wickham]
+:::
+:::
+
