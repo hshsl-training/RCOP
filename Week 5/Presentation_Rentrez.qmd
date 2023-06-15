@@ -4,14 +4,15 @@ subtitle: "R Community of Practice June 15 - July 20"
 author: "Irmarie Fraticelli-Rodriguez"
 format:
   revealjs:
+   theme: dark
    slide-number: true
    smaller: true
    scrollable: true
-   code-fold: true
-   code-tools: true
-   code-summary: "Show the code"
+   preview-links: true
+   code-fold: show
+   code-overflow: wrap
 footer: <https://www2.hshsl.umaryland.edu/cdabs/>
-preview-links: auto
+
 ---
 
 # What is Rentrez?
@@ -20,13 +21,13 @@ Rentrez is an R interface that allows its users to interact with NCBI API. With 
 
 If you want to learn more about Rentrez, you can access this [Rentrez Tutorial](https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html)
 
-------------------------------------------------------------------------
 
 # Install and Load Rentrez
 
 Now, remember that you need to install any new package that you want to use in RStudio. Also, once you have the package you need to load it. How can we do that?
 
 ```{r}
+#| echo: true
 
 #install.packages('rentrez')
 library(rentrez)
@@ -56,6 +57,7 @@ The functions listed below helps you learn a little bit more about Rentrez and N
 Lets see what entrez_dbs() returns:
 
 ```{r}
+#| echo: true
 
 entrez_dbs()
 
@@ -68,6 +70,7 @@ The function entrez_dbs() returns a list of databases that we can query.
 How do we know that the database is up to date? We can use the entrez_db_summary function to see the latest updates of the selected NCBI database.
 
 ```{r}
+#| echo: true
 
 entrez_db_summary("pubmed")
 
@@ -78,14 +81,13 @@ entrez_db_summary("pubmed")
 How can I build PubMed queries? What search fields does the database has? We can use the entrez_db_searchable function to see searchable fields and its description.
 
 ```{r}
+#| echo: true
 
 entrez_db_searchable("pubmed")
 
 ```
 
 Lets strategize our search! Now that we know the search fields you can use to build a query, lets perform our first search.
-
-------------------------------------------------------------------------
 
 # Performing searches in NCBI API
 
@@ -104,7 +106,6 @@ Boolean search:
 `entrez_search(db= [database name], term= "searchword[field]" <boolean term> "searchword[field]")`
 
 ------------------------------------------------------------------------
-
 The entrez_search function takes 4 arguments but you don't need to use them all, but the db and term arguments are required.
 
 | Argument    | Type      | Use                                                                                                       |
@@ -119,6 +120,7 @@ The entrez_search function takes 4 arguments but you don't need to use them all,
 EXAMPLES:
 
 ```{r}
+#| echo: true
 
 simple_search <- entrez_search(db="pubmed", term = "pcos[all]")
 boolean_search <- entrez_search(db="pubmed", term= "pcos[all] AND insulin resistance[all]")
@@ -126,7 +128,7 @@ search_fields <- entrez_search(db="pubmed", term= "pcos[ALL] AND insulin resista
 
 ```
 
-# What does the entrez_search() function returns?
+**What does the entrez_search() function returns?**
 
 The entrez_search function returns a list of elements that includes the following:
 
@@ -166,12 +168,13 @@ The entrez_summary function takes 7 arguments but you dont need to use them all.
 EXAMPLES:
 
 ```{r}
+#| echo: true
 
 summary <- entrez_summary(db="pubmed", id=simple_search$ids, rettype = "xml")
 
 ```
 
-# What does the entrez_summary() function returns?
+**What does the entrez_summary() function returns?**
 
 This function returns an NCBI API object called esummary, which means a list of items for multiple or a single record.
 
@@ -186,6 +189,7 @@ For the entrez_summary function, rentrez has created a function that allows you 
 EXAMPLE:
 
 ```{r}
+#| echo: true
 
 fetch <- entrez_fetch(db= "pubmed", id = simple_search$ids, rettype = "xml")
 
@@ -193,7 +197,7 @@ fetch <- entrez_fetch(db= "pubmed", id = simple_search$ids, rettype = "xml")
 
 Now that we now how to get data full records in Rentrez using entrez_esummary and entrez_fetch, lets learn a helper function that will allows us to get specific data fields from NCBI API XML document.
 
-------------------------------------------------------------------------
+
 
 # extract_from_esummary()
 
@@ -216,6 +220,7 @@ The extract_from_summary function takes 3 arguments but you dont need to use the
 EXAMPLE:
 
 ```{r}
+#| echo: true
 
 # If you have been performing searches in PubMed, you can use the following coding lines as guide.
 
@@ -224,11 +229,9 @@ authors <- extract_from_esummary(summary,"authors")["name",]
 
 ```
 
-# What does the extract_from_esummary() function returns?
+**What does the extract_from_esummary() function returns?**
 
 This function returns a list or vector containing information of the requested item.
-
-------------------------------------------------------------------------
 
 # Contrasting NCBI Databases
 
@@ -251,19 +254,18 @@ Lets test this function and see what it returns.
 EXAMPLE:
 
 ```{r}
+#| echo: true
 
 global_query <- ("HIV")
 all_databases <- entrez_global_query(global_query)
 
 ```
 
-# What does the entrez_global_query() function returns?
+**What does the entrez_global_query() function returns?**
 
 This function returns a named vector with counts for each a database. This means a list of totals of articles found related to your search term by database.
 
 Another function that allows you to contrast searches within the NBCI databases is the entrez_links() function.
-
-------------------------------------------------------------------------
 
 # entrez_links()
 
@@ -287,7 +289,6 @@ Lets have a look of the arguments required for this function.
 | by_id              | LOGICAL            | If FALSE (default) return a single elink objects containing links for all of the provided ids. Alternatively, if TRUE return a list of elink objects, one |
 | for each ID in id. |                    |                                                                                                                                                           |
 | config             | VECTOR             | configuration options passed to httr::GET                                                                                                                 |
-
 ------------------------------------------------------------------------
 
 Lets test this variable!
@@ -295,19 +296,18 @@ Lets test this variable!
 EXAMPLE:
 
 ```{r}
+#| echo: true
 
 #If using pubmed, select an article and perform a search using a DOI, PMID or PCMID
 links <-entrez_link(dbfrom="pubmed", id="10.1007/s11886-016-0755-4", db= "all")
 
 ```
 
-------------------------------------------------------------------------
 
-# What does the entrez_link function returns?
+**What does the entrez_link function returns?**
 
 This function returns an NCBI API object called, "elink", which is a list of id's by database.
 
-------------------------------------------------------------------------
 
 # Excersice: Lets practice!
 
@@ -321,6 +321,7 @@ STEP #1
 Build your query: Identify your search terms, adequate database, search fields and perform the search using rentrez.
 
 ```{r}
+#| echo: true
 
 #<YOUR ANSWER HERE>
 
@@ -330,6 +331,7 @@ STEP #2
 Get article summaries
 
 ```{r}
+#| echo: true
 
 #<YOUR ANSWER HERE>
   
@@ -339,6 +341,7 @@ STEP #3
 Select the values that you would like to save (example: author, title, source)
 
 ```{r}
+#| echo: true
 
 #<YOUR ANSWER HERE>
   
@@ -348,6 +351,7 @@ STEP #4
 Create and format a CSV or any other type of document appropiate for your search.
 
 ```{r}
+#| echo: true
 
 #<YOUR ANSWER HERE>
 

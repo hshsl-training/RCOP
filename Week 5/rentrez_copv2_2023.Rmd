@@ -36,7 +36,7 @@ Lets take a look at the documentation available about this this resource.
 
 This pdf provides details about each function that the R Package Rentrez has. 
 For each command you may find a description, usage example, arguments and return value type. 
-Remember that you can always use the helper(<command>) in R to search command descriptions. 
+Remember that you can always use the ``helper(<function>)`` in R to search function descriptions. 
 
 ***
 
@@ -102,20 +102,19 @@ Now that we know the search fields you can use to build a query, lets perform ou
 
 ## entrez_search()
 
-Similar to PubMed, Rentrez allows you to perform simple or boolean searches using the same structure that you would use in the PubMed search bar. 
-The allowed boolean terms are **AND, OR, and NOT**.
+Similar to PubMed, Rentrez allows you to perform simple or boolean searches using the same structure that you would use in the PubMed search bar. The allowed boolean terms are **AND, OR, and NOT**.
 
 First lets learn the syntax for a simple and a boolean search:
 
 Simple Search:
 
-`entrez_search(db= [database name], term= "searchword[field]")`
+`entrez_search(db= "<database name>", term= "searchword[field]")`
 
 Boolean search:
 
-`entrez_search(db= [database name], term= "searchword[field]" <boolean term> "searchword[field]")`
+`entrez_search(db= "<database name>", term= "searchword[field]" <boolean term> "searchword[field]")`
 
-The entrez_search function takes 4 arguments but you don't need to use them all, but the db and term arguments are required.  
+The entrez_search function takes 4 arguments but you don't need to use them all, but the **db and term arguments are required**.  
 
 | Argument      | Type         | Use           |
 | ------------- |------------- |-------------  |
@@ -157,7 +156,7 @@ An important field here is the QueryTranslation value which allows you to see ho
 Now lets retrieve basic information about the records we collected in one of our searches. 
 But, first lest learn the syntax of the entrez_summary function. 
 
-`entrez_summary(db="", id=, rettype = "")`
+`entrez_summary(db="<database name>", id= , rettype = "xml")`
 
 The entrez_summary function takes 7 arguments but you dont need to use them all. Those are: 
 
@@ -189,9 +188,11 @@ This function returns an NCBI API object called esummary, which means a list of 
 
 ## entrez_fetch() 
 
-Another way to get records from the NBCI API, is by using the entrez_fetch function. entrez_summary and entrez_fetch are almost the same function, both of them will help you extract data from the NCBI API. But the difference between entrez_summary and entrez_fetch is in the way both functions arranges the data in RStudio. The entrez_summary returns a dataframe with lists of records while entrez_fetch returns an XML document. 
+Another way to get records from the NBCI API, is by using the entrez_fetch function. Entrez_summary and entrez_fetch are almost the same function, both of them will help you extract data from the NCBI API. But the difference between entrez_summary and entrez_fetch is in the way both functions arranges the data in RStudio. The entrez_summary returns a dataframe with lists of records while entrez_fetch returns an XML document. 
 
 For the entrez_summary function, rentrez has created a function that allows you to extract information from each metadata field avoiding the challenges that comes with navigating an XML parsed documents.  
+
+The syntax of this fuction is similar to the entrez_summary function. 
 
 EXAMPLE:
 ```{r}
@@ -245,10 +246,11 @@ The entrez_global_query() function allows you to search a term on all NCBI Entre
 
 The syntax for this function is 
 
-`entrez_global_query(term, config = NULL, ...)`
+`entrez_global_query(term = " ", config = NULL, ...)`
 
 As you can see the function takes config= NULL as an argument, but we are not going to use that. 
 The argument config in this context means the type of connection that you are requesting from the API, this could be GET or POST. 
+
 In the entrez context if you are performing big data requests they recommend you to use a combination of web_history and config = POST arguments to not saturate their servers. They also ask for big data request to be done at night, again to not saturate their servers. 
 
 Lets test this function and see what it returns. 
@@ -355,7 +357,3 @@ Create and format a CSV or any other type of document appropiate for your search
 #<YOUR ANSWER HERE>
 
 ```
-
-
-
-
