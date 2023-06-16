@@ -10,12 +10,11 @@ format:
 
 ## Learning Goals
 
-::: incremental
 1.  import multiple files into RStudio at a time
 1. use tools for working with directories and file paths
 1.  become familiar with concept of iteration
 1.  understand how to work with a list structure
-:::
+
 
 ## The Data {.smaller}
 
