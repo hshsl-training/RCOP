@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Amy Yarnell, Irmarie Fraticelli-Rodriguez, Christine Hislop">
 
-<title>NNLM + CDABS R Community of Practice – readme</title>
+<title>NNLM + CDABS R Community of Practice - NNLM + CDABS R Community of Practice</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,22 +24,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -60,7 +61,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -70,7 +71,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">NNLM + CDABS R Community of Practice</span>
     </a>
   </div>
@@ -80,11 +81,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html">
+    <a class="nav-link active" href="./index.html" aria-current="page">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../Week01/week01_lesson.html">
+    <a class="nav-link" href="./Week01/week01_lesson.html">
  <span class="menu-text">Week01</span></a>
   </li>  
 </ul>
@@ -102,62 +103,78 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#importing-multiple-files-to-r" id="toc-importing-multiple-files-to-r" class="nav-link active" data-scroll-target="#importing-multiple-files-to-r">Importing multiple files to R</a>
-  <ul class="collapse">
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives:</a></li>
-  <li><a href="#course-activities" id="toc-course-activities" class="nav-link" data-scroll-target="#course-activities">Course Activities:</a></li>
-  <li><a href="#output-of-this-session" id="toc-output-of-this-session" class="nav-link" data-scroll-target="#output-of-this-session">Output of this session:</a></li>
-  <li><a href="#packages-used" id="toc-packages-used" class="nav-link" data-scroll-target="#packages-used">Packages used:</a></li>
-  </ul></li>
+  <li><a href="#welcome-to-the-rcop" id="toc-welcome-to-the-rcop" class="nav-link active" data-scroll-target="#welcome-to-the-rcop">Welcome to the RCOP!</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">NNLM + CDABS R Community of Practice</h1>
+</div>
 
 
-<section id="importing-multiple-files-to-r" class="level1">
-<h1>Importing multiple files to R</h1>
-<section id="learning-objectives" class="level3">
-<h3 class="anchored" data-anchor-id="learning-objectives">Learning Objectives:</h3>
-<p>The objective of this session is to:</p>
-<ol type="1">
-<li>import multiple files into RStudio at a time</li>
-<li>use tools for working with directories and file paths</li>
-<li>become familiar with concept of iteration</li>
-<li>understand how to work with a list structure</li>
-</ol>
-</section>
-<section id="course-activities" class="level3">
-<h3 class="anchored" data-anchor-id="course-activities">Course Activities:</h3>
-<p>This section activities are:</p>
-<ol type="1">
-<li>Create a vector of file names</li>
-<li>Use <code>map()</code> to run <code>read_csv()</code> on each file name.</li>
-<li>Combine files into one data frame.</li>
-<li>Summarize data frame</li>
-</ol>
-</section>
-<section id="output-of-this-session" class="level3">
-<h3 class="anchored" data-anchor-id="output-of-this-session">Output of this session:</h3>
-<ol type="1">
-<li>An R object file (RDS) of the combined data frame</li>
-<li>An R object file of a summary of the data</li>
-</ol>
-</section>
-<section id="packages-used" class="level3">
-<h3 class="anchored" data-anchor-id="packages-used">Packages used:</h3>
-<ul>
-<li><code>readr</code>*</li>
-<li><code>dplyr</code>*</li>
-<li><code>purrr</code>*</li>
-<li><code>fs</code></li>
-</ul>
-<p>*<code>tidyverse</code></p>
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Amy Yarnell, Irmarie Fraticelli-Rodriguez, Christine Hislop </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="welcome-to-the-rcop" class="level2">
+<h2 class="anchored" data-anchor-id="welcome-to-the-rcop">Welcome to the RCOP!</h2>
+<p>Objective:</p>
+<p>The objective of this website is to provide supporting documentation for R Community of Practice. In here you will find the activity materials and datasets that we will be using for the following 6 weeks.</p>
+<p><strong>Topics</strong></p>
+<p>In each folder you will find the material assigned for that week.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Week</th>
+<th>Topic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Week 1</td>
+<td>Reading multiple files</td>
+</tr>
+<tr class="even">
+<td>Week 2</td>
+<td>Working with Dates</td>
+</tr>
+<tr class="odd">
+<td>Week 3</td>
+<td>Creating a bar chart with ggplot2</td>
+</tr>
+<tr class="even">
+<td>Week 4</td>
+<td>Transforming data from wide to long</td>
+</tr>
+<tr class="odd">
+<td>Week 5</td>
+<td>Accessing NCBI data with the Rentrez package</td>
+</tr>
+<tr class="even">
+<td>Week 6</td>
+<td>Communicating with Quarto</td>
+</tr>
+</tbody>
+</table>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
