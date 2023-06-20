@@ -1,0 +1,21 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "NNLM + CDABS R Community of Practice"
+  navbar:
+    left:
+      - text: Home
+        file: index.qmd
+      - text: Week01
+        file: Week01/week01_lesson.qmd
+      - text: Week02
+        file: Week02/week02_lesson.qmd
+
+         
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
