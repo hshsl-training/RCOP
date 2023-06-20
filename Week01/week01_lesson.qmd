@@ -1,5 +1,5 @@
 ---
-title: "R Community of Practice Week 1"
+title: "Week 1"
 format: 
   html:
     toc: true
@@ -160,7 +160,7 @@ workshop_breakdown <-
   all_workshops %>% 
   count(affiliation, status)
 
-saveRDS(all_workshops, "data_output/all_workshops.RDS")
+saveRDS(all_workshops, "data_outputs/all_workshops.RDS")
 
-saveRDS(workshop_breakdown, "data_output/workshop_breakdown.RDS")
+saveRDS(workshop_breakdown, "data_outputs/workshop_breakdown.RDS")
 ```
