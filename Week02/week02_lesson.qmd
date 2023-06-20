@@ -1,0 +1,153 @@
+---
+title: "Working with Dates"
+title-block-banner: white
+title-block-banner-color: black
+format: 
+  html:
+    embed-resources: true
+toc: true
+editor: source
+css: ../styles.css
+---
+
+## Introduction
+Dates are a particular kind of numeric data type in R. Dates can be tricky to work for a couple of reasons. Often when you import data into R, it will interpret dates as strings, or character data type. This will make things difficult if you want to do calculations with dates, or parse out a part of a date. Second, time units are often variable, months have different numbers of days, there are leap years, and time zones can be another factor to consider. 
+In this lesson, we'll be introducing the [**`lubridate`**](https://lubridate.tidyverse.org/) package, which is part of the tidyverse, and makes working with dates much more manageable.
+
+## The Data
+
+Our scenario this week is that we a spreadsheet of data tracking research consults from 2018 to 2023. We want to accomplish the following tasks:
+
+1. Change the date variable to date data type
+2. Summarize the number of consults by month and year
+3. Filter the data to look at just FY2022
+
+Let's open a new script and load the libraries we'll be working with in this lesson:
+```{r}
+#| message: false
+library(tidyverse)
+```
+And now we can import our data set
+
+```{r}
+#| message: false
+consults <- read_csv("data/consults.csv")
+```
+
+## Step 1: Changing Strings to Dates
+
+How do we know what kind of data our date variable is? We use the `class()` function to check data types
+
+```{r}
+class(consults$date)
+```
+Let's change that to date data type. **`lubridate`** has a number of functions for parsing dates in different formats. The name of the function depends on the format of the input date.
+
+For example, if we had a string with date in the month, day, year format, we would use the `mdy()` function.
+
+```{r}
+#| collapse: true
+myDate <- "June 22, 2023"
+
+myRealDate <- mdy(myDate)
+
+class(myDate)
+class(myRealDate)
+```
+Or, as another example:
+
+```{r}
+#| collapse: true
+myDate <- "22062023"
+myRealDate <- dmy(myDate)
+
+class(myDate)
+class(myRealDate)
+```
+and finally
+
+```{r}
+#| collapse: true
+myDate <- "2023-06-22"
+myRealDate <- ymd(myDate)
+
+class(myDate)
+class(myRealDate)
+```
+Now that we have a better idea of how these functions work, we can use them to overwrite our original date column with one that is properly recognized as a date. We use the `mutate()` function from **`dplyr`** to create a new variable.
+
+```{r}
+consults <- consults %>% 
+  mutate(date = mdy(date))
+```
+
+And let's check if that worked
+
+```{r}
+class(consults$date)
+```
+
+## Step 2: Summarize data by month and year
+
+Another set of functions in **`lubridate`** help with extracting pieces of dates.
+
+For example:
+```{r}
+#| collapse: true
+
+year(myRealDate)
+month(myRealDate)
+day(myRealDate)
+wday(myRealDate)
+```
+
+Let's summarize the total number of consults for each year in our data set. 
+```{r}
+consults_yearly <- consults %>% 
+  count(year=year(date), name="total_consults")
+
+consults_yearly
+```
+
+## Step 3: Working with intervals
+Now, what if we wanted to take a look at the data for just the last fiscal year? How can we filter our data set to include just the dates we want to look at. 
+
+**`lubridate`** can work with three types of time spans:
+
+1. durations- measure physical time in seconds
+1. periods – take into account human variations in time due to varying lengths of months, leap years, etc.
+1. intervals – timespan defined with a start and end time
+
+First we'll create an interval object.
+
+```{r}
+fy2022 <- interval(mdy("07/01/2021"), mdy("06/30/2022"))
+```
+
+Now we can keep just those consults within our desired time frame.
+```{r}
+consults_fy2022 <-
+  consults %>% 
+  filter(date %within% fy2022)
+```
+
+And we can summarize these consults by month.
+
+```{r}
+#| message: false
+consults_fy22_monthly <- consults_fy2022 %>% 
+ count(year=year(date), month=month(date), name = "total_consults")
+
+consults_fy22_monthly
+```
+
+## Wrapping Up
+
+Once again, let's save these our objects of summarized data to our `data_output` folder.
+
+```{r}
+saveRDS(consults_yearly, "data_output/consults_yearly.RDS")
+
+saveRDS(consults_fy22_monthly, "data_output/consults_fy22_monthly.RDS")
+```
+
