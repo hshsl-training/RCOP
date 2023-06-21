@@ -10,7 +10,7 @@ format:
     embed-resources: true
 toc: true
 editor: source
-css: ../styles.css
+css: styles.css
 ---
 
 ## Welcome to the RCOP!
