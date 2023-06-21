@@ -26,7 +26,7 @@ In each folder you will find the material assigned for that week.
 | Week  | Topic | Slides |
 | ------------- | ------------- |-----|
 | Week 1  | Reading multiple files  | [Week1](Week01/week01_slides.html) |
-| Week 2  | Working with Dates  ||
+| Week 2  | Working with Dates  |[Week2](Week02/week02_slides.html) |
 | Week 3  | Creating a bar chart with ggplot2 ||
 | Week 4  | Transforming data from wide to long |
 | Week 5  | Accessing NCBI data with the Rentrez package ||
