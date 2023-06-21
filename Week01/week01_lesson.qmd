@@ -12,6 +12,8 @@ editor: source
 css: ../styles.css
 ---
 
+**Download the data for this lesson [here](https://osf.io/fsg4w/).**
+
 ## Introduction
 
 In introductory R classes we learn how to import data by reading one file at a time. This week, we will "level up" our R skills by learning how to important multiple files at once. This can be especially useful when you have several files with a similar structure and want to be able to combine and analyze them together. To accomplish this goal, we'll be working with a new data structure called a list and learning how to iterate over that list.
