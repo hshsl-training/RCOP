@@ -5,6 +5,10 @@ project:
 website:
   title: "NNLM + CDABS R Community of Practice"
   navbar:
+    page-navigation: true
+    back-to-top-navigation: true
+    background: primary
+    search: false
     left:
       - text: Home
         file: index.qmd
@@ -13,9 +17,9 @@ website:
       - text: Week02
         file: Week02/week02_lesson.qmd
 
-         
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    theme: sandstone
+    editor: source
     toc: true
+    css: ../styles.css
