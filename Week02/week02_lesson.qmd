@@ -12,13 +12,14 @@ editor: source
 css: ../styles.css
 ---
 
-**Download the data for this lesson [here](https://osf.io/fsg4w/).**
 
 ## Introduction
 Dates are a particular kind of numeric data type in R. Dates can be tricky to work for a couple of reasons. Often when you import data into R, it will interpret dates as strings, or character data type. This will make things difficult if you want to do calculations with dates, or parse out a part of a date. Second, time units are often variable, months have different numbers of days, there are leap years, and time zones can be another factor to consider. 
 In this lesson, we'll be introducing the [**`lubridate`**](https://lubridate.tidyverse.org/) package, which is part of the tidyverse, and makes working with dates much more manageable.
 
 ## The Data
+
+**Download the data for this lesson [here](https://osf.io/fsg4w/).**
 
 Our scenario this week is that we a spreadsheet of data tracking research consults from 2018 to 2023. We want to accomplish the following tasks:
 

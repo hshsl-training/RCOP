@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "NNLM + CDABS R Community of Practice",
     "section": "",
-    "text": "Objective:\nThe objective of this website is to provide supporting documentation for R Community of Practice. In here you will find the activity materials and datasets that we will be using for the following 6 weeks.\nTopics\nIn each folder you will find the material assigned for that week.\n\n\n\nWeek\nTopic\nSlides\n\n\n\n\nWeek 1\nReading multiple files\nWeek1\n\n\nWeek 2\nWorking with Dates\nWeek2\n\n\nWeek 3\nCreating a bar chart with ggplot2\n\n\n\nWeek 4\nTransforming data from wide to long\n\n\n\nWeek 5\nAccessing NCBI data with the Rentrez package\n\n\n\nWeek 6\nCommunicating with Quarto"
+    "text": "Objective:\nThe objective of this website is to provide supporting documentation for R Community of Practice. In in the navigation bar you will find each week lesson.\nTopics\nIn each folder you will find the material assigned for that week.\n\n\n\nWeek\nTopic\nSlides\n\n\n\n\nWeek 1\nReading multiple files\nWeek1\n\n\nWeek 2\nWorking with Dates\nWeek2\n\n\nWeek 3\nCreating a bar chart with ggplot2\n\n\n\nWeek 5\nAccessing NCBI data with the Rentrez package\n\n\n\nWeek 6\nCommunicating with Quarto\n\n\n\n\nDownload the data by week for all the lessons here."
   },
   {
     "objectID": "Week01/week01_lesson.html",
@@ -18,7 +18,7 @@
     "href": "Week01/week01_lesson.html#the-data",
     "title": "Reading multiple files",
     "section": "The Data",
-    "text": "The Data\nOur scenario this week is that we have a folder of registration data for workshops that we want to combine and analyze. We have a separate spreadsheet for each workshop with a list of attendees, their affiliations, and status. This data has been generated and does not contain any names or information of actual workshop participants, but is based on the structure of registration data we use here at UMB.\nLet’s load the packages we’ll be working with today.\n\nlibrary(tidyverse)\nlibrary(fs)"
+    "text": "The Data\nDownload the data for this lesson here.\nOur scenario this week is that we have a folder of registration data for workshops that we want to combine and analyze. We have a separate spreadsheet for each workshop with a list of attendees, their affiliations, and status. This data has been generated and does not contain any names or information of actual workshop participants, but is based on the structure of registration data we use here at UMB.\nLet’s load the packages we’ll be working with today.\n\nlibrary(tidyverse)\nlibrary(fs)"
   },
   {
     "objectID": "Week01/week01_lesson.html#review---importing-data",
@@ -81,7 +81,7 @@
     "href": "Week02/week02_lesson.html#the-data",
     "title": "Working with Dates",
     "section": "The Data",
-    "text": "The Data\nOur scenario this week is that we a spreadsheet of data tracking research consults from 2018 to 2023. We want to accomplish the following tasks:\n\nChange the date variable to date data type\nSummarize the number of consults by month and year\nFilter the data to look at just FY2022\n\nLet’s open a new script and load the libraries we’ll be working with in this lesson:\n\nlibrary(tidyverse)\n\nAnd now we can import our data set\n\nconsults <- read_csv(\"data/consults.csv\")"
+    "text": "The Data\nDownload the data for this lesson here.\nOur scenario this week is that we a spreadsheet of data tracking research consults from 2018 to 2023. We want to accomplish the following tasks:\n\nChange the date variable to date data type\nSummarize the number of consults by month and year\nFilter the data to look at just FY2022\n\nLet’s open a new script and load the libraries we’ll be working with in this lesson:\n\nlibrary(tidyverse)\n\nAnd now we can import our data set\n\nconsults <- read_csv(\"data/consults.csv\")"
   },
   {
     "objectID": "Week02/week02_lesson.html#step-1-changing-strings-to-dates",
@@ -116,7 +116,7 @@
     "href": "Week01/week01_slides.html",
     "title": "R Community of Practice",
     "section": "",
-    "text": "import multiple files into RStudio at a time\nuse tools for working with directories and file paths\nbecome familiar with concept of iteration\nunderstand how to work with a list structure"
+    "text": "Download the data for this lesson here."
   },
   {
     "objectID": "Week01/week01_slides.html#the-data",
@@ -187,5 +187,26 @@
     "title": "R Community of Practice",
     "section": "Lubridate Time Spans",
     "text": "Lubridate Time Spans\n\ndurations - measure physical time in seconds\nperiods – take into account human variations in time due to varying lengths of months, leap years, etc.\nintervals – time span defined with a start and end time"
+  },
+  {
+    "objectID": "Week02/week02_slides.html",
+    "href": "Week02/week02_slides.html",
+    "title": "R Community of Practice",
+    "section": "",
+    "text": "Download the data for this lesson here."
+  },
+  {
+    "objectID": "Week01/week01_lesson.html#introduction",
+    "href": "Week01/week01_lesson.html#introduction",
+    "title": "Reading multiple files",
+    "section": "Introduction",
+    "text": "Introduction\nIn introductory R classes we learn how to import data by reading one file at a time. This week, we will “level up” our R skills by learning how to important multiple files at once. This can be especially useful when you have several files with a similar structure and want to be able to combine and analyze them together. To accomplish this goal, we’ll be working with a new data structure called a list and learning how to iterate over that list."
+  },
+  {
+    "objectID": "Week02/week02_lesson.html#introduction",
+    "href": "Week02/week02_lesson.html#introduction",
+    "title": "Working with Dates",
+    "section": "Introduction",
+    "text": "Introduction\nDates are a particular kind of numeric data type in R. Dates can be tricky to work for a couple of reasons. Often when you import data into R, it will interpret dates as strings, or character data type. This will make things difficult if you want to do calculations with dates, or parse out a part of a date. Second, time units are often variable, months have different numbers of days, there are leap years, and time zones can be another factor to consider. In this lesson, we’ll be introducing the lubridate package, which is part of the tidyverse, and makes working with dates much more manageable."
   }
 ]

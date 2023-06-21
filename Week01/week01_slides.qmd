@@ -11,6 +11,7 @@ format:
     auto-play-media: true
 ---
 
+
 ## Learning Goals
 
 1.  import multiple files into RStudio at a time
