@@ -1,0 +1,29 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - "index.qmd"
+    - "Week01/*.qmd"
+    - "Week02/*.qmd"
+
+website:
+  title: "NNLM + CDABS R Community of Practice"
+  navbar:
+    page-navigation: true
+    back-to-top-navigation: true
+    pinned: true
+    background: primary
+    search: false
+    left:
+      - text: Home
+        file: index.qmd
+      - text: Week01
+        file: Week01/week01_lesson.qmd
+      - text: Week02
+        file: Week02/week02_lesson.qmd
+
+format:
+  html:
+    theme: sandstone
+    editor: source
+    toc: true

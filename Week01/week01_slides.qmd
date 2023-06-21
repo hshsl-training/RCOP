@@ -4,9 +4,10 @@ subtitle: "Week 1"
 format: 
   revealjs:
     theme: custom.scss
-    editor: source
+    editor: source 
     auto-play-media: true
 ---
+
 
 ## Learning Goals
 

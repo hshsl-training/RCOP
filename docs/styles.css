@@ -1,0 +1,10 @@
+.quarto-title-block .quarto-title-banner {
+  background-image: url(images/rcop_hex_logo.png);
+  background-size: 125px;
+  background-position: left;
+  background-repeat: no-repeat;
+  padding-left: 15px;
+  padding-top: 60px;
+  background-origin: content-box;
+  
+}

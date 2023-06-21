@@ -3,6 +3,8 @@ title: "R Community of Practice Week 1"
 subtitle: "Importing Multiple Files"
 title-block-banner: white
 title-block-banner-color: black
+navbar:
+    page-navigation: true
 format: 
   html:
     embed-resources: true
@@ -16,6 +18,8 @@ css: ../styles.css
 In introductory R classes we learn how to import data by reading one file at a time. This week, we will "level up" our R skills by learning how to important multiple files at once. This can be especially useful when you have several files with a similar structure and want to be able to combine and analyze them together. To accomplish this goal, we'll be working with a new data structure called a list and learning how to iterate over that list.
 
 ## The Data
+
+**Download the data for this lesson [here](https://osf.io/fsg4w/).**
 
 Our scenario this week is that we have a folder of registration data for workshops that we want to combine and analyze. We have a separate spreadsheet for each workshop with a list of attendees, their affiliations, and status. This data has been generated and does not contain any names or information of actual workshop participants, but is based on the structure of registration data we use here at UMB.
 
