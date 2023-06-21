@@ -1,16 +1,9 @@
 ---
-<<<<<<< HEAD
-title: "R Community of Practice Week 1"
-subtitle: "Importing Multiple Files"
-title-block-banner: white
-title-block-banner-color: black
-=======
 title: "Reading multiple files"
 title-block-banner: white
 title-block-banner-color: black
 navbar:
     page-navigation: true
->>>>>>> fa504f1 (Adding navigation bar settings)
 format: 
   html:
     embed-resources: true
