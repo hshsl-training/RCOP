@@ -1,6 +1,10 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - "index.qmd"
+    - "Week01/*.qmd"
+    - "Week02/*.qmd"
 
 website:
   title: "NNLM + CDABS R Community of Practice"
@@ -23,4 +27,3 @@ format:
     theme: sandstone
     editor: source
     toc: true
-    css: ../styles.css

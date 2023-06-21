@@ -1,5 +1,6 @@
 ---
-title: "Working with Dates"
+title: "R Community of Practice Week 2"
+subtitle: "Working with Dates"
 title-block-banner: white
 title-block-banner-color: black
 navbar:
