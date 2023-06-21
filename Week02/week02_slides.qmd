@@ -8,8 +8,6 @@ format:
     logo: rcop_hex_logo.png
 ---
 
-
-
 ## Learning Goals
 
 ::: incremental

@@ -1,16 +1,12 @@
 ---
 title: "R Community of Practice"
 subtitle: "Week 1"
-navbar:
-    page-navigation: true
-    pinned: true
 format: 
   revealjs:
     theme: custom.scss
-    editor: source 
+    editor: source
     auto-play-media: true
 ---
-
 
 ## Learning Goals
 
