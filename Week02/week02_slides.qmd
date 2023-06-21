@@ -1,0 +1,45 @@
+---
+title: "R Community of Practice"
+subtitle: "Week 2"
+format: 
+  revealjs:
+    editor: source
+    theme: custom.scss
+    logo: rcop_hex_logo.png
+---
+
+## Learning Goals
+
+::: incremental
+1. understand the challenges of working with dates in R
+1. become familiar with the capabilities of the **`lubridate package`**
+1. use **`lubridate`** to filter and summarize data by date
+
+:::
+
+## Challenges of Working with Dates
+
+::: incremental
+- interpreted as strings when imported to R
+- many date formats
+- inconsistent time units (e.g. months, leap years, time zones)
+:::
+
+
+## The Data
+
+**Scenario**: we have a spreadsheet of data tracking research consults from 2018 to 2023. We want to accomplish the following tasks:
+
+:::incremental
+1. Change the date variable to date data type
+2. Summarize the number of consults by year
+3. Summarize consults by month for FY2022
+:::
+
+## Lubridate Time Spans
+
+1. **durations** - measure physical time in seconds
+1. **periods** – take into account human variations in time due to varying lengths of months, leap years, etc.
+1. **intervals** – time span defined with a start and end time
+
+
