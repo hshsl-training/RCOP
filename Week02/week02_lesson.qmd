@@ -2,6 +2,8 @@
 title: "Working with Dates"
 title-block-banner: white
 title-block-banner-color: black
+navbar:
+    page-navigation: true
 format: 
   html:
     embed-resources: true
