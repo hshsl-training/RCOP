@@ -67,7 +67,7 @@
     "href": "Week01/week01_lesson.html#wrapping-up",
     "title": "Reading multiple files",
     "section": "Wrapping up",
-    "text": "Wrapping up\nWe might want to work with this data again later so let’s be sure to save it. We can write it back out to a CSV file, or we can save it directly as an R object. Let’s try both ways and save these to our data_outputs folder.\n\nworkshop_breakdown <- \n  all_workshops %>% \n  count(affiliation, status)\n\nsaveRDS(all_workshops, \"data_outputs/all_workshops.RDS\")\n\nsaveRDS(workshop_breakdown, \"data_outputs/workshop_breakdown.RDS\")"
+    "text": "Wrapping up\nWe might want to work with this data again later so let’s be sure to save it. We can write it back out to a CSV file, or we can save it directly as an R object. Let’s try both ways and save these to our data_outputs folder.\n\nworkshop_breakdown <- \n  all_workshops %>% \n  count(affiliation, status)\n\nsaveRDS(all_workshops, \"data_output/all_workshops.RDS\")\n\nsaveRDS(workshop_breakdown, \"data_output/workshop_breakdown.RDS\")"
   },
   {
     "objectID": "Week02/week02_lesson.html",

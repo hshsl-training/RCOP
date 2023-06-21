@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>NNLM + CDABS R Community of Practice – readme</title>
+<title>NNLM + CDABS R Community of Practice - R Community of Practice</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -105,62 +105,74 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#importing-multiple-files-to-r" id="toc-importing-multiple-files-to-r" class="nav-link active" data-scroll-target="#importing-multiple-files-to-r">Importing multiple files to R</a>
-  <ul class="collapse">
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives:</a></li>
-  <li><a href="#course-activities" id="toc-course-activities" class="nav-link" data-scroll-target="#course-activities">Course Activities:</a></li>
-  <li><a href="#output-of-this-session" id="toc-output-of-this-session" class="nav-link" data-scroll-target="#output-of-this-session">Output of this session:</a></li>
-  <li><a href="#packages-used" id="toc-packages-used" class="nav-link" data-scroll-target="#packages-used">Packages used:</a></li>
-  </ul></li>
+  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning Goals</a></li>
+  <li><a href="#challenges-of-working-with-dates" id="toc-challenges-of-working-with-dates" class="nav-link" data-scroll-target="#challenges-of-working-with-dates">Challenges of Working with Dates</a></li>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">The Data</a></li>
+  <li><a href="#lubridate-time-spans" id="toc-lubridate-time-spans" class="nav-link" data-scroll-target="#lubridate-time-spans">Lubridate Time Spans</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">R Community of Practice</h1>
+<p class="subtitle lead">Week 2</p>
+</div>
 
 
-<section id="importing-multiple-files-to-r" class="level1">
-<h1>Importing multiple files to R</h1>
-<section id="learning-objectives" class="level3">
-<h3 class="anchored" data-anchor-id="learning-objectives">Learning Objectives:</h3>
-<p>The objective of this session is to:</p>
-<ol type="1">
-<li>import multiple files into RStudio at a time</li>
-<li>use tools for working with directories and file paths</li>
-<li>become familiar with concept of iteration</li>
-<li>understand how to work with a list structure</li>
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="learning-goals" class="level2">
+<h2 class="anchored" data-anchor-id="learning-goals">Learning Goals</h2>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li>understand the challenges of working with dates in R</li>
+<li>become familiar with the capabilities of the <strong><code>lubridate package</code></strong></li>
+<li>use <strong><code>lubridate</code></strong> to filter and summarize data by date</li>
 </ol>
+</div>
 </section>
-<section id="course-activities" class="level3">
-<h3 class="anchored" data-anchor-id="course-activities">Course Activities:</h3>
-<p>This section activities are:</p>
-<ol type="1">
-<li>Create a vector of file names</li>
-<li>Use <code>map()</code> to run <code>read_csv()</code> on each file name.</li>
-<li>Combine files into one data frame.</li>
-<li>Summarize data frame</li>
-</ol>
-</section>
-<section id="output-of-this-session" class="level3">
-<h3 class="anchored" data-anchor-id="output-of-this-session">Output of this session:</h3>
-<ol type="1">
-<li>An R object file (RDS) of the combined data frame</li>
-<li>An R object file of a summary of the data</li>
-</ol>
-</section>
-<section id="packages-used" class="level3">
-<h3 class="anchored" data-anchor-id="packages-used">Packages used:</h3>
-<ul>
-<li><code>readr</code>*</li>
-<li><code>dplyr</code>*</li>
-<li><code>purrr</code>*</li>
-<li><code>fs</code></li>
+<section id="challenges-of-working-with-dates" class="level2">
+<h2 class="anchored" data-anchor-id="challenges-of-working-with-dates">Challenges of Working with Dates</h2>
+<div class="incremental">
+<ul class="incremental">
+<li>interpreted as strings when imported to R</li>
+<li>many date formats</li>
+<li>inconsistent time units (e.g.&nbsp;months, leap years, time zones)</li>
 </ul>
-<p>*<code>tidyverse</code></p>
-
-
+</div>
 </section>
+<section id="the-data" class="level2">
+<h2 class="anchored" data-anchor-id="the-data">The Data</h2>
+<p><strong>Scenario</strong>: we have a spreadsheet of data tracking research consults from 2018 to 2023. We want to accomplish the following tasks:</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li>Change the date variable to date data type</li>
+<li>Summarize the number of consults by year</li>
+<li>Summarize consults by month for FY2022</li>
+</ol>
+</div>
+</section>
+<section id="lubridate-time-spans" class="level2">
+<h2 class="anchored" data-anchor-id="lubridate-time-spans">Lubridate Time Spans</h2>
+<ol type="1">
+<li><strong>durations</strong> - measure physical time in seconds</li>
+<li><strong>periods</strong> – take into account human variations in time due to varying lengths of months, leap years, etc.</li>
+<li><strong>intervals</strong> – time span defined with a start and end time</li>
+</ol>
+
+
 </section>
 
 </main> <!-- /main -->
