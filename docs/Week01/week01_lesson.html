@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>NNLM + CDABS R Community of Practice - Working with Dates</title>
+<title>NNLM + CDABS R Community of Practice - Reading multiple files</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -4023,11 +4023,11 @@ background-origin: content-box;
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../Week01/week01_lesson.html">
+    <a class="nav-link active" href="../Week01/week01_lesson.html" aria-current="page">
  <span class="menu-text">Week01</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../Week02/week02_lesson.html" aria-current="page">
+    <a class="nav-link" href="../Week02/week02_lesson.html">
  <span class="menu-text">Week02</span></a>
   </li>  
 </ul>
@@ -4040,7 +4040,7 @@ background-origin: content-box;
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Working with Dates</h1>
+      <h1 class="title">Reading multiple files</h1>
                       </div>
   </div>
     
@@ -4063,10 +4063,18 @@ background-origin: content-box;
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">The Data</a></li>
-  <li><a href="#step-1-changing-strings-to-dates" id="toc-step-1-changing-strings-to-dates" class="nav-link" data-scroll-target="#step-1-changing-strings-to-dates">Step 1: Changing Strings to Dates</a></li>
-  <li><a href="#step-2-summarize-data-by-month-and-year" id="toc-step-2-summarize-data-by-month-and-year" class="nav-link" data-scroll-target="#step-2-summarize-data-by-month-and-year">Step 2: Summarize data by month and year</a></li>
-  <li><a href="#step-3-working-with-intervals" id="toc-step-3-working-with-intervals" class="nav-link" data-scroll-target="#step-3-working-with-intervals">Step 3: Working with intervals</a></li>
-  <li><a href="#wrapping-up" id="toc-wrapping-up" class="nav-link" data-scroll-target="#wrapping-up">Wrapping Up</a></li>
+  <li><a href="#review---importing-data" id="toc-review---importing-data" class="nav-link" data-scroll-target="#review---importing-data">Review - Importing data</a></li>
+  <li><a href="#the-power-of-iteration" id="toc-the-power-of-iteration" class="nav-link" data-scroll-target="#the-power-of-iteration">The Power of Iteration</a></li>
+  <li><a href="#step-1-create-a-vector-of-file-names" id="toc-step-1-create-a-vector-of-file-names" class="nav-link" data-scroll-target="#step-1-create-a-vector-of-file-names">Step 1: Create a vector of file names</a></li>
+  <li><a href="#step-2-iterate-over-file-names" id="toc-step-2-iterate-over-file-names" class="nav-link" data-scroll-target="#step-2-iterate-over-file-names">Step 2: Iterate over file names</a></li>
+  <li><a href="#step-3-combine-into-one-data-frame" id="toc-step-3-combine-into-one-data-frame" class="nav-link" data-scroll-target="#step-3-combine-into-one-data-frame">Step 3: Combine into one data frame</a>
+  <ul class="collapse">
+  <li><a href="#working-with-lists" id="toc-working-with-lists" class="nav-link" data-scroll-target="#working-with-lists">Working with lists</a></li>
+  <li><a href="#adding-names-to-lists" id="toc-adding-names-to-lists" class="nav-link" data-scroll-target="#adding-names-to-lists">Adding names to lists</a></li>
+  <li><a href="#binding-rows" id="toc-binding-rows" class="nav-link" data-scroll-target="#binding-rows">Binding rows</a></li>
+  </ul></li>
+  <li><a href="#step-4-summarize-the-data" id="toc-step-4-summarize-the-data" class="nav-link" data-scroll-target="#step-4-summarize-the-data">Step 4: Summarize the data</a></li>
+  <li><a href="#wrapping-up" id="toc-wrapping-up" class="nav-link" data-scroll-target="#wrapping-up">Wrapping up</a></li>
   </ul>
 </nav>
     </div>
@@ -4078,163 +4086,200 @@ background-origin: content-box;
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Dates are a particular kind of numeric data type in R. Dates can be tricky to work for a couple of reasons. Often when you import data into R, it will interpret dates as strings, or character data type. This will make things difficult if you want to do calculations with dates, or parse out a part of a date. Second, time units are often variable, months have different numbers of days, there are leap years, and time zones can be another factor to consider. In this lesson, we’ll be introducing the <a href="https://lubridate.tidyverse.org/"><strong><code>lubridate</code></strong></a> package, which is part of the tidyverse, and makes working with dates much more manageable.</p>
+<p>In introductory R classes we learn how to import data by reading one file at a time. This week, we will “level up” our R skills by learning how to important multiple files at once. This can be especially useful when you have several files with a similar structure and want to be able to combine and analyze them together. To accomplish this goal, we’ll be working with a new data structure called a list and learning how to iterate over that list.</p>
 </section>
 <section id="the-data" class="level2">
 <h2 class="anchored" data-anchor-id="the-data">The Data</h2>
-<p>Our scenario this week is that we a spreadsheet of data tracking research consults from 2018 to 2023. We want to accomplish the following tasks:</p>
+<p>Our scenario this week is that we have a folder of registration data for workshops that we want to combine and analyze. We have a separate spreadsheet for each workshop with a list of attendees, their affiliations, and status. This data has been generated and does not contain any names or information of actual workshop participants, but is based on the structure of registration data we use here at UMB.</p>
+<p>Let’s load the packages we’ll be working with today.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="review---importing-data" class="level2">
+<h2 class="anchored" data-anchor-id="review---importing-data">Review - Importing data</h2>
+<p>To import one csv file, we can use the function <code>read_csv()</code> from the <code>readr</code> package, part of the <strong><code>tidyverse</code></strong>. You can also use the Import Dataset widget in the RStudio GUI.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Workshop01 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/Workshop_01.csv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="the-power-of-iteration" class="level2">
+<h2 class="anchored" data-anchor-id="the-power-of-iteration">The Power of Iteration</h2>
+<p>To read in multiple files, we could copy and paste that code a bunch of times with different names each time.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Workshop02 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/Workshop_02.csv&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Workshop03 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/Workshop_03.csv&quot;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Workshop04 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/Workshop_04.csv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>But! That’s a really good way to make mistakes, and part of the benefit of learning to code is to avoid the need to repeat things. Most programming languages, including R, have ways of iterating, or repeating, an operation over multiple objects based on some instructions. Often this iteration takes place in some kind of loop operation, e.g.</p>
+<pre><code>for (thing in list_of_things) {
+  do_some_function()
+}</code></pre>
+<p>These can be used in R, but it is more common to use one of several available R functions for this task.</p>
+<p>We’ll use a function called <code>map()</code> which takes as arguments a vector or list (<code>.x</code>) and a function (<code>.f</code>) we will use to iterate over the elements of that vector or list. So the syntax of this function is <code>map(.x, .f)</code>.</p>
+<p>So, we have our function <code>read_csv()</code>, and now we want it to repeat for all the file names in our directory. So - how do we accomplish this?</p>
 <ol type="1">
-<li>Change the date variable to date data type</li>
-<li>Summarize the number of consults by month and year</li>
-<li>Filter the data to look at just FY2022</li>
+<li>Create a vector of file names</li>
+<li>Use <code>map()</code> to run <code>read_csv()</code> on each file name.</li>
+<li>Combine files into one data frame.</li>
+<li>Summarize data frame</li>
 </ol>
-<p>Let’s open a new script and load the libraries we’ll be working with in this lesson:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>And now we can import our data set</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>consults <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/consults.csv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
-<section id="step-1-changing-strings-to-dates" class="level2">
-<h2 class="anchored" data-anchor-id="step-1-changing-strings-to-dates">Step 1: Changing Strings to Dates</h2>
-<p>How do we know what kind of data our date variable is? We use the <code>class()</code> function to check data types</p>
+<section id="step-1-create-a-vector-of-file-names" class="level2">
+<h2 class="anchored" data-anchor-id="step-1-create-a-vector-of-file-names">Step 1: Create a vector of file names</h2>
+<p>First, you’ll want to have all the files you need saved in the same directory. Then we can use the base R function <code>list.files()</code> on that directory. We’ll save this an object so we can use this later.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(consults<span class="sc">$</span>date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;character&quot;</code></pre>
-</div>
-</div>
-<p>Let’s change that to date data type. <strong><code>lubridate</code></strong> has a number of functions for parsing dates in different formats. The name of the function depends on the format of the input date.</p>
-<p>For example, if we had a string with date in the month, day, year format, we would use the <code>mdy()</code> function.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>myDate <span class="ot">&lt;-</span> <span class="st">&quot;June 22, 2023&quot;</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&quot;data/&quot;</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>myRealDate <span class="ot">&lt;-</span> <span class="fu">mdy</span>(myDate)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(myDate)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;character&quot;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(myRealDate)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Date&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Or, as another example:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>myDate <span class="ot">&lt;-</span> <span class="st">&quot;22062023&quot;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>myRealDate <span class="ot">&lt;-</span> <span class="fu">dmy</span>(myDate)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(myDate)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;character&quot;</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(myRealDate)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Date&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>and finally</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>myDate <span class="ot">&lt;-</span> <span class="st">&quot;2023-06-22&quot;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>myRealDate <span class="ot">&lt;-</span> <span class="fu">ymd</span>(myDate)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(myDate)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;character&quot;</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(myRealDate)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Date&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Now that we have a better idea of how these functions work, we can use them to overwrite our original date column with one that is properly recognized as a date. We use the <code>mutate()</code> function from <strong><code>dplyr</code></strong> to create a new variable.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>consults <span class="ot">&lt;-</span> consults <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">mdy</span>(date))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>And let’s check if that worked</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(consults<span class="sc">$</span>date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;Date&quot;</code></pre>
+<pre><code> [1] &quot;data//Workshop_01.csv&quot; &quot;data//Workshop_02.csv&quot; &quot;data//Workshop_03.csv&quot;
+ [4] &quot;data//Workshop_04.csv&quot; &quot;data//Workshop_05.csv&quot; &quot;data//Workshop_06.csv&quot;
+ [7] &quot;data//Workshop_07.csv&quot; &quot;data//Workshop_08.csv&quot; &quot;data//Workshop_09.csv&quot;
+[10] &quot;data//Workshop_10.csv&quot;</code></pre>
 </div>
 </div>
 </section>
-<section id="step-2-summarize-data-by-month-and-year" class="level2">
-<h2 class="anchored" data-anchor-id="step-2-summarize-data-by-month-and-year">Step 2: Summarize data by month and year</h2>
-<p>Another set of functions in <strong><code>lubridate</code></strong> help with extracting pieces of dates.</p>
-<p>For example:</p>
+<section id="step-2-iterate-over-file-names" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-iterate-over-file-names">Step 2: Iterate over file names</h2>
+<p>As mentioned before, now we have an object to stand in for the <code>.x</code> argument of <code>map()</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">year</span>(myRealDate)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2023</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">month</span>(myRealDate)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 6</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">day</span>(myRealDate)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 22</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">wday</span>(myRealDate)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>workshop_list <span class="ot">&lt;-</span> <span class="fu">map</span>(files, read_csv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Let’s summarize the total number of consults for each year in our data set.</p>
+</section>
+<section id="step-3-combine-into-one-data-frame" class="level2">
+<h2 class="anchored" data-anchor-id="step-3-combine-into-one-data-frame">Step 3: Combine into one data frame</h2>
+<section id="working-with-lists" class="level3">
+<h3 class="anchored" data-anchor-id="working-with-lists">Working with lists</h3>
+<p>After running our last step, the resulting object is in a structure called a list. In most beginning R workshops we work with two main data structures: vectors and data frames</p>
+<table class="table">
+<caption>R Data Structures</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th>homogeneous</th>
+<th>heterogenous</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1d</td>
+<td>vector</td>
+<td>list</td>
+</tr>
+<tr class="even">
+<td>2d</td>
+<td>matrix</td>
+<td>data frame</td>
+</tr>
+<tr class="odd">
+<td>nd</td>
+<td>array</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Lists are made up of elements like vectors, but those elements can be anything. Often we use lists to work with several data frames at one time.</p>
+</section>
+<section id="adding-names-to-lists" class="level3">
+<h3 class="anchored" data-anchor-id="adding-names-to-lists">Adding names to lists</h3>
+<p>Each element of the list is given an index number. But it will be helpful to us to give the elements names. We do this with the <code>names()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>consults_yearly <span class="ot">&lt;-</span> consults <span class="sc">%&gt;%</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(<span class="at">year=</span><span class="fu">year</span>(date), <span class="at">name=</span><span class="st">&quot;total_consults&quot;</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>consults_yearly</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(workshop_list) <span class="co">#currently no names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>NULL</code></pre>
+</div>
+</div>
+<p>Let’s name each element the same as the file, this way when we combine the data, we can keep track of which rows came from which data frame. We’ll use the <strong><code>fs</code></strong> package which contains tools for working with file names.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">path_file</span>(files) <span class="co"># keeps only file part of path</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] &quot;Workshop_01.csv&quot; &quot;Workshop_02.csv&quot; &quot;Workshop_03.csv&quot; &quot;Workshop_04.csv&quot;
+ [5] &quot;Workshop_05.csv&quot; &quot;Workshop_06.csv&quot; &quot;Workshop_07.csv&quot; &quot;Workshop_08.csv&quot;
+ [9] &quot;Workshop_09.csv&quot; &quot;Workshop_10.csv&quot;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">path_ext_remove</span>(files) <span class="co">#keeps just </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] &quot;data/Workshop_01&quot; &quot;data/Workshop_02&quot; &quot;data/Workshop_03&quot; &quot;data/Workshop_04&quot;
+ [5] &quot;data/Workshop_05&quot; &quot;data/Workshop_06&quot; &quot;data/Workshop_07&quot; &quot;data/Workshop_08&quot;
+ [9] &quot;data/Workshop_09&quot; &quot;data/Workshop_10&quot;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(workshop_list) <span class="ot">&lt;-</span><span class="fu">path_ext_remove</span>(<span class="fu">path_file</span>(files))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(workshop_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] &quot;Workshop_01&quot; &quot;Workshop_02&quot; &quot;Workshop_03&quot; &quot;Workshop_04&quot; &quot;Workshop_05&quot;
+ [6] &quot;Workshop_06&quot; &quot;Workshop_07&quot; &quot;Workshop_08&quot; &quot;Workshop_09&quot; &quot;Workshop_10&quot;</code></pre>
+</div>
+</div>
+</section>
+<section id="binding-rows" class="level3">
+<h3 class="anchored" data-anchor-id="binding-rows">Binding rows</h3>
+<p>We’ll use the <code>bind_rows()</code> function from <strong><code>dplyr</code></strong> to paste each element in our list into one data frame. The .id argument will allow us to keep track of which row came from which original dataset. It uses the names of the list elements as values.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>all_workshops <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(workshop_list, <span class="at">.id =</span> <span class="st">&quot;Workshop&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(attendees)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(all_workshops)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  Workshop    attendees                affiliation status 
+  &lt;chr&gt;       &lt;chr&gt;                    &lt;chr&gt;       &lt;chr&gt;  
+1 Workshop_06 Abdul Waahid al-Jaber    Nursing     Faculty
+2 Workshop_10 Addison Elkins           Graduate    Staff  
+3 Workshop_07 Adriana Picazo           Medicine    Staff  
+4 Workshop_05 Alexander Garcia-Marrufo Nursing     Faculty
+5 Workshop_09 Alexandra Willis         Social Work Staff  
+6 Workshop_06 Alexis Wright            Medicine    Faculty</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="step-4-summarize-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="step-4-summarize-the-data">Step 4: Summarize the data</h2>
+<p>Now we can work with our data in the more familiar structure of a data frame. This allows us to do things like get a count of how many of each affiliation and status attended all workshops put together.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>all_workshops <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(affiliation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
-   year total_consults
-  &lt;dbl&gt;          &lt;int&gt;
-1  2018            631
-2  2019            639
-3  2020            463
-4  2021            415
-5  2022            381
-6  2023            141</code></pre>
+  affiliation     n
+  &lt;chr&gt;       &lt;int&gt;
+1 Dentistry      21
+2 Graduate       25
+3 Medicine       30
+4 Nursing        35
+5 Pharmacy       31
+6 Social Work    31</code></pre>
 </div>
-</div>
-</section>
-<section id="step-3-working-with-intervals" class="level2">
-<h2 class="anchored" data-anchor-id="step-3-working-with-intervals">Step 3: Working with intervals</h2>
-<p>Now, what if we wanted to take a look at the data for just the last fiscal year? How can we filter our data set to include just the dates we want to look at.</p>
-<p><strong><code>lubridate</code></strong> can work with three types of time spans:</p>
-<ol type="1">
-<li>durations- measure physical time in seconds</li>
-<li>periods – take into account human variations in time due to varying lengths of months, leap years, etc.</li>
-<li>intervals – timespan defined with a start and end time</li>
-</ol>
-<p>First we’ll create an interval object.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fy2022 <span class="ot">&lt;-</span> <span class="fu">interval</span>(<span class="fu">mdy</span>(<span class="st">&quot;07/01/2021&quot;</span>), <span class="fu">mdy</span>(<span class="st">&quot;06/30/2022&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Now we can keep just those consults within our desired time frame.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>consults_fy2022 <span class="ot">&lt;-</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  consults <span class="sc">%&gt;%</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date <span class="sc">%within%</span> fy2022)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>And we can summarize these consults by month.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>consults_fy22_monthly <span class="ot">&lt;-</span> consults_fy2022 <span class="sc">%&gt;%</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">count</span>(<span class="at">year=</span><span class="fu">year</span>(date), <span class="at">month=</span><span class="fu">month</span>(date), <span class="at">name =</span> <span class="st">&quot;total_consults&quot;</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>consults_fy22_monthly</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>all_workshops <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 12 × 3
-    year month total_consults
-   &lt;dbl&gt; &lt;dbl&gt;          &lt;int&gt;
- 1  2021     7             31
- 2  2021     8             13
- 3  2021     9             39
- 4  2021    10             65
- 5  2021    11             16
- 6  2021    12              8
- 7  2022     1             16
- 8  2022     2             62
- 9  2022     3             42
-10  2022     4             18
-11  2022     5             18
-12  2022     6             32</code></pre>
+<pre><code># A tibble: 3 × 2
+  status      n
+  &lt;chr&gt;   &lt;int&gt;
+1 Faculty    62
+2 Staff      60
+3 Student    51</code></pre>
 </div>
 </div>
 </section>
 <section id="wrapping-up" class="level2">
-<h2 class="anchored" data-anchor-id="wrapping-up">Wrapping Up</h2>
-<p>Once again, let’s save these our objects of summarized data to our <code>data_output</code> folder.</p>
+<h2 class="anchored" data-anchor-id="wrapping-up">Wrapping up</h2>
+<p>We might want to work with this data again later so let’s be sure to save it. We can write it back out to a CSV file, or we can save it directly as an R object. Let’s try both ways and save these to our <code>data_outputs</code> folder.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(consults_yearly, <span class="st">&quot;data_output/consults_yearly.RDS&quot;</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(consults_fy22_monthly, <span class="st">&quot;data_output/consults_fy22_monthly.RDS&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>workshop_breakdown <span class="ot">&lt;-</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  all_workshops <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(affiliation, status)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(all_workshops, <span class="st">&quot;data_outputs/all_workshops.RDS&quot;</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(workshop_breakdown, <span class="st">&quot;data_outputs/workshop_breakdown.RDS&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

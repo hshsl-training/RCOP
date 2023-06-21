@@ -1,0 +1,156 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "NNLM + CDABS R Community of Practice",
+    "section": "",
+    "text": "Objective:\nThe objective of this website is to provide supporting documentation for R Community of Practice. In here you will find the activity materials and datasets that we will be using for the following 6 weeks.\nTopics\nIn each folder you will find the material assigned for that week.\n\n\n\nWeek\nTopic\n\n\n\n\nWeek 1\nReading multiple files\n\n\nWeek 2\nWorking with Dates\n\n\nWeek 3\nCreating a bar chart with ggplot2\n\n\nWeek 4\nTransforming data from wide to long\n\n\nWeek 5\nAccessing NCBI data with the Rentrez package\n\n\nWeek 6\nCommunicating with Quarto"
+  },
+  {
+    "objectID": "Week01/week01_lesson.html",
+    "href": "Week01/week01_lesson.html",
+    "title": "Reading multiple files",
+    "section": "",
+    "text": "In introductory R classes we learn how to import data by reading one file at a time. This week, we will “level up” our R skills by learning how to important multiple files at once. This can be especially useful when you have several files with a similar structure and want to be able to combine and analyze them together. To accomplish this goal, we’ll be working with a new data structure called a list and learning how to iterate over that list."
+  },
+  {
+    "objectID": "Week01/week01_lesson.html#the-data",
+    "href": "Week01/week01_lesson.html#the-data",
+    "title": "Reading multiple files",
+    "section": "The Data",
+    "text": "The Data\nOur scenario this week is that we have a folder of registration data for workshops that we want to combine and analyze. We have a separate spreadsheet for each workshop with a list of attendees, their affiliations, and status. This data has been generated and does not contain any names or information of actual workshop participants, but is based on the structure of registration data we use here at UMB.\nLet’s load the packages we’ll be working with today.\n\nlibrary(tidyverse)\nlibrary(fs)"
+  },
+  {
+    "objectID": "Week01/week01_lesson.html#review---importing-data",
+    "href": "Week01/week01_lesson.html#review---importing-data",
+    "title": "Reading multiple files",
+    "section": "Review - Importing data",
+    "text": "Review - Importing data\nTo import one csv file, we can use the function read_csv() from the readr package, part of the tidyverse. You can also use the Import Dataset widget in the RStudio GUI.\n\nWorkshop01 <- read_csv(\"data/Workshop_01.csv\")"
+  },
+  {
+    "objectID": "Week01/week01_lesson.html#the-power-of-iteration",
+    "href": "Week01/week01_lesson.html#the-power-of-iteration",
+    "title": "Reading multiple files",
+    "section": "The Power of Iteration",
+    "text": "The Power of Iteration\nTo read in multiple files, we could copy and paste that code a bunch of times with different names each time.\n\nWorkshop02 <- read_csv(\"data/Workshop_02.csv\")\n\nWorkshop03 <- read_csv(\"data/Workshop_03.csv\")\n\nWorkshop04 <- read_csv(\"data/Workshop_04.csv\")\n\nBut! That’s a really good way to make mistakes, and part of the benefit of learning to code is to avoid the need to repeat things. Most programming languages, including R, have ways of iterating, or repeating, an operation over multiple objects based on some instructions. Often this iteration takes place in some kind of loop operation, e.g.\nfor (thing in list_of_things) {\n  do_some_function()\n}\nThese can be used in R, but it is more common to use one of several available R functions for this task.\nWe’ll use a function called map() which takes as arguments a vector or list (.x) and a function (.f) we will use to iterate over the elements of that vector or list. So the syntax of this function is map(.x, .f).\nSo, we have our function read_csv(), and now we want it to repeat for all the file names in our directory. So - how do we accomplish this?\n\nCreate a vector of file names\nUse map() to run read_csv() on each file name.\nCombine files into one data frame.\nSummarize data frame"
+  },
+  {
+    "objectID": "Week01/week01_lesson.html#step-1-create-a-vector-of-file-names",
+    "href": "Week01/week01_lesson.html#step-1-create-a-vector-of-file-names",
+    "title": "Reading multiple files",
+    "section": "Step 1: Create a vector of file names",
+    "text": "Step 1: Create a vector of file names\nFirst, you’ll want to have all the files you need saved in the same directory. Then we can use the base R function list.files() on that directory. We’ll save this an object so we can use this later.\n\nfiles <- list.files(\"data/\", full.names = TRUE)\n\nfiles\n\n [1] \"data//Workshop_01.csv\" \"data//Workshop_02.csv\" \"data//Workshop_03.csv\"\n [4] \"data//Workshop_04.csv\" \"data//Workshop_05.csv\" \"data//Workshop_06.csv\"\n [7] \"data//Workshop_07.csv\" \"data//Workshop_08.csv\" \"data//Workshop_09.csv\"\n[10] \"data//Workshop_10.csv\""
+  },
+  {
+    "objectID": "Week01/week01_lesson.html#step-2-iterate-over-file-names",
+    "href": "Week01/week01_lesson.html#step-2-iterate-over-file-names",
+    "title": "Reading multiple files",
+    "section": "Step 2: Iterate over file names",
+    "text": "Step 2: Iterate over file names\nAs mentioned before, now we have an object to stand in for the .x argument of map()\n\nworkshop_list <- map(files, read_csv)"
+  },
+  {
+    "objectID": "Week01/week01_lesson.html#step-3-combine-into-one-data-frame",
+    "href": "Week01/week01_lesson.html#step-3-combine-into-one-data-frame",
+    "title": "Reading multiple files",
+    "section": "Step 3: Combine into one data frame",
+    "text": "Step 3: Combine into one data frame\n\nWorking with lists\nAfter running our last step, the resulting object is in a structure called a list. In most beginning R workshops we work with two main data structures: vectors and data frames\n\nR Data Structures\n\n\n\nhomogeneous\nheterogenous\n\n\n\n\n1d\nvector\nlist\n\n\n2d\nmatrix\ndata frame\n\n\nnd\narray\n\n\n\n\nLists are made up of elements like vectors, but those elements can be anything. Often we use lists to work with several data frames at one time.\n\n\nAdding names to lists\nEach element of the list is given an index number. But it will be helpful to us to give the elements names. We do this with the names() function.\n\nnames(workshop_list) #currently no names\n\nNULL\n\n\nLet’s name each element the same as the file, this way when we combine the data, we can keep track of which rows came from which data frame. We’ll use the fs package which contains tools for working with file names.\n\npath_file(files) # keeps only file part of path\n\n [1] \"Workshop_01.csv\" \"Workshop_02.csv\" \"Workshop_03.csv\" \"Workshop_04.csv\"\n [5] \"Workshop_05.csv\" \"Workshop_06.csv\" \"Workshop_07.csv\" \"Workshop_08.csv\"\n [9] \"Workshop_09.csv\" \"Workshop_10.csv\"\n\npath_ext_remove(files) #keeps just \n\n [1] \"data/Workshop_01\" \"data/Workshop_02\" \"data/Workshop_03\" \"data/Workshop_04\"\n [5] \"data/Workshop_05\" \"data/Workshop_06\" \"data/Workshop_07\" \"data/Workshop_08\"\n [9] \"data/Workshop_09\" \"data/Workshop_10\"\n\nnames(workshop_list) <-path_ext_remove(path_file(files))\n\nnames(workshop_list)\n\n [1] \"Workshop_01\" \"Workshop_02\" \"Workshop_03\" \"Workshop_04\" \"Workshop_05\"\n [6] \"Workshop_06\" \"Workshop_07\" \"Workshop_08\" \"Workshop_09\" \"Workshop_10\"\n\n\n\n\nBinding rows\nWe’ll use the bind_rows() function from dplyr to paste each element in our list into one data frame. The .id argument will allow us to keep track of which row came from which original dataset. It uses the names of the list elements as values.\n\nall_workshops <- bind_rows(workshop_list, .id = \"Workshop\") %>% \n  arrange(attendees)\n\n\n\nhead(all_workshops)\n\n# A tibble: 6 × 4\n  Workshop    attendees                affiliation status \n  <chr>       <chr>                    <chr>       <chr>  \n1 Workshop_06 Abdul Waahid al-Jaber    Nursing     Faculty\n2 Workshop_10 Addison Elkins           Graduate    Staff  \n3 Workshop_07 Adriana Picazo           Medicine    Staff  \n4 Workshop_05 Alexander Garcia-Marrufo Nursing     Faculty\n5 Workshop_09 Alexandra Willis         Social Work Staff  \n6 Workshop_06 Alexis Wright            Medicine    Faculty"
+  },
+  {
+    "objectID": "Week01/week01_lesson.html#step-4-summarize-the-data",
+    "href": "Week01/week01_lesson.html#step-4-summarize-the-data",
+    "title": "Reading multiple files",
+    "section": "Step 4: Summarize the data",
+    "text": "Step 4: Summarize the data\nNow we can work with our data in the more familiar structure of a data frame. This allows us to do things like get a count of how many of each affiliation and status attended all workshops put together.\n\nall_workshops %>% \n  count(affiliation)\n\n# A tibble: 6 × 2\n  affiliation     n\n  <chr>       <int>\n1 Dentistry      21\n2 Graduate       25\n3 Medicine       30\n4 Nursing        35\n5 Pharmacy       31\n6 Social Work    31\n\nall_workshops %>% \n  count(status)\n\n# A tibble: 3 × 2\n  status      n\n  <chr>   <int>\n1 Faculty    62\n2 Staff      60\n3 Student    51"
+  },
+  {
+    "objectID": "Week01/week01_lesson.html#wrapping-up",
+    "href": "Week01/week01_lesson.html#wrapping-up",
+    "title": "Reading multiple files",
+    "section": "Wrapping up",
+    "text": "Wrapping up\nWe might want to work with this data again later so let’s be sure to save it. We can write it back out to a CSV file, or we can save it directly as an R object. Let’s try both ways and save these to our data_outputs folder.\n\nworkshop_breakdown <- \n  all_workshops %>% \n  count(affiliation, status)\n\nsaveRDS(all_workshops, \"data_outputs/all_workshops.RDS\")\n\nsaveRDS(workshop_breakdown, \"data_outputs/workshop_breakdown.RDS\")"
+  },
+  {
+    "objectID": "Week02/week02_lesson.html",
+    "href": "Week02/week02_lesson.html",
+    "title": "Working with Dates",
+    "section": "",
+    "text": "Dates are a particular kind of numeric data type in R. Dates can be tricky to work for a couple of reasons. Often when you import data into R, it will interpret dates as strings, or character data type. This will make things difficult if you want to do calculations with dates, or parse out a part of a date. Second, time units are often variable, months have different numbers of days, there are leap years, and time zones can be another factor to consider. In this lesson, we’ll be introducing the lubridate package, which is part of the tidyverse, and makes working with dates much more manageable."
+  },
+  {
+    "objectID": "Week02/week02_lesson.html#the-data",
+    "href": "Week02/week02_lesson.html#the-data",
+    "title": "Working with Dates",
+    "section": "The Data",
+    "text": "The Data\nOur scenario this week is that we a spreadsheet of data tracking research consults from 2018 to 2023. We want to accomplish the following tasks:\n\nChange the date variable to date data type\nSummarize the number of consults by month and year\nFilter the data to look at just FY2022\n\nLet’s open a new script and load the libraries we’ll be working with in this lesson:\n\nlibrary(tidyverse)\n\nAnd now we can import our data set\n\nconsults <- read_csv(\"data/consults.csv\")"
+  },
+  {
+    "objectID": "Week02/week02_lesson.html#step-1-changing-strings-to-dates",
+    "href": "Week02/week02_lesson.html#step-1-changing-strings-to-dates",
+    "title": "Working with Dates",
+    "section": "Step 1: Changing Strings to Dates",
+    "text": "Step 1: Changing Strings to Dates\nHow do we know what kind of data our date variable is? We use the class() function to check data types\n\nclass(consults$date)\n\n[1] \"character\"\n\n\nLet’s change that to date data type. lubridate has a number of functions for parsing dates in different formats. The name of the function depends on the format of the input date.\nFor example, if we had a string with date in the month, day, year format, we would use the mdy() function.\n\nmyDate <- \"June 22, 2023\"\n\nmyRealDate <- mdy(myDate)\n\nclass(myDate)\n## [1] \"character\"\nclass(myRealDate)\n## [1] \"Date\"\n\nOr, as another example:\n\nmyDate <- \"22062023\"\nmyRealDate <- dmy(myDate)\n\nclass(myDate)\n## [1] \"character\"\nclass(myRealDate)\n## [1] \"Date\"\n\nand finally\n\nmyDate <- \"2023-06-22\"\nmyRealDate <- ymd(myDate)\n\nclass(myDate)\n## [1] \"character\"\nclass(myRealDate)\n## [1] \"Date\"\n\nNow that we have a better idea of how these functions work, we can use them to overwrite our original date column with one that is properly recognized as a date. We use the mutate() function from dplyr to create a new variable.\n\nconsults <- consults %>% \n  mutate(date = mdy(date))\n\nAnd let’s check if that worked\n\nclass(consults$date)\n\n[1] \"Date\""
+  },
+  {
+    "objectID": "Week02/week02_lesson.html#step-2-summarize-data-by-month-and-year",
+    "href": "Week02/week02_lesson.html#step-2-summarize-data-by-month-and-year",
+    "title": "Working with Dates",
+    "section": "Step 2: Summarize data by month and year",
+    "text": "Step 2: Summarize data by month and year\nAnother set of functions in lubridate help with extracting pieces of dates.\nFor example:\n\nyear(myRealDate)\n## [1] 2023\nmonth(myRealDate)\n## [1] 6\nday(myRealDate)\n## [1] 22\nwday(myRealDate)\n## [1] 5\n\nLet’s summarize the total number of consults for each year in our data set.\n\nconsults_yearly <- consults %>% \n  count(year=year(date), name=\"total_consults\")\n\nconsults_yearly\n\n# A tibble: 6 × 2\n   year total_consults\n  <dbl>          <int>\n1  2018            631\n2  2019            639\n3  2020            463\n4  2021            415\n5  2022            381\n6  2023            141"
+  },
+  {
+    "objectID": "Week02/week02_lesson.html#step-3-working-with-intervals",
+    "href": "Week02/week02_lesson.html#step-3-working-with-intervals",
+    "title": "Working with Dates",
+    "section": "Step 3: Working with intervals",
+    "text": "Step 3: Working with intervals\nNow, what if we wanted to take a look at the data for just the last fiscal year? How can we filter our data set to include just the dates we want to look at.\nlubridate can work with three types of time spans:\n\ndurations- measure physical time in seconds\nperiods – take into account human variations in time due to varying lengths of months, leap years, etc.\nintervals – timespan defined with a start and end time\n\nFirst we’ll create an interval object.\n\nfy2022 <- interval(mdy(\"07/01/2021\"), mdy(\"06/30/2022\"))\n\nNow we can keep just those consults within our desired time frame.\n\nconsults_fy2022 <-\n  consults %>% \n  filter(date %within% fy2022)\n\nAnd we can summarize these consults by month.\n\nconsults_fy22_monthly <- consults_fy2022 %>% \n count(year=year(date), month=month(date), name = \"total_consults\")\n\nconsults_fy22_monthly\n\n# A tibble: 12 × 3\n    year month total_consults\n   <dbl> <dbl>          <int>\n 1  2021     7             31\n 2  2021     8             13\n 3  2021     9             39\n 4  2021    10             65\n 5  2021    11             16\n 6  2021    12              8\n 7  2022     1             16\n 8  2022     2             62\n 9  2022     3             42\n10  2022     4             18\n11  2022     5             18\n12  2022     6             32"
+  },
+  {
+    "objectID": "Week02/week02_lesson.html#wrapping-up",
+    "href": "Week02/week02_lesson.html#wrapping-up",
+    "title": "Working with Dates",
+    "section": "Wrapping Up",
+    "text": "Wrapping Up\nOnce again, let’s save these our objects of summarized data to our data_output folder.\n\nsaveRDS(consults_yearly, \"data_output/consults_yearly.RDS\")\n\nsaveRDS(consults_fy22_monthly, \"data_output/consults_fy22_monthly.RDS\")"
+  },
+  {
+    "objectID": "Week01/week01_slides.html",
+    "href": "Week01/week01_slides.html",
+    "title": "R Community of Practice",
+    "section": "",
+    "text": "import multiple files into RStudio at a time\nuse tools for working with directories and file paths\nbecome familiar with concept of iteration\nunderstand how to work with a list structure"
+  },
+  {
+    "objectID": "Week01/week01_slides.html#the-data",
+    "href": "Week01/week01_slides.html#the-data",
+    "title": "R Community of Practice",
+    "section": "The Data",
+    "text": "The Data\nScenario: we want to combine and analyze several spreadsheets containing workshop registration data. Each spreadsheet has the same structure - name of attendee 1, school affiliation, and status (faculty, student, staff).\n\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.2     ✔ readr     2.1.4\n✔ forcats   1.0.0     ✔ stringr   1.5.0\n✔ ggplot2   3.4.2     ✔ tibble    3.2.1\n✔ lubridate 1.9.2     ✔ tidyr     1.3.0\n✔ purrr     1.0.1     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the \u001b]8;;http://conflicted.r-lib.org/\u0007conflicted package\u001b]8;;\u0007 to force all conflicts to become errors\n\nlibrary(fs)\n\ndir_tree(\"data\")\n\ndata\n├── Workshop_01.csv\n├── Workshop_02.csv\n├── Workshop_03.csv\n├── Workshop_04.csv\n├── Workshop_05.csv\n├── Workshop_06.csv\n├── Workshop_07.csv\n├── Workshop_08.csv\n├── Workshop_09.csv\n└── Workshop_10.csv"
+  },
+  {
+    "objectID": "Week01/week01_slides.html#loops",
+    "href": "Week01/week01_slides.html#loops",
+    "title": "R Community of Practice",
+    "section": "Loops",
+    "text": "Loops\nLoops are used in most programming languages when you want to repeat some set of code for multiple inputs.\n\nfor (thing in list_of_things) {\n  do_some_function()\n}"
+  },
+  {
+    "objectID": "Week01/week01_slides.html#functional-programming-in-r",
+    "href": "Week01/week01_slides.html#functional-programming-in-r",
+    "title": "R Community of Practice",
+    "section": "Functional Programming in R",
+    "text": "Functional Programming in R\nIn R, there are several functions that accomplish the same thing as loops, in particular:\n\nThe apply() family of functions in Base R\nThe map() family of functions from the purrr package in the tidyverse\n\nmap(.x, .f)\n\nmap(function-args, function)"
+  },
+  {
+    "objectID": "Week01/week01_slides.html#next-steps",
+    "href": "Week01/week01_slides.html#next-steps",
+    "title": "R Community of Practice",
+    "section": "Next Steps",
+    "text": "Next Steps\nSo, we have our function read_csv(), and now we want it to repeat for all the file names in our directory. So - how do we accomplish this?\n\nCreate a vector of file names\nUse map() to run read_csv() on each file name.\nCombine files into one data frame.\nSummarize data frame"
+  },
+  {
+    "objectID": "Week01/week01_slides.html#working-with-lists",
+    "href": "Week01/week01_slides.html#working-with-lists",
+    "title": "R Community of Practice",
+    "section": "Working with lists",
+    "text": "Working with lists\n\n\n\nLike vectors, lists are made up of elements, but those elements can be anything.\nOften we use lists to work with several data frames at one time.\n\n\n\nR Data Structures 2\n\n\n\nhomogeneous\nheterogenous\n\n\n\n\n1d\nvector\nlist\n\n\n2d\nmatrix\ndata frame\n\n\nnd\narray"
+  }
+]
