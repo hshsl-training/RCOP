@@ -25,8 +25,8 @@ In this lesson, we'll be introducing the [**`lubridate`**](https://lubridate.tid
 Our scenario this week is that we a spreadsheet of data tracking research consults from 2018 to 2023. We want to accomplish the following tasks:
 
 1. Change the date variable to date data type
-2. Summarize the number of consults by month and year
-3. Filter the data to look at just FY2022
+2. Summarize the number of consults by year
+3. Summarize consults by month for FY2022
 
 Let's open a new script and load the libraries we'll be working with in this lesson:
 ```{r}
@@ -93,7 +93,7 @@ And let's check if that worked
 class(consults$date)
 ```
 
-## Step 2: Summarize data by month and year
+## Step 2: Summarize data by year
 
 Another set of functions in **`lubridate`** help with extracting pieces of dates.
 
@@ -157,3 +157,4 @@ saveRDS(consults_yearly, "data_output/consults_yearly.RDS")
 saveRDS(consults_fy22_monthly, "data_output/consults_fy22_monthly.RDS")
 ```
 
+Be sure to check out the [**`lubridate`** documentation](https://lubridate.tidyverse.org/) documentation for more!
