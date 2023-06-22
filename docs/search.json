@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "NNLM + CDABS R Community of Practice",
     "section": "",
-    "text": "Objective:\nThe objective of this website is to provide supporting documentation for R Community of Practice. In in the navigation bar you will find each week lesson.\nTopics\nIn each folder you will find the material assigned for that week.\n\n\n\n\n\n\n\n\nWeek\nTopic\nSlides\n\n\n\n\nWeek 1\nReading multiple files\nWeek 1\n\n\nWeek 2\nWorking with Dates\nWeek 2\n\n\nWeek 3\nCreating a bar chart with ggplot2\n\n\n\nWeek 4\nTransforming data from wide to long\n\n\n\nWeek 5\nAccessing NCBI data with the Rentrez package\n\n\n\nWeek 6\nCommunicating with Quarto\n\n\n\n\nDownload the data by week for all the lessons here."
+    "text": "Objective:\nThe objective of this website is to provide supporting documentation for R Community of Practice. In the navigation bar you will find each week lesson.\nWeekly Topics\n\n\n\n\n\n\n\n\nWeek\nTopic\nSlides\n\n\n\n\nWeek 1\nReading multiple files\nWeek 1\n\n\nWeek 2\nWorking with Dates\nWeek 2\n\n\nWeek 3\nCreating a bar chart with ggplot2\n\n\n\nWeek 4\nTransforming data from wide to long\n\n\n\nWeek 5\nAccessing NCBI data with the Rentrez package\n\n\n\nWeek 6\nCommunicating with Quarto\n\n\n\n\nDownload the data by week for all the lessons here."
   },
   {
     "objectID": "Week01/week01_lesson.html",

@@ -17,11 +17,10 @@ css: styles.css
 
 Objective: 
 
-The objective of this website is to provide supporting documentation for R Community of Practice. In in the navigation bar you will find each week lesson.
+The objective of this website is to provide supporting documentation for R Community of Practice. 
+In the navigation bar you will find each week lesson.
 
-**Topics**
-
-In each folder you will find the material assigned for that week.
+**Weekly Topics**
 
 | Week  | Topic | Slides |
 | ---   | ---   | ---    |
