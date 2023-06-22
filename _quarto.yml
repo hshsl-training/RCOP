@@ -24,6 +24,6 @@ website:
 
 format:
   html:
-    theme: sketchy
+    theme: yeti
     editor: source
     toc: true
