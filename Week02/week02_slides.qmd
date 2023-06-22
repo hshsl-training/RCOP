@@ -14,7 +14,7 @@ format:
 
 ::: incremental
 1. understand the challenges of working with dates in R
-1. become familiar with the capabilities of the **`lubridate package`**
+1. become familiar with the capabilities of the **`lubridate`** package
 1. use **`lubridate`** to filter and summarize data by date
 
 :::
