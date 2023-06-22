@@ -24,6 +24,6 @@ website:
 
 format:
   html:
-    theme: sandstone
+    theme: sketchy
     editor: source
     toc: true
