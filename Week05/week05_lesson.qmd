@@ -48,26 +48,25 @@ Lets take a breif look at the documentation available about this this resource.
 **Lets visit the [Rentrez Documentation](https://cran.r-project.org/web/packages/rentrez/rentrez.pdf)**
 
 This pdf provides details about each function that the R Package Rentrez has. 
-For each command you may find a description, usage example, arguments and return value type. 
-Remember that you can always use the helper(<command>) in R to search command descriptions. 
+For each function you may find a description, usage example, arguments and return value type. 
+Remember that you can always use the `helper( )` in R to search function descriptions. 
 
 ***
 
-## Rentrez Functions
+# Rentrez Functions
 
-The functions listed below helps you learn a little bit more about Rentrez and NCBI Databases. 
+## Helper Functions
 
 ### entrez_dbs()
 
-Lets see what entrez_dbs() returns: 
+This function provides a list of Entrez Databases that you can use to perform searches. 
+Lets see how this function works.
 
 ```{r}
 
 #entrez_dbs()
 
 ```
-
-The function entrez_dbs() returns a list of databases that we can query. 
 
 ### entrez_db_summary()
 
@@ -102,6 +101,7 @@ Now that we know the search fields you can use to build a query, lets perform ou
 ### entrez_search()
 
 Similar to PubMed, Rentrez allows you to perform simple or boolean searches using the same structure that you would use in the PubMed search bar. 
+
 The allowed boolean terms are **AND, OR, and NOT**.
 
 First lets learn the syntax for a simple and a boolean search:
@@ -119,7 +119,7 @@ The entrez_search function takes 4 arguments. The required ones are db and term.
 | Argument      | Type         | Use           |
 | ------------- |------------- |-------------  |
 | db            | CHARACTER    | Name of the database to search for |
-| term          | CHARACTER    | The search term. In here you can use MESH terms, or any of the search fields by using PubMed Query Syntax |
+| term          | CHARACTER    | The search term, you can also use MeSH terms to perform your search |
 | retmode       | VECTOR       | To select the format of your output (XML or JSON), by default will be XML  |
 | use_history   | LOGICAL      | To store a history of searches in NCBI's server |
 
@@ -139,26 +139,24 @@ pcos_ir_pm <- entrez_search(db="pubmed", term= "pcos[all] AND insulin resistance
 pcos_ir_ct_pm <- entrez_search(db="pubmed", term= "pcos[all] AND insulin resistance[all] AND Clinical Trial[ptyp]")
 
 #Articles that include PCOS + Insulin Resistance AND have Authors affiliated with UMD
-pcos_ir_umb_pm <- entrez_search(db="pubmed", term= "pcos[ALL] AND insulin resistance[ALL] AND University of Maryland[AFFL]")
+pcos_ir_umb_pm <- entrez_search(db="pubmed", term= "pcos[all] AND insulin resistance[all] AND University of Maryland[affl]")
 
 ```
 
-**What does the entrez_search() function returns?** 
+**What does the entrez_search() function RETURNS?** 
 
 The entrez_search function returns a list of elements that includes the following: 
 
 | Value         | Type          | Description   |
 | ------------- | ------------- | ------------- |
-| ids           | INTEGER | is an identifying number for each publication record |
-| count         | INTEGER | is the number of publication records retrieved |
-| retmax        | INTEGER | controls the maximum number of returned values, if this is not set the default value is 20 |
+| ids           | INTEGER | Is an identifying number for each publication record found |
+| count         | INTEGER | Is the total number of records found  |
+| retmax        | INTEGER | Is the maximum of records that you can retrieve, the default is 20 |
 | web_history   | WEB HISTORY OBJECT | A key of your stored history search |
-| QueryTranslation | CHARACTER       | search term as the NCBI interpreted it |
-| file          | XMLInternalDocument | type of file resulted from search |
+| QueryTranslation | CHARACTER       | NCBI interpretation of your search term |
+| file          | XMLInternalDocument | Type of file return from search, the default is XML |
   
 An important field here is the QueryTranslation value which allows you to see how NCBI API has interpreted your selected term words according to MESH Terms.
-
-
 
 ### entrez_summary()
 
@@ -175,8 +173,8 @@ The entrez_summary function takes 7 arguments but you dont need to use them all.
 | id           | VECTOR  | Unique ID(s) for records in database  |
 | web_history  | WEB HISTORY OBJECT | A web_history object |
 | version      | CHARACTER | Either 1.0 or 2.0 |
-| always_return_list | LOGICAL | Return a list of esummary objects even when only one ID is provided|
-| retmode      | CHARACTER | By default, xml will be used for version 1.0 records, json for version 2.0. |
+| always_return_list | LOGICAL | Return a list of esummary objects even when only one ID is provided |
+| retmode      | CHARACTER | By default, xml will be used for version 1.0 records |
 | config       | VECTOR | Configuration options passed to httr::GET |
 
 EXAMPLES:
@@ -196,9 +194,11 @@ This function returns an NCBI API object called esummary, which means a list of 
 
 ### entrez_fetch() 
 
-Another way to get records from the NBCI API, is by using the entrez_fetch function. entrez_summary and entrez_fetch are almost the same function, both of them will help you extract data from the NCBI API. But the difference between entrez_summary and entrez_fetch is in the way both functions arranges the data in RStudio. The entrez_summary returns a dataframe with lists of records while entrez_fetch returns an XML document. 
+Another way to get records from the NBCI API, is by using the entrez_fetch function. entrez_summary and entrez_fetch are almost the same function, both of them will help you extract data from the NCBI API. But the difference between entrez_summary and entrez_fetch is in the way both functions arranges the data in RStudio. 
 
-For the entrez_summary function, rentrez has created a function that allows you to extract information from each metadata field avoiding the challenges that comes with navigating an XML parsed documents.  
+The entrez_summary returns a dataframe with lists of records while entrez_fetch returns an XML document. 
+
+For the entrez_summary function, rentrez has created a function that allows you to extract information from each metadata field avoiding the challenges that comes with navigating an XML documents.  
 
 EXAMPLE:
 ```{r}
@@ -206,8 +206,7 @@ EXAMPLE:
 fetch <- entrez_fetch(db= "pubmed", id = pcos_pm$ids, rettype = "xml")
 ```
 
-Now that we now how to get data full records in Rentrez using entrez_esummary and entrez_fetch, lets learn a helper function that will allows us to get specific data fields from 
-NCBI API XML document. 
+Now that we now how to get data full records in Rentrez using entrez_esummary and entrez_fetch, lets learn a helper function that will allows us to get specific data fields from NCBI API XML document. 
 
 ### extract_from_esummary()
 
@@ -251,9 +250,10 @@ The syntax for this function is
 
 `entrez_global_query(term, config = NULL, ...)`
 
-As you can see the function takes config= NULL as an argument, but we are not going to use that. 
-The argument config in this context means the type of connection that you are requesting from the API, this could be GET or POST. 
-In the entrez context if you are performing big data requests they recommend you to use a combination of web_history and config = POST arguments to not saturate their servers. They also ask for big data request to be done at night, again to not saturate their servers. 
+As you can see the function takes config= NULL as an argument, but we are not going to use that in this tutorial. 
+
+The argument `config` means the type of connection that you are requesting from the API, this could be GET or POST. 
+In the entrez context if you are performing big data requests they recommend you to use a combination of `web_history` and `config = POST` arguments to not saturate their servers. They also ask for big data request to be done at night. 
 
 Lets test this function and see what it returns. 
 
@@ -269,12 +269,12 @@ all_databases <- entrez_global_query(global_query)
 
 This function returns a named vector with counts for each a database. This means a list of totals of articles found related to your search term by database.  
 
-Another function that allows you to contrast searches within the NBCI databases is the entrez_links() function.  
+Another function that allows you to contrast searches within the NBCI databases is the `entrez_links()` function.  
 
 
 ### entrez_links()
 
-The entrez_link() function allows you to get links of related records from an NCBI database. 
+The `entrez_link()` function allows you to get links of related records from an NCBI database. 
 This function uses a unique identifier or a set of unique identifiers to search related articles in other NCBI databases. 
 
 Lets have a look at the syntax of this function.
@@ -325,7 +325,7 @@ summary_pcos_snp <- entrez_summary(db="snp", id=pcos_links$links$pubmed_snp, ret
 This function returns an NCBI API object called, "elink", which is a list of id's by database.  
 
 
-## Excersice: Lets practice!
+# Excersice: Lets practice!
 
 Now that we know how to use rentrez lets move this information to a friendly format!
 We are going to learn how to use Rentrez helper function to extract data from the XML given by the entrez_summary function
@@ -355,6 +355,7 @@ Get article summaries
 ```{r}
 
 #<YOUR ANSWER HERE>
+
 ```
 
 
