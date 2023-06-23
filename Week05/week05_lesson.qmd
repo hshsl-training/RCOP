@@ -18,9 +18,9 @@ css: ../styles.css
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Introduction
+# Introduction
 
-### What is Rentrez?
+## What is Rentrez?
 
 Rentrez is an R interface that allows its users to interact with NCBI API. 
 With Rentrez, you do not need to use any additional program or terminal to access NCBI Data. 
@@ -28,7 +28,7 @@ This means that you can request data from multiple databases (PubMed, SNP,Clinva
 
 If you want to learn more about Rentrez, you can access this [Rentrez Tutorial](https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html)
 
-### Install and Load Rentrez
+## Install and Load Rentrez
 
 Now, remember that you need to install any new package that you want to use in RStudio. 
 Also, once you have the package you need to load it. 
