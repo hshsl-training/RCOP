@@ -2656,8 +2656,8 @@ background-origin: content-box;
   <ul class="collapse">
   <li><a href="#entrez_search" id="toc-entrez_search" class="nav-link" data-scroll-target="#entrez_search">entrez_search()</a></li>
   <li><a href="#entrez_summary" id="toc-entrez_summary" class="nav-link" data-scroll-target="#entrez_summary">entrez_summary()</a></li>
-  <li><a href="#entrez_fetch" id="toc-entrez_fetch" class="nav-link" data-scroll-target="#entrez_fetch">entrez_fetch()</a></li>
   <li><a href="#extract_from_esummary" id="toc-extract_from_esummary" class="nav-link" data-scroll-target="#extract_from_esummary">extract_from_esummary()</a></li>
+  <li><a href="#entrez_fetch" id="toc-entrez_fetch" class="nav-link" data-scroll-target="#entrez_fetch">entrez_fetch()</a></li>
   </ul></li>
   <li><a href="#contrasting-ncbi-databases" id="toc-contrasting-ncbi-databases" class="nav-link" data-scroll-target="#contrasting-ncbi-databases">Contrasting NCBI Databases</a>
   <ul class="collapse">
@@ -2674,15 +2674,15 @@ background-origin: content-box;
 
 
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<section id="what-is-rentrez" class="level3">
-<h3 class="anchored" data-anchor-id="what-is-rentrez">What is Rentrez?</h3>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<section id="what-is-rentrez" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-rentrez">What is Rentrez?</h2>
 <p>Rentrez is an R interface that allows its users to interact with NCBI API. With Rentrez, you do not need to use any additional program or terminal to access NCBI Data. This means that you can request data from multiple databases (PubMed, SNP,Clinvar,SRA, Gene and others) in the same RStudio Session.</p>
 <p>If you want to learn more about Rentrez, you can access this <a href="https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html">Rentrez Tutorial</a></p>
 </section>
-<section id="install-and-load-rentrez" class="level3">
-<h3 class="anchored" data-anchor-id="install-and-load-rentrez">Install and Load Rentrez</h3>
+<section id="install-and-load-rentrez" class="level2">
+<h2 class="anchored" data-anchor-id="install-and-load-rentrez">Install and Load Rentrez</h2>
 <p>Now, remember that you need to install any new package that you want to use in RStudio. Also, once you have the package you need to load it.</p>
 <p>How can we do that?</p>
 <div class="cell">
@@ -2692,13 +2692,13 @@ background-origin: content-box;
 <p>Now that have installed the package and load it into Rstudio. Lets take a breif look at the documentation available about this this resource.</p>
 <p><strong>Lets visit the <a href="https://cran.r-project.org/web/packages/rentrez/rentrez.pdf">Rentrez Documentation</a></strong></p>
 <p>This pdf provides details about each function that the R Package Rentrez has. For each function you may find a description, usage example, arguments and return value type. Remember that you can always use the <code>helper( )</code> in R to search function descriptions.</p>
-<hr>
 </section>
 </section>
 <section id="rentrez-functions" class="level1">
 <h1>Rentrez Functions</h1>
 <section id="helper-functions" class="level2">
 <h2 class="anchored" data-anchor-id="helper-functions">Helper Functions</h2>
+<p>Helper functions in Rentrez allows you to get acquainted NCBI databases and their searchable fields. It also allows you get updates on when was the last time that the database was updated.</p>
 <section id="entrez_dbs" class="level3">
 <h3 class="anchored" data-anchor-id="entrez_dbs">entrez_dbs()</h3>
 <p>This function provides a list of Entrez Databases that you can use to perform searches. Lets see how this function works.</p>
@@ -2715,9 +2715,9 @@ background-origin: content-box;
 <pre><code> DbName: pubmed
  MenuName: PubMed
  Description: PubMed bibliographic record
- DbBuild: Build-2023.06.22.22.00
- Count: 35849092
- LastUpdate: 2023/06/22 22:00 </code></pre>
+ DbBuild: Build-2023.06.26.02.06
+ Count: 35858097
+ LastUpdate: 2023/06/26 02:06 </code></pre>
 </div>
 </div>
 </section>
@@ -2781,21 +2781,20 @@ background-origin: content-box;
 </div>
 </div>
 <p>Lets strategize our search! Now that we know the search fields you can use to build a query, lets perform our first search.</p>
-<hr>
 </section>
 </section>
 <section id="performing-searches-in-ncbi-api" class="level2">
 <h2 class="anchored" data-anchor-id="performing-searches-in-ncbi-api">Performing searches in NCBI API</h2>
+<p>The functions listed under this category allows you to use a search term or query to retrieve a list of article/object ids. This list of ids, will later allow you to retrieve partial or full summary records of that article/object. These functions permits you to to create dataframes in R, which allows easy data manipulation.</p>
 <section id="entrez_search" class="level3">
 <h3 class="anchored" data-anchor-id="entrez_search">entrez_search()</h3>
-<p>Similar to PubMed, Rentrez allows you to perform simple or boolean searches using the same structure that you would use in the PubMed search bar.</p>
-<p>The allowed boolean terms are <strong>AND, OR, and NOT</strong>.</p>
+<p>Similar to PubMed, Rentrez allows you to perform simple or boolean searches using the same structure that you would use in the PubMed search bar. This function allows you to find records that matches your keyword.</p>
 <p>First lets learn the syntax for a simple and a boolean search:</p>
 <p>Simple Search:</p>
 <p><code>entrez_search(db= [database name], term= &quot;searchword[field]&quot;)</code></p>
-<p>Boolean search:</p>
+<p>Boolean search: The allowed boolean terms are <strong>AND, OR, and NOT</strong>.</p>
 <p><code>entrez_search(db= [database name], term= &quot;searchword[field]&quot; &lt;boolean term&gt; &quot;searchword[field]&quot;)</code></p>
-<p>The entrez_search function takes 4 arguments. The required ones are db and term.</p>
+<p><strong>The entrez_search function takes 4 arguments. The required ones are db and term.</strong></p>
 <table class="table">
 <colgroup>
 <col style="width: 33%">
@@ -2821,11 +2820,16 @@ background-origin: content-box;
 <td>The search term, you can also use MeSH terms to perform your search</td>
 </tr>
 <tr class="odd">
+<td>retmax</td>
+<td>INTEGER</td>
+<td>The default of retrievable ids is 20, this field can be used to change that number</td>
+</tr>
+<tr class="even">
 <td>retmode</td>
 <td>VECTOR</td>
 <td>To select the format of your output (XML or JSON), by default will be XML</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>use_history</td>
 <td>LOGICAL</td>
 <td>To store a history of searches in NCBI’s server</td>
@@ -2881,7 +2885,7 @@ background-origin: content-box;
 <tr class="even">
 <td>web_history</td>
 <td>WEB HISTORY OBJECT</td>
-<td>A key of your stored history search</td>
+<td>Stored article/object ids in NCBI server</td>
 </tr>
 <tr class="odd">
 <td>QueryTranslation</td>
@@ -2895,13 +2899,14 @@ background-origin: content-box;
 </tr>
 </tbody>
 </table>
-<p>An important field here is the QueryTranslation value which allows you to see how NCBI API has interpreted your selected term words according to MESH Terms.</p>
+<p>An important field here is the QueryTranslation value which allows you to see how NCBI API has interpreted your selected term words according to MESH Terms. Another important field is the ids, this field will have a list of ids that later will allow you to retrieve partial or full summary records.</p>
 </section>
 <section id="entrez_summary" class="level3">
 <h3 class="anchored" data-anchor-id="entrez_summary">entrez_summary()</h3>
-<p>Now lets retrieve basic information about the records we collected in one of our searches. But, first lest learn the syntax of the entrez_summary function.</p>
+<p>Now lets retrieve partial information about the records we collected in one of our searches. This function takes a vector of unique IDs or just one id.</p>
+<p>But, first lets learn the syntax of the <code>entrez_summary()</code> function.</p>
 <p><code>entrez_summary(db=&quot;&quot;, id=, rettype = &quot;&quot;)</code></p>
-<p>The entrez_summary function takes 7 arguments but you dont need to use them all. Those are:</p>
+<p><strong>The <code>entrez_summary()</code> function takes 7 arguments but you don’t need to use them all. The require ones are db, id and rettype.</strong> <strong>If you will be working with web_histories later, you don’t need to use the id argument.</strong></p>
 <table class="table">
 <colgroup>
 <col style="width: 33%">
@@ -2929,7 +2934,7 @@ background-origin: content-box;
 <tr class="odd">
 <td>web_history</td>
 <td>WEB HISTORY OBJECT</td>
-<td>A web_history object</td>
+<td>Stored article/object ids in NCBI server</td>
 </tr>
 <tr class="even">
 <td>version</td>
@@ -2955,29 +2960,19 @@ background-origin: content-box;
 </table>
 <p>EXAMPLES:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Rentrez summary command to get publication information</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#In this command we are giving a list of ids by using pcos_pm$ids. The $ operator extract or subset a specific part of a data object in R. </span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Rentrez summary function to get publication information</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#In this command we are giving a list of ids by using pcos_pm$ids. The $ operator extract a subset of a data object in R. </span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>summary_pcos_pm <span class="ot">&lt;-</span> <span class="fu">entrez_summary</span>(<span class="at">db=</span><span class="st">&quot;pubmed&quot;</span>, <span class="at">id=</span>pcos_pm<span class="sc">$</span>ids, <span class="at">rettype =</span> <span class="st">&quot;xml&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>What does the entrez_summary() function returns?</strong></p>
-<p>This function returns an NCBI API object called esummary, which means a list of items for multiple or a single record.</p>
-</section>
-<section id="entrez_fetch" class="level3">
-<h3 class="anchored" data-anchor-id="entrez_fetch">entrez_fetch()</h3>
-<p>Another way to get records from the NBCI API, is by using the entrez_fetch function. entrez_summary and entrez_fetch are almost the same function, both of them will help you extract data from the NCBI API. But the difference between entrez_summary and entrez_fetch is in the way both functions arranges the data in RStudio.</p>
-<p>The entrez_summary returns a dataframe with lists of records while entrez_fetch returns an XML document.</p>
-<p>For the entrez_summary function, rentrez has created a function that allows you to extract information from each metadata field avoiding the challenges that comes with navigating an XML documents.</p>
-<p>EXAMPLE:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fetch <span class="ot">&lt;-</span> <span class="fu">entrez_fetch</span>(<span class="at">db=</span> <span class="st">&quot;pubmed&quot;</span>, <span class="at">id =</span> pcos_pm<span class="sc">$</span>ids, <span class="at">rettype =</span> <span class="st">&quot;xml&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Now that we now how to get data full records in Rentrez using entrez_esummary and entrez_fetch, lets learn a helper function that will allows us to get specific data fields from NCBI API XML document.</p>
+<p><strong>What does the <code>entrez_summary()</code> function RETURNS?</strong></p>
+<p>This function returns an NCBI API object called esummary, which means a list of items for multiple or a single record. The elements return behave like a list so you can use $ to call any item.</p>
+<p>For the <code>entrez_summary()</code> function, Rentrez has created a function that allows you to extract information from each metadata field avoiding the challenges that comes with navigating an XML documents.</p>
 </section>
 <section id="extract_from_esummary" class="level3">
 <h3 class="anchored" data-anchor-id="extract_from_esummary">extract_from_esummary()</h3>
-<p>This function helps you navigate through an XMLInternalDocument and extract elements from a list of esummary records. But, first lest learn the syntax of the extract_from_esummary function.</p>
+<p>This function helps you navigate through an XMLInternalDocument and extract elements from a list of esummary records. But, first lest learn the syntax of the <code>extract_from_esummary()</code> function.</p>
 <p><code>extract_from_esummary(esummaries, elements, simplify = TRUE)</code></p>
-<p>The extract_from_summary function takes 3 arguments but you dont need to use them all. Those are:</p>
+<p><strong>The <code>extract_from_summary()</code> function takes 3 arguments but you don’t need to use them all. The required ones are esummary and elements.</strong></p>
 <table class="table">
 <colgroup>
 <col style="width: 33%">
@@ -3011,21 +3006,28 @@ background-origin: content-box;
 </table>
 <p>EXAMPLE:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If you have been performing searches in PubMed, you can use the following coding lines as guide.</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>uids <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary_pcos_pm,<span class="st">&quot;uid&quot;</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>authors <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary_pcos_pm,<span class="st">&quot;authors&quot;</span>)[<span class="st">&quot;name&quot;</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If you have been performing searches in PubMed, you can use the following coding lines as guide.</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>uids <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary_pcos_pm,<span class="st">&quot;uid&quot;</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>authors <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary_pcos_pm,<span class="st">&quot;authors&quot;</span>)[<span class="st">&quot;name&quot;</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>What does the extract_from_esummary() function returns?</strong></p>
+<p><strong>What does the extract_from_esummary() function RETURNS?</strong></p>
 <p>This function returns a list or vector containing information of the requested item.</p>
-<hr>
+</section>
+<section id="entrez_fetch" class="level3">
+<h3 class="anchored" data-anchor-id="entrez_fetch">entrez_fetch()</h3>
+<p>Another way to get records from the NBCI API, is by using the <code>entrez_fetch()</code> function. In some cases, <code>entrez_fetch()</code>, will retrieve a complete bibliographic record of the article or data object. Another difference between <code>entrez_summary</code> and <code>entrez_fetch</code> is in the way both functions arrange the data in RStudio. <code>entrez_summary()</code> in most of the cases will return a data frame with elements that behave as lists, while <code>entrez_fetch()</code> will return a XML Document.</p>
+<p>EXAMPLE:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fetch <span class="ot">&lt;-</span> <span class="fu">entrez_fetch</span>(<span class="at">db=</span> <span class="st">&quot;pubmed&quot;</span>, <span class="at">id =</span> pcos_pm<span class="sc">$</span>ids, <span class="at">rettype =</span> <span class="st">&quot;xml&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 </section>
 <section id="contrasting-ncbi-databases" class="level2">
 <h2 class="anchored" data-anchor-id="contrasting-ncbi-databases">Contrasting NCBI Databases</h2>
 <section id="entrez_global_query" class="level3">
 <h3 class="anchored" data-anchor-id="entrez_global_query">entrez_global_query()</h3>
-<p>The entrez_global_query() function allows you to search a term on all NCBI Entrez Databases.</p>
+<p>The <code>entrez_global_query()</code> function allows you to search a term on all NCBI Entrez Databases.</p>
 <p>The syntax for this function is</p>
 <p><code>entrez_global_query(term, config = NULL, ...)</code></p>
 <p>As you can see the function takes config= NULL as an argument, but we are not going to use that in this tutorial.</p>
@@ -3041,7 +3043,7 @@ background-origin: content-box;
 Warning in FUN(X[[i]], ...): NAs introduced by coercion</code></pre>
 </div>
 </div>
-<p><strong>What does the entrez_global_query() function returns?</strong></p>
+<p><strong>What does the entrez_global_query() function RETURNS?</strong></p>
 <p>This function returns a named vector with counts for each a database. This means a list of totals of articles found related to your search term by database.</p>
 <p>Another function that allows you to contrast searches within the NBCI databases is the <code>entrez_links()</code> function.</p>
 </section>
@@ -3073,12 +3075,12 @@ Warning in FUN(X[[i]], ...): NAs introduced by coercion</code></pre>
 <tr class="even">
 <td>web_history</td>
 <td>WEB HISTORY OBJECT</td>
-<td>a web_history object</td>
+<td>Store article/object ids in NCBI servers</td>
 </tr>
 <tr class="odd">
 <td>id</td>
 <td>VECTOR</td>
-<td>vector with unique ID(s) for records in database db</td>
+<td>Vector with unique ID(s) for records in database db</td>
 </tr>
 <tr class="even">
 <td>db</td>
@@ -3093,17 +3095,12 @@ Warning in FUN(X[[i]], ...): NAs introduced by coercion</code></pre>
 <tr class="even">
 <td>by_id</td>
 <td>LOGICAL</td>
-<td>If FALSE (default) return a single elink objects containing links for all of the provided ids. Alternatively, if TRUE return a list of elink objects, one</td>
+<td>If FALSE (default) return a single elink objects containing links for all of the provided ids. Alternatively, if TRUE return a list of elink objects, one for each ID in id.</td>
 </tr>
 <tr class="odd">
-<td>for each ID in id.</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
 <td>config</td>
 <td>VECTOR</td>
-<td>configuration options passed to httr::GET</td>
+<td>Configuration options passed to httr::GET</td>
 </tr>
 </tbody>
 </table>

@@ -51,11 +51,16 @@ This pdf provides details about each function that the R Package Rentrez has.
 For each function you may find a description, usage example, arguments and return value type. 
 Remember that you can always use the `helper( )` in R to search function descriptions. 
 
-***
+
 
 # Rentrez Functions
 
 ## Helper Functions
+
+
+Helper functions in Rentrez allows you to get acquainted NCBI databases and their searchable fields.
+It also allows you get updates on when was the last time that the database was updated.
+
 
 ### entrez_dbs()
 
@@ -94,15 +99,21 @@ entrez_db_searchable("pubmed")
 Lets strategize our search!
 Now that we know the search fields you can use to build a query, lets perform our first search. 
 
-***
+
 
 ## Performing searches in NCBI API
+
+The functions listed under this category allows you to use a search term or query to retrieve a list of article/object ids. 
+This list of ids, will later allow you to retrieve partial or full summary records of that article/object. 
+These functions permits you to to create dataframes in R, which allows easy data manipulation. 
+
+
+
 
 ### entrez_search()
 
 Similar to PubMed, Rentrez allows you to perform simple or boolean searches using the same structure that you would use in the PubMed search bar. 
-
-The allowed boolean terms are **AND, OR, and NOT**.
+This function allows you to find records that matches your keyword. 
 
 First lets learn the syntax for a simple and a boolean search:
 
@@ -111,15 +122,17 @@ Simple Search:
 `entrez_search(db= [database name], term= "searchword[field]")`
 
 Boolean search:
+The allowed boolean terms are **AND, OR, and NOT**.
 
 `entrez_search(db= [database name], term= "searchword[field]" <boolean term> "searchword[field]")`
 
-The entrez_search function takes 4 arguments. The required ones are db and term.  
+**The entrez_search function takes 4 arguments. The required ones are db and term.**  
 
 | Argument      | Type         | Use           |
 | ------------- |------------- |-------------  |
 | db            | CHARACTER    | Name of the database to search for |
 | term          | CHARACTER    | The search term, you can also use MeSH terms to perform your search |
+| retmax        | INTEGER      |  The default of retrievable ids is 20, this field can be used to change that number |
 | retmode       | VECTOR       | To select the format of your output (XML or JSON), by default will be XML  |
 | use_history   | LOGICAL      | To store a history of searches in NCBI's server |
 
@@ -152,26 +165,34 @@ The entrez_search function returns a list of elements that includes the followin
 | ids           | INTEGER | Is an identifying number for each publication record found |
 | count         | INTEGER | Is the total number of records found  |
 | retmax        | INTEGER | Is the maximum of records that you can retrieve, the default is 20 |
-| web_history   | WEB HISTORY OBJECT | A key of your stored history search |
+| web_history   | WEB HISTORY OBJECT | Stored article/object ids in NCBI server |
 | QueryTranslation | CHARACTER       | NCBI interpretation of your search term |
 | file          | XMLInternalDocument | Type of file return from search, the default is XML |
+
   
 An important field here is the QueryTranslation value which allows you to see how NCBI API has interpreted your selected term words according to MESH Terms.
+Another important field is the ids, this field will have a list of ids that later will allow you to retrieve partial or full summary records. 
+
+
+
 
 ### entrez_summary()
 
-Now lets retrieve basic information about the records we collected in one of our searches. 
-But, first lest learn the syntax of the entrez_summary function. 
+Now lets retrieve partial information about the records we collected in one of our searches. 
+This function takes a vector of unique IDs or just one id.
+
+But, first lets learn the syntax of the `entrez_summary()` function. 
 
 `entrez_summary(db="", id=, rettype = "")`
 
-The entrez_summary function takes 7 arguments but you dont need to use them all. Those are: 
+**The `entrez_summary()` function takes 7 arguments but you don't need to use them all. The require ones are db, id and rettype.** 
+**If you will be working with web_histories later, you don't need to use the id argument.**
 
 | Argument      | Type          | Use           |
 | ------------- | ------------- | ------------- |
 | db           | CHARACTER | Name of the database to search for |
 | id           | VECTOR  | Unique ID(s) for records in database  |
-| web_history  | WEB HISTORY OBJECT | A web_history object |
+| web_history  | WEB HISTORY OBJECT | Stored article/object ids in NCBI server |
 | version      | CHARACTER | Either 1.0 or 2.0 |
 | always_return_list | LOGICAL | Return a list of esummary objects even when only one ID is provided |
 | retmode      | CHARACTER | By default, xml will be used for version 1.0 records |
@@ -181,41 +202,28 @@ EXAMPLES:
 
 ```{r}
 
-#Rentrez summary command to get publication information
-#In this command we are giving a list of ids by using pcos_pm$ids. The $ operator extract or subset a specific part of a data object in R. 
+#Rentrez summary function to get publication information
+#In this command we are giving a list of ids by using pcos_pm$ids. The $ operator extract a subset of a data object in R. 
 summary_pcos_pm <- entrez_summary(db="pubmed", id=pcos_pm$ids, rettype = "xml")
 
 ```
 
-**What does the entrez_summary() function returns?**
+**What does the `entrez_summary()` function RETURNS?**
 
 This function returns an NCBI API object called esummary, which means a list of items for multiple or a single record.
+The elements return behave like a list so you can use $ to call any item. 
 
+For the `entrez_summary()` function, Rentrez has created a function that allows you to extract information from each metadata field avoiding the challenges that comes with navigating an XML documents. 
 
-### entrez_fetch() 
-
-Another way to get records from the NBCI API, is by using the entrez_fetch function. entrez_summary and entrez_fetch are almost the same function, both of them will help you extract data from the NCBI API. But the difference between entrez_summary and entrez_fetch is in the way both functions arranges the data in RStudio. 
-
-The entrez_summary returns a dataframe with lists of records while entrez_fetch returns an XML document. 
-
-For the entrez_summary function, rentrez has created a function that allows you to extract information from each metadata field avoiding the challenges that comes with navigating an XML documents.  
-
-EXAMPLE:
-```{r}
-
-fetch <- entrez_fetch(db= "pubmed", id = pcos_pm$ids, rettype = "xml")
-```
-
-Now that we now how to get data full records in Rentrez using entrez_esummary and entrez_fetch, lets learn a helper function that will allows us to get specific data fields from NCBI API XML document. 
 
 ### extract_from_esummary()
 
 This function helps you navigate through an XMLInternalDocument and extract elements from a list of esummary records. 
-But, first lest learn the syntax of the extract_from_esummary function. 
+But, first lest learn the syntax of the `extract_from_esummary()` function. 
 
 `extract_from_esummary(esummaries, elements, simplify = TRUE)`
 
-The extract_from_summary function takes 3 arguments but you dont need to use them all. Those are: 
+**The `extract_from_summary()` function takes 3 arguments but you don't need to use them all. The required ones are esummary and elements.**
 
 | Argument      | Type          | Use           |
 | ------------- | ------------- | ------------- |
@@ -234,17 +242,31 @@ authors <- extract_from_esummary(summary_pcos_pm,"authors")["name",]
 
 ```
 
-**What does the extract_from_esummary() function returns?**
+**What does the extract_from_esummary() function RETURNS?**
 
 This function returns a list or vector containing information of the requested item.
 
-***
+
+
+### entrez_fetch() 
+
+Another way to get records from the NBCI API, is by using the `entrez_fetch()` function. In some cases, `entrez_fetch()`, will retrieve a complete bibliographic record of the article or data object. 
+Another difference  between `entrez_summary` and `entrez_fetch` is in the way both functions arrange the data in RStudio. `entrez_summary()` in most of the cases will return a data frame with elements that behave as lists, while `entrez_fetch()` will return a XML Document. 
+
+EXAMPLE:
+```{r}
+
+fetch <- entrez_fetch(db= "pubmed", id = pcos_pm$ids, rettype = "xml")
+```
+
+
+
 
 ## Contrasting NCBI Databases
 
 ### entrez_global_query()
 
-The entrez_global_query() function allows you to search a term on all NCBI Entrez Databases. 
+The `entrez_global_query()` function allows you to search a term on all NCBI Entrez Databases. 
 
 The syntax for this function is 
 
@@ -265,7 +287,7 @@ all_databases <- entrez_global_query(global_query)
 
 ```
 
-**What does the entrez_global_query() function returns?**
+**What does the entrez_global_query() function RETURNS?**
 
 This function returns a named vector with counts for each a database. This means a list of totals of articles found related to your search term by database.  
 
@@ -286,13 +308,12 @@ Lets have a look of the arguments required for this function.
 | Argument      | Type          | Use           |
 | ------------- | ------------- | ------------- |
 | dbfrom  | CHARACTER  | Name of database from which the Id(s) originate |
-| web_history      | WEB HISTORY OBJECT  | a web_history object |
-| id      | VECTOR              | vector with unique ID(s) for records in database db |
-| db      | CHARACTER           |  Name of the database to search for links |
+| web_history      | WEB HISTORY OBJECT  | Stored article/object ids in NCBI servers |
+| id      | VECTOR              | Vector with unique ID(s) for records in database db |
+| db      | CHARACTER           | Name of the database to search for links |
 | cmd     | CHARACER            | Select an option from a defined list: neighbor, neighbor_score, neighbor_hsitory, acheck, ncheck, lcheck, llinks, llinkslib, prlinks |
-| by_id   | LOGICAL             |  If FALSE (default) return a single elink objects containing links for all of the provided ids. Alternatively, if TRUE return a list of elink objects, one
-for each ID in id. |
-| config  | VECTOR              | configuration options passed to httr::GET |
+| by_id   | LOGICAL             | If FALSE (default) return a single elink objects containing links for all of the provided ids. Alternatively, if TRUE return a list of elink objects, one for each ID in id. |
+| config  | VECTOR              | Configuration options passed to httr::GET |
 
 Lets test this variable!
 
