@@ -119,12 +119,12 @@ First lets learn the syntax for a simple and a boolean search:
 
 Simple Search:
 
-`entrez_search(db= [database name], term= "searchword[field]")`
+`entrez_search(db= "database name", term= "searchword[field]")`
 
 Boolean search:
 The allowed boolean terms are **AND, OR, and NOT**.
 
-`entrez_search(db= [database name], term= "searchword[field]" <boolean term> "searchword[field]")`
+`entrez_search(db= "database name", term= "searchword[field] <boolean term> searchword[field]")`
 
 **The entrez_search function takes 4 arguments. The required ones are db and term.**  
 
@@ -183,7 +183,7 @@ This function takes a vector of unique IDs or just one id.
 
 But, first lets learn the syntax of the `entrez_summary()` function. 
 
-`entrez_summary(db="", id=, rettype = "")`
+`entrez_summary(db="database name", id=, rettype = "")`
 
 **The `entrez_summary()` function takes 7 arguments but you don't need to use them all. The require ones are db, id and rettype.** 
 **If you will be working with web_histories later, you don't need to use the id argument.**
@@ -270,7 +270,7 @@ The `entrez_global_query()` function allows you to search a term on all NCBI Ent
 
 The syntax for this function is 
 
-`entrez_global_query(term, config = NULL, ...)`
+`entrez_global_query(term= "search term", config = NULL, ...)`
 
 As you can see the function takes config= NULL as an argument, but we are not going to use that in this tutorial. 
 
@@ -301,7 +301,7 @@ This function uses a unique identifier or a set of unique identifiers to search 
 
 Lets have a look at the syntax of this function.
 
-`entrez_link(dbfrom = "" , web_history = "" , id = "" , db = "", cmd = "", by_id = FALSE, config = "")`
+`entrez_link(dbfrom = "database name" , web_history = "" , id = "" , db = "database name", cmd = "", by_id = FALSE, config = "")`
 
 Lets have a look of the arguments required for this function. 
 

@@ -402,34 +402,21 @@ Irmarie Fraticelli-Rodriguez
 
   <p class="date">7/13/23</p>
 </section>
-<section>
-<section id="learning-objectives" class="title-slide slide level1 center">
-<h1>Learning Objectives:</h1>
-<p>The objective of this session is to:</p>
-<ul>
-<li>Understand how to use/read API documentation.</li>
-<li>Learn how to pull data from API.</li>
-<li>Learn how to select and execute API commands.</li>
-<li>Wrangle data to usable form (like csv or a graph).</li>
-</ul>
-</section>
-<section id="course-activities" class="slide level2">
-<h2>Course Activities:</h2>
-<p>This section activities are:</p>
+<section id="learning-objectives" class="slide level2">
+<h2>Learning Objectives:</h2>
+<p>This section objectives are:</p>
 <ul>
 <li>Explore the Rentrez API documentation.</li>
-<li>Download Rentrez and learn basic search commands.</li>
+<li>Download Rentrez and learn basic search functions.</li>
 <li>Perform simple and Boolean searches.</li>
 <li>Extract data using Rentrez helper function and placing it into a dataframe.</li>
 <li>Create a CSV file using the extracted data from Rentez.</li>
 </ul>
-</section>
-<section id="output-of-this-session" class="slide level2">
-<h2>Output of this session:</h2>
+<p><strong>Output of this session:</strong></p>
 <ul>
 <li>A CSV file with bibliographic data extracted from Rentrez.</li>
 </ul>
-</section></section>
+</section>
 <section>
 <section id="what-is-an-application-programming-interface" class="title-slide slide level1 center">
 <h1>What is an Application Programming Interface?</h1>
@@ -454,7 +441,6 @@ Irmarie Fraticelli-Rodriguez
 <li>This means that you can request data from multiple databases (PubMed, SNP,Clinvar,SRA, Gene and others) in the same RStudio Session.</li>
 </ul></li>
 </ul>
-<p>If you want to learn more about Rentrez, you can access this <a href="https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html">Rentrez Tutorial</a></p>
 </section>
 <section id="install-and-load-rentrez" class="slide level2">
 <h2>Install and Load Rentrez</h2>
@@ -475,6 +461,24 @@ Irmarie Fraticelli-Rodriguez
 <p>For each command you may find a description, usage example, arguments and return value type.</p>
 <p><strong>Remember that you can always use the <code>help(&lt;function&gt;)</code> in R to search command descriptions.</strong></p>
 </section></section>
+<section id="rentrez-functions" class="title-slide slide level1 center">
+<h1>Rentrez Functions</h1>
+<ol type="1">
+<li>Rentrez Helper Functions</li>
+<li>Rentrez Search Functions</li>
+<li>Rentrez linking or contrasting database functions</li>
+</ol>
+<p><strong>Not covered areas in this RCOP session</strong></p>
+<ol type="1">
+<li>Using <code>use_history</code> or <code>web_history</code> function arguments</li>
+<li>Setting up an account with NCBI API to perform big data queries using API credentials.</li>
+<li>Fetch DNA sequences in fasta format</li>
+<li>Fetch a parsed XML document</li>
+<li>Using the entrez_links narrowing searches functionalities.</li>
+</ol>
+<p>Reference: <a href="https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html">Rentrez Tutorial</a> by David Winter</p>
+</section>
+
 <section>
 <section id="rentrez-helper-functions" class="title-slide slide level1 center">
 <h1>Rentrez Helper Functions</h1>
@@ -505,7 +509,7 @@ Irmarie Fraticelli-Rodriguez
 </tr>
 <tr class="odd">
 <td>entrez_db_searchable()</td>
-<td>Set of search terms that can used with this database</td>
+<td>Set of search fields that can used with this database</td>
 </tr>
 <tr class="even">
 <td>entrez_db_links()</td>

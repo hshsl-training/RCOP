@@ -18,27 +18,17 @@ footer: <https://www2.hshsl.umaryland.edu/cdabs/>
 ---
 
 
-# Learning Objectives:
+## Learning Objectives:
 
-The objective of this session is to:
-
-* Understand how to use/read API documentation.
-* Learn how to pull data from API.
-* Learn how to select and execute API commands.
-* Wrangle data to usable form (like csv or a graph).
-
-
-## Course Activities:
-
-This section activities are:
+This section objectives are:
 
 * Explore the Rentrez API documentation.
-* Download Rentrez and learn basic search commands.
+* Download Rentrez and learn basic search functions.
 * Perform simple and Boolean searches.
 * Extract data using Rentrez helper function and placing it into a dataframe.
 * Create a CSV file using the extracted data from Rentez.
 
-## Output of this session:
+**Output of this session:**
 
 * A CSV file with bibliographic data extracted from Rentrez.
 
@@ -61,10 +51,6 @@ The HTTP Request Method is the format that the text should be arranged so that t
 * Rentrez is an R interface that allows its users to interact with NCBI API. 
 * With Rentrez, you do not need to use any additional program or terminal to access NCBI Data. 
   * This means that you can request data from multiple databases (PubMed, SNP,Clinvar,SRA, Gene and others) in the same RStudio Session.
-
-
-If you want to learn more about Rentrez, you can access this [Rentrez Tutorial](https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html)
-
 
 ## Install and Load Rentrez
 
@@ -90,6 +76,22 @@ For each command you may find a description, usage example, arguments and return
 
 **Remember that you can always use the `help(<function>)` in R to search command descriptions.** 
 
+# Rentrez Functions
+
+1. Rentrez Helper Functions
+1. Rentrez Search Functions
+1. Rentrez linking or contrasting database functions
+
+**Not covered areas in this RCOP session**
+
+1. Using `use_history` or `web_history` function arguments
+1. Setting up an account with NCBI API to perform big data queries using API credentials. 
+1. Fetch DNA sequences in fasta format
+1. Fetch a parsed XML document
+1. Using the entrez_links narrowing searches functionalities.
+
+Reference: [Rentrez Tutorial](https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html) by David Winter
+
 
 # Rentrez Helper Functions
 
@@ -101,7 +103,7 @@ The functions listed below helps you learn a little bit more about Rentrez and N
 |-------------------------|------------------------------------|
 | entrez_dbs()            | List of Entrez Databases                             |
 | entrez_db_summary()     | Brief description of what the database is            |
-| entrez_db_searchable()  | Set of search terms that can used with this database |
+| entrez_db_searchable()  | Set of search fields that can used with this database |
 | entrez_db_links()       | Set of databases that might contain linked records   |
 
 
@@ -124,18 +126,18 @@ First lets learn the syntax for a simple and a boolean search:
 
 **Simple Search:**
 
-`entrez_search(db= [database name], term= "searchword[field]")`
+`entrez_search(db= "database name", term= "searchword[field]")`
 
 **Boolean search:**
 
-`entrez_search(db= [database name], term= "searchword[field]" <boolean term> "searchword[field]")`
+`entrez_search(db= "database name", term= "searchword[field] <boolean term> searchword[field]")`
 
 
 ## entrez_summary()
 
 Now lets retrieve basic information about the records we collected in one of our searches. But, first lets learn the syntax of the entrez_summary function.
 
-`entrez_summary(db="", id=, rettype = "")`
+`entrez_summary(db="database name", id=, rettype = "xml")`
 
 
 ## entrez_fetch()
@@ -147,7 +149,7 @@ For the entrez_summary function, rentrez has created a function that allows you 
 
 Lets learn the syntax of the entrez_fetch function.
 
-`entrez_fetch(db= <database name>, id= , rettype= "xml")`
+`entrez_fetch(db= "database name", id= , rettype= "xml")`
 
 
 ## extract_from_esummary()
