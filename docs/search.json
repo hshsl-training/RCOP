@@ -208,5 +208,82 @@
     "title": "Working with Dates",
     "section": "Introduction",
     "text": "Introduction\nDates are a particular kind of numeric data type in R. Dates can be tricky to work for a couple of reasons. Often when you import data into R, it will interpret dates as strings, or character data type. This will make things difficult if you want to do calculations with dates, or parse out a part of a date. Second, time units are often variable, months have different numbers of days, there are leap years, and time zones can be another factor to consider. In this lesson, we’ll be introducing the lubridate package, which is part of the tidyverse, and makes working with dates much more manageable."
+  },
+  {
+    "objectID": "Week03/week03_lesson.html",
+    "href": "Week03/week03_lesson.html",
+    "title": "R Community of Practice Week 3",
+    "section": "",
+    "text": "This week we will learn about ggplot2 - a tidyverse package for visualizing data. It is a powerful and flexible tool that allows you to create fully customizable, publication quality graphics. The gg in ggplot2 stands for grammar of graphics. The grammar of graphics is the underlying philosophy of the package. It focuses on creating graphics in layers. Start with the data – map the data to aesthetic qualities like size, shape, and color and geometries like dots, lines, and polygons. Further refine the appearance of your plot by adjusting scales and legends, labels, coordinate systems. Add annotations."
+  },
+  {
+    "objectID": "Week03/week03_lesson.html#the-data",
+    "href": "Week03/week03_lesson.html#the-data",
+    "title": "R Community of Practice Week 3",
+    "section": "The Data",
+    "text": "The Data\nThe data we’re working with this week is familiar. We’ll visualize the workshops data frames we created in Week 1.\nBecause we saved that data as .RDS files, we can open them up and load them to our environment.\n\nall_workshops <- readRDS(file = \"data/all_workshops.RDS\")\nworkshop_breakdown <- readRDS(file = \"data/workshop_breakdown.RDS\")\n\nWe’ll complete the following tasks:\n\nCreate a basic bar chart comparing workshop attendance among the various schools.\nCreate a grouped bar chart comparing workshop attendance among the schools and university roles.\n\nAlong the way we will also learn how to customize features of our graph like the color, labels, and themes.\nLet’s open a new script and load the libraries we’ll be working with in this lesson:\n\nlibrary(tidyverse)"
+  },
+  {
+    "objectID": "Week03/week03_lesson.html#ggplot2-basics",
+    "href": "Week03/week03_lesson.html#ggplot2-basics",
+    "title": "R Community of Practice Week 3",
+    "section": "ggplot2 Basics",
+    "text": "ggplot2 Basics\nAll ggplot2 graphs start with the same basic template:\n<DATA> %>%\n    ggplot(aes(<MAPPINGS>)) +\n    <GEOM_FUNCTION>() +\n\n    <Additional GEOMS, SCALES, THEMES, etc. . . >\n\nAll graphs start with the ggplot function and the data. We’ll use the pipe to pipe the data to the function.\n\nall_workshops %>% \n  ggplot()\n\n\n\n\nWe see that even this initializes the plot area of RStudio."
+  },
+  {
+    "objectID": "Week03/week03_lesson.html#building-a-basic-bar-chart",
+    "href": "Week03/week03_lesson.html#building-a-basic-bar-chart",
+    "title": "R Community of Practice Week 3",
+    "section": "Building a basic bar chart",
+    "text": "Building a basic bar chart\nNext, we define a mapping (using the aesthetic (aes) function), by selecting the variables to be plotted and specifying how to present them in the graph, e.g. as x/y positions or characteristics such as size, shape, color, etc. Here we will say that the x axis should contain the affiliation variable. Note how the x-axis populates with some numbers and tick marks. We do not need to specify a y variable, since it will look at the count by default.\n\nall_workshops %>% \n  ggplot(mapping=aes(x=affiliation))\n\n\n\n\nNext we need to add ‘geoms’ – graphical representations of the data in the plot (points, lines, bars). ggplot2 offers many different geoms for common graph types. To add a geom to the plot use the + operator.\n\nall_workshops %>% \n  ggplot(mapping=aes(x=affiliation)) +\n  geom_bar()\n\n\n\n\nBy default bar graphs will display the count of the x variable, but it is also possible to specify a y variable that contains the count, as we do in our summarized dataset workshop_breakdown.\nIn this case, we would want to be able to specify affiliation as the x variable and n as the y variable.\n\nworkshop_breakdown %>% \n  ggplot(mapping = aes(x=affiliation, y=n)) +\n  geom_bar(stat=\"identity\")\n\n\n\n\nYou need to make one other adjustment, and change the stat argument from it’s default of “count” to “identity” This tells it to base the y axis on the specified variable."
+  },
+  {
+    "objectID": "Week03/week03_lesson.html#geom-specifications",
+    "href": "Week03/week03_lesson.html#geom-specifications",
+    "title": "R Community of Practice Week 3",
+    "section": "geom specifications",
+    "text": "geom specifications\nAll geoms have certain attributes that can be modified. Polygons like bars, have the properties fill and color. You can change the inside color of a bar with fill, and the outside with color.\nIf we want to change the color of a bar, we can use the fill and color arguments in the geom_bar layer.\n\nall_workshops %>% \n  ggplot(mapping=aes(x=affiliation)) +\n  geom_bar(fill=\"blue\", color=\"black\")\n\n\n\n\nR has several built in color names. You can see them by calling the function colors(). You can also specify colors using rgb and hexadecimal codes.\nAn important concept when working with ggplot is the idea of aesthetic mapping. We used the aes function to map the x and y axis to variables. We could also do this to assign color and fill to our bars.\n\nall_workshops %>% \n  ggplot(mapping=aes(x=affiliation)) +\n  geom_bar(aes(fill=affiliation))\n\n\n\n\nNow a different color from the default ggplot palette is mapped to each level of our affiliation variable."
+  },
+  {
+    "objectID": "Week03/week03_lesson.html#reordering-bars",
+    "href": "Week03/week03_lesson.html#reordering-bars",
+    "title": "R Community of Practice Week 3",
+    "section": "Reordering Bars",
+    "text": "Reordering Bars\nBy default our graph was ordered alphabetically by level, but it is often helpful to sort the bars numerically. We can do this with the reorder function.\n\nall_workshops %>% \n  ggplot(mapping = aes(x=forcats::fct_infreq(affiliation))) +\n  geom_bar()"
+  },
+  {
+    "objectID": "Week03/week03_lesson.html#grouped-bar-charts",
+    "href": "Week03/week03_lesson.html#grouped-bar-charts",
+    "title": "R Community of Practice Week 3",
+    "section": "Grouped bar charts",
+    "text": "Grouped bar charts\nWhat if we want to compare affiliation and status? To do this we can create a grouped bar chart by mapping fill to the status variable.\n\nall_workshops %>% \n  ggplot(mapping=aes(x=affiliation, fill=status)) +\n  geom_bar()\n\n\n\n\nBy default this creates a stacked bar chart. To make it grouped, we add a position=\"dodged\" argument to geom_bar()\n\nall_workshops %>% \n  ggplot(mapping=aes(x=fct_infreq(affiliation), fill=status)) +\n  geom_bar(position = \"dodge\", width =0.75)"
+  },
+  {
+    "objectID": "Week03/week03_lesson.html#working-with-color-palettes",
+    "href": "Week03/week03_lesson.html#working-with-color-palettes",
+    "title": "R Community of Practice Week 3",
+    "section": "Working with color palettes",
+    "text": "Working with color palettes\nThere are many options for changing the color palette of your plot. You can set your palette manually:\n\nmyPalette <- c(\"#C8102E\", \"#FFCD00\", \"#2C2A29\")\n\nall_workshops %>% \n  ggplot(mapping=aes(x=fct_infreq(affiliation), fill=status)) +\n  geom_bar(position = \"dodge\", width =0.75) + scale_fill_manual(values = myPalette)\n\n\n\n\nGenerally, it may be preferable to work with one of the built in ggplot2 or R palettes, or to install one of several packages with additional palettes such as RColorBrewer, viridis, ggthemes, ggsci, or wesanderson.\nLet’s try applying a viridis palette. viridis was designed to be especially robust for many forms of color-blindness. It is also meant to print well in grey scale. As an additional advantage, a lightweight form of the package is included with ggplot2, so there is no need to install additional packages.\n\nall_workshops %>% \n  ggplot(mapping=aes(x=fct_infreq(affiliation), fill=status)) +\n  geom_bar(position = \"dodge\", width =0.75) + scale_fill_viridis_d()\n\n\n\n\nLearn more from the viridis documentation"
+  },
+  {
+    "objectID": "Week03/week03_lesson.html#adding-titles-and-axis-labels",
+    "href": "Week03/week03_lesson.html#adding-titles-and-axis-labels",
+    "title": "R Community of Practice Week 3",
+    "section": "Adding titles and axis labels",
+    "text": "Adding titles and axis labels\nA good plot communicates clearly. So far we’ve talked about achieving this through the aesthetic aspects of your plot, but it’s important to make sure your graph has a clear title and axis labels as well. There are a few ways to do this in ggplot2, but one of the simplest is to use the labs() function.\n\nall_workshops %>% \n  ggplot(mapping=aes(x=fct_infreq(affiliation), fill=status)) +\n  geom_bar(position = \"dodge\", width =0.75) + scale_fill_viridis_d() +\n  labs(title = \"Who is attending library workshops?\", subtitle = \"Attendance by School and Role, 2018-2023\", x=\"University Role\", y= \"Number of Attendees\")"
+  },
+  {
+    "objectID": "Week03/week03_lesson.html#changing-the-theme",
+    "href": "Week03/week03_lesson.html#changing-the-theme",
+    "title": "R Community of Practice Week 3",
+    "section": "Changing the theme",
+    "text": "Changing the theme\nThe theme of a ggplot2 graph controls the overall look and all non-data elements of the plot. There are several built-in themes which can be applied as another layer. Start typing theme_ in RStudio to see a list of themes. You can also use the theme() function to modify aspects of an existing theme.\n\nall_workshops %>% \n  ggplot(mapping=aes(x=fct_infreq(affiliation), fill=status)) +\n  geom_bar(position = \"dodge\", width =0.75) + scale_fill_viridis_d() +\n  labs(title = \"Who is attending library workshops?\", subtitle = \"Attendance by School and Role, 2018-2023\", x=\"University Role\", y= \"Number of Attendees\") +\n  theme_classic()"
+  },
+  {
+    "objectID": "Week03/week03_lesson.html#helpful-resources",
+    "href": "Week03/week03_lesson.html#helpful-resources",
+    "title": "R Community of Practice Week 3",
+    "section": "Helpful Resources",
+    "text": "Helpful Resources\n\nggplot2 documentation\nR Graph Gallery\nR Graphics Cookbook"
   }
 ]
