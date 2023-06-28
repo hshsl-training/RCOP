@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "NNLM + CDABS R Community of Practice",
     "section": "",
-    "text": "Objective:\nThe objective of this website is to provide supporting documentation for R Community of Practice. In the navigation bar you will find each week lesson.\nWeekly Topics\n\n\n\n\n\n\n\n\nWeek\nTopic\nSlides\n\n\n\n\nWeek 1\nReading multiple files\nWeek 1\n\n\nWeek 2\nWorking with Dates\nWeek 2\n\n\nWeek 3\nCreating a bar chart with ggplot2\n\n\n\nWeek 4\nTransforming data from wide to long\n\n\n\nWeek 5\nAccessing NCBI data with the Rentrez package\n\n\n\nWeek 6\nCommunicating with Quarto\n\n\n\n\nDownload the data by week for all the lessons here."
+    "text": "Objective:\nThe objective of this website is to provide supporting documentation for R Community of Practice. In the navigation bar you will find each week lesson.\nWeekly Topics\n\n\n\n\n\n\n\n\nWeek\nTopic\nSlides\n\n\n\n\nWeek 1\nReading multiple files\nWeek 1\n\n\nWeek 2\nWorking with Dates\nWeek 2\n\n\nWeek 3\nCreating a bar chart with ggplot2\nWeek 3\n\n\nWeek 4\nTransforming data from wide to long\n\n\n\nWeek 5\nAccessing NCBI data with the Rentrez package\n\n\n\nWeek 6\nCommunicating with Quarto\n\n\n\n\nDownload the data by week for all the lessons here."
   },
   {
     "objectID": "Week01/week01_lesson.html",
@@ -263,7 +263,7 @@
     "href": "Week03/week03_lesson.html#working-with-color-palettes",
     "title": "R Community of Practice Week 3",
     "section": "Working with color palettes",
-    "text": "Working with color palettes\nThere are many options for changing the color palette of your plot. You can set your palette manually:\n\nmyPalette <- c(\"#C8102E\", \"#FFCD00\", \"#2C2A29\")\n\nall_workshops %>% \n  ggplot(mapping=aes(x=affiliation, fill=status)) +\n  geom_bar(position = \"dodge\", width =0.75) + \n  labs(title = \"Who is attending library workshops?\", \n       subtitle = \"Attendance by School and Role, 2018-2023\", \n       x=\"School Affiliation\", y= \"Number of Attendees\", \n       fill=\"University Role\") + \n  scale_fill_manual(values = myPalette)\n\n\n\n\nGenerally, it may be preferable to work with one of the built in ggplot2 or R palettes, or to install one of several packages with additional palettes such as:\n\nRColorBrewer\nviridis\nggthemes\nggsci\nwesanderson\n\nLet’s try applying a viridis palette. viridis was designed to be especially robust for many forms of color-blindness. It is also meant to print well in grey scale. As an additional advantage, a lightweight form of the package is included with ggplot2, so there is no need to install additional packages.\n\nall_workshops %>% \n  ggplot(mapping=aes(x=affiliation, fill=status)) +\n  geom_bar(position = \"dodge\", width = 0.75) + \n  labs(title = \"Who is attending library workshops?\", \n       subtitle = \"Attendance by School and Role, 2018-2023\", \n       x=\"School Affiliation\", \n       y= \"Number of Attendees\",\n       fill=\"University Role\") +\n  scale_fill_viridis_d()\n\n\n\n\nLearn more from the viridis documentation"
+    "text": "Working with color palettes\nThere are many options for changing the color palette of your plot. You can set your palette manually:\n\nmyPalette <- c(\"#C8102E\", \"#FFCD00\", \"#2C2A29\") #Official UMB colors\n\nall_workshops %>% \n  ggplot(mapping=aes(x=affiliation, fill=status)) +\n  geom_bar(position = \"dodge\", width =0.75) + \n  labs(title = \"Who is attending library workshops?\", \n       subtitle = \"Attendance by School and Role, 2018-2023\", \n       x=\"School Affiliation\", y= \"Number of Attendees\", \n       fill=\"University Role\") + \n  scale_fill_manual(values = myPalette)\n\n\n\n\nGenerally, it may be preferable to work with one of the built in ggplot2 or R palettes, or to install one of several packages with additional palettes such as:\n\nRColorBrewer\nviridis\nggthemes\nggsci\nwesanderson\n\nLet’s try applying a viridis palette. viridis was designed to be especially robust for many forms of color-blindness. It is also meant to print well in grey scale. As an additional advantage, a lightweight form of the package is included with ggplot2, so there is no need to install additional packages.\n\nall_workshops %>% \n  ggplot(mapping=aes(x=affiliation, fill=status)) +\n  geom_bar(position = \"dodge\", width = 0.75) + \n  labs(title = \"Who is attending library workshops?\", \n       subtitle = \"Attendance by School and Role, 2018-2023\", \n       x=\"School Affiliation\", \n       y= \"Number of Attendees\",\n       fill=\"University Role\") +\n  scale_fill_viridis_d()\n\n\n\n\nLearn more from the viridis documentation"
   },
   {
     "objectID": "Week03/week03_lesson.html#adding-titles-and-axis-labels",
@@ -306,5 +306,47 @@
     "title": "R Community of Practice Week 2",
     "section": "Step 2: Summarize data by year",
     "text": "Step 2: Summarize data by year\nAnother set of functions in lubridate help with extracting pieces of dates.\nFor example:\n\nyear(myRealDate)\n## [1] 2023\nmonth(myRealDate)\n## [1] 6\nday(myRealDate)\n## [1] 22\nwday(myRealDate)\n## [1] 5\n\nLet’s summarize the total number of consults for each year in our data set.\n\nconsults_yearly <- consults %>% \n  count(year=year(date), name=\"total_consults\")\n\nconsults_yearly\n\n# A tibble: 6 × 2\n   year total_consults\n  <dbl>          <int>\n1  2018            631\n2  2019            639\n3  2020            463\n4  2021            415\n5  2022            381\n6  2023            141"
+  },
+  {
+    "objectID": "Week03/week03_lesson.html#wrapping-up",
+    "href": "Week03/week03_lesson.html#wrapping-up",
+    "title": "R Community of Practice Week 3",
+    "section": "Wrapping Up",
+    "text": "Wrapping Up\nOnce your plot looks the way you want, you may want to export it to an image file for use in another document (although in Week 6 we’ll learn how to build reports with plots directly in RStudio).\nThere are two ways to export your plot:\n\nUse the Export widget in the Plots pane of RStudio\nUse the ggsave() function\n\nLet’s first save the grouped bar chart as an object:\n\nworkshop_attendance_bar <- all_workshops %>% \n  ggplot(mapping=aes(x=fct_infreq(affiliation), fill=status)) +\n  geom_bar(position = \"dodge\", width = 0.75) + \n  labs(title = \"Who is attending library workshops?\", \n       subtitle = \"Attendance by School and Role, 2018-2023\", \n       x=\"School Affiliation\", \n       y= \"Number of Attendees\",\n       fill=\"University Role\") +\n  scale_fill_viridis_d() +\n  theme_classic()\n\nNow use ggsave() to save a .jpg version of your plot to your figs/ directory. The only required argument is the file path where you want to save the image. By default it will save the last plot generated, but you can also supply the object name of the plot you want to save.\n\nggsave(filename = \"figs/workshop_attendance_bar.jpg\", workshop_attendance_bar)\n\nSaving 7 x 5 in image\n\n\nNote that you can also use this function to adjust the size and resolution of you graph.\n\nggsave(filename = \"figs/workshop_attendance_bar.jpg\", workshop_attendance_bar, width = 7, height = 5, dpi = 300)"
+  },
+  {
+    "objectID": "Week03/week03_slides.html",
+    "href": "Week03/week03_slides.html",
+    "title": "R Community of Practice",
+    "section": "",
+    "text": "Become familiar with the basic components of a ggplot2 graph\nUnderstand the concept of “aesthetic mapping”\nUse ggplot2 to create bar graphs\nUse ggplot2 to customize graphs"
+  },
+  {
+    "objectID": "Week03/week03_slides.html#the-data",
+    "href": "Week03/week03_slides.html#the-data",
+    "title": "R Community of Practice",
+    "section": "The Data",
+    "text": "The Data\nScenario: We want to visualize the all_workshops data frame we created in Week 1.\nWe’ll complete the following tasks:\n\n\nCreate a basic bar chart comparing workshop attendance among the various schools.\nCreate a grouped bar chart comparing workshop attendance among the schools and university roles.\nAdd titles and labels to our graph\nAdjust the color palette\nChoose a theme\nOutput graph to jpeg file"
+  },
+  {
+    "objectID": "Week03/week03_slides.html#ggplot2-basics",
+    "href": "Week03/week03_slides.html#ggplot2-basics",
+    "title": "R Community of Practice",
+    "section": "ggplot2 Basics",
+    "text": "ggplot2 Basics\nThe “gg” in ggplot2 refers to the “grammar of graphics”.\nAll ggplot2 graphs start with the same basic template:\n<DATA> %>%\n    ggplot(aes(<MAPPINGS>)) +\n    <GEOM_FUNCTION>() +\n    <Additional GEOMS, SCALES, THEMES, etc. . . >"
+  },
+  {
+    "objectID": "Week03/week03_slides.html#helpful-resources",
+    "href": "Week03/week03_slides.html#helpful-resources",
+    "title": "R Community of Practice",
+    "section": "Helpful Resources",
+    "text": "Helpful Resources\n\nggplot2 documentation\nR for Data Science\nR Graph Gallery\nR Graphics Cookbook\nR Graph Gallery Color Section\nggplot2 Aesthetic Specifications"
+  },
+  {
+    "objectID": "Week03/week03_slides.html#learning-goals",
+    "href": "Week03/week03_slides.html#learning-goals",
+    "title": "R Community of Practice",
+    "section": "Learning Goals",
+    "text": "Learning Goals\n\n\nBecome familiar with the basic components of a ggplot2 graph\nUnderstand the concept of “aesthetic mapping”\nUse ggplot2 to create bar graphs\nUse ggplot2 to customize graphs"
   }
 ]
