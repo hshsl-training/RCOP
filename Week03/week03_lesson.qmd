@@ -167,7 +167,7 @@ all_workshops %>%
 There are many options for changing the color palette of your plot. You can set your palette manually:
 
 ```{r}
-myPalette <- c("#C8102E", "#FFCD00", "#2C2A29")
+myPalette <- c("#C8102E", "#FFCD00", "#2C2A29") #Official UMB colors
 
 all_workshops %>% 
   ggplot(mapping=aes(x=affiliation, fill=status)) +
@@ -219,6 +219,42 @@ all_workshops %>%
        fill="University Role") +
   scale_fill_viridis_d() +
   theme_classic()
+```
+
+## Wrapping Up
+
+Once your plot looks the way you want, you may want to export it to an image file for use in another document (although in Week 6 we'll learn how to build reports with plots directly in RStudio).
+
+There are two ways to export your plot:
+
+1. Use the Export widget in the Plots pane of RStudio
+1. Use the `ggsave()` function
+
+Let's first save the grouped bar chart as an object:
+
+```{r}
+workshop_attendance_bar <- all_workshops %>% 
+  ggplot(mapping=aes(x=fct_infreq(affiliation), fill=status)) +
+  geom_bar(position = "dodge", width = 0.75) + 
+  labs(title = "Who is attending library workshops?", 
+       subtitle = "Attendance by School and Role, 2018-2023", 
+       x="School Affiliation", 
+       y= "Number of Attendees",
+       fill="University Role") +
+  scale_fill_viridis_d() +
+  theme_classic()
+```
+
+Now use `ggsave()` to save a .jpg version of your plot to your `figs/` directory. The only required argument is the file path where you want to save the image. By default it will save the last plot generated, but you can also supply the object name of the plot you want to save.
+
+```{r}
+ggsave(filename = "figs/workshop_attendance_bar.jpg", workshop_attendance_bar)
+```
+
+Note that you can also use this function to adjust the size and resolution of you graph.
+
+```{r}
+ggsave(filename = "figs/workshop_attendance_bar.jpg", workshop_attendance_bar, width = 7, height = 5, dpi = 300)
 ```
 
 
