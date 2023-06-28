@@ -10,6 +10,7 @@ format:
     embed-resources: true
     fig-width: 7
     fig-height: 4
+    tidy: true
 toc: true
 editor: source
 css: ../styles.css
@@ -52,7 +53,8 @@ All `ggplot2` graphs start with the same basic template:
 <DATA> %>%
     ggplot(aes(<MAPPINGS>)) +
     <GEOM_FUNCTION>() +
-    <Additional GEOMS, SCALES, THEMES> . . . 
+
+    <Additional GEOMS, SCALES, THEMES, etc. . . >
 
 ```
 
