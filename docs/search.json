@@ -285,5 +285,12 @@
     "title": "R Community of Practice Week 3",
     "section": "Helpful Resources",
     "text": "Helpful Resources\n\nggplot2 documentation\nR Graph Gallery\nR Graphics Cookbook"
+  },
+  {
+    "objectID": "Week03/week03_lesson.html#setting-vs-mapping-aesthetics",
+    "href": "Week03/week03_lesson.html#setting-vs-mapping-aesthetics",
+    "title": "R Community of Practice Week 3",
+    "section": "Setting vs Mapping Aesthetics",
+    "text": "Setting vs Mapping Aesthetics\nAll geoms have certain visual attributes that can be modified. Polygons like bars, have the properties fill and color. You can change the inside color of a bar with fill, and the outside with color.\nIf we want to change the color of a bar, we can use the fill and color arguments in the geom_bar layer.\n\nall_workshops %>% \n  ggplot(mapping=aes(x=affiliation)) +\n  geom_bar(fill=\"blue\", color=\"red\")\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nHow did we know the color names “blue” and “red would work in the code above? R has several built in color names. You can see them by calling the function colors(). You can also specify colors using rgb and hexadecimal codes.\n\n\nAn important concept when working with ggplot is the idea of aesthetic mapping. We used the aes function to map the x and y axis to variables. We could also do this to assign color and fill to our bars.\n\nall_workshops %>% \n  ggplot(mapping=aes(x=affiliation)) +\n  geom_bar(aes(fill=affiliation))\n\n\n\n\nNow a different color from the default ggplot palette is mapped to each level of our affiliation variable."
   }
 ]
