@@ -1,7 +1,4 @@
 library(tidyverse)
-all_workshops %>% 
-  ggplot(aes(affiliation, fill=affiliation)) +
-  geom_
 
 #simplest bar chart
 all_workshops %>% 
@@ -28,3 +25,10 @@ all_workshops %>%
 all_workshops %>% 
   ggplot(mapping=aes(x=affiliation, fill=status)) +
   geom_bar(position = "dodge", width =0.75)
+
+
+all_workshops %>% 
+  ggplot(mapping=aes(x=status, fill=affiliation)) +
+  geom_bar(position = "dodge") +
+  facet_grid(cols = vars(affiliation))
+

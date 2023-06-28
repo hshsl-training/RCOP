@@ -53,6 +53,7 @@ All `ggplot2` graphs start with the same basic template:
 <DATA> %>%
     ggplot(aes(<MAPPINGS>)) +
     <GEOM_FUNCTION>() +
+
     <Additional GEOMS, SCALES, THEMES, etc. . . >
 
 ```
