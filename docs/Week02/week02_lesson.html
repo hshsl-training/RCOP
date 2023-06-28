@@ -4022,6 +4022,10 @@ background-origin: content-box;
     <a class="nav-link active" href="../Week02/week02_lesson.html" aria-current="page">
  <span class="menu-text">Week02</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Week03/week03_lesson.html">
+ <span class="menu-text">Week03</span></a>
+  </li>  
 </ul>
               <div id="quarto-search" class title="Search"></div>
           </div> <!-- /navcollapse -->
@@ -4057,7 +4061,7 @@ background-origin: content-box;
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">The Data</a></li>
   <li><a href="#step-1-changing-strings-to-dates" id="toc-step-1-changing-strings-to-dates" class="nav-link" data-scroll-target="#step-1-changing-strings-to-dates">Step 1: Changing Strings to Dates</a></li>
-  <li><a href="#step-2-summarize-data-by-month-and-year" id="toc-step-2-summarize-data-by-month-and-year" class="nav-link" data-scroll-target="#step-2-summarize-data-by-month-and-year">Step 2: Summarize data by month and year</a></li>
+  <li><a href="#step-2-summarize-data-by-year" id="toc-step-2-summarize-data-by-year" class="nav-link" data-scroll-target="#step-2-summarize-data-by-year">Step 2: Summarize data by year</a></li>
   <li><a href="#step-3-working-with-intervals" id="toc-step-3-working-with-intervals" class="nav-link" data-scroll-target="#step-3-working-with-intervals">Step 3: Working with intervals</a></li>
   <li><a href="#wrapping-up" id="toc-wrapping-up" class="nav-link" data-scroll-target="#wrapping-up">Wrapping Up</a></li>
   </ul>
@@ -4079,8 +4083,8 @@ background-origin: content-box;
 <p>Our scenario this week is that we a spreadsheet of data tracking research consults from 2018 to 2023. We want to accomplish the following tasks:</p>
 <ol type="1">
 <li>Change the date variable to date data type</li>
-<li>Summarize the number of consults by month and year</li>
-<li>Filter the data to look at just FY2022</li>
+<li>Summarize the number of consults by year</li>
+<li>Summarize consults by month for FY2022</li>
 </ol>
 <p>Let’s open a new script and load the libraries we’ll be working with in this lesson:</p>
 <div class="cell">
@@ -4145,8 +4149,8 @@ background-origin: content-box;
 </div>
 </div>
 </section>
-<section id="step-2-summarize-data-by-month-and-year" class="level2">
-<h2 class="anchored" data-anchor-id="step-2-summarize-data-by-month-and-year">Step 2: Summarize data by month and year</h2>
+<section id="step-2-summarize-data-by-year" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-summarize-data-by-year">Step 2: Summarize data by year</h2>
 <p>Another set of functions in <strong><code>lubridate</code></strong> help with extracting pieces of dates.</p>
 <p>For example:</p>
 <div class="cell">
@@ -4230,6 +4234,7 @@ background-origin: content-box;
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(consults_fy22_monthly, <span class="st">&quot;data_output/consults_fy22_monthly.RDS&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Be sure to check out the <a href="https://lubridate.tidyverse.org/"><strong><code>lubridate</code></strong> documentation</a> documentation for more!</p>
 
 
 </section>

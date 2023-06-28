@@ -81,7 +81,7 @@
     "href": "Week02/week02_lesson.html#the-data",
     "title": "R Community of Practice Week 2",
     "section": "The Data",
-    "text": "The Data\nDownload the data for this lesson here.\nOur scenario this week is that we a spreadsheet of data tracking research consults from 2018 to 2023. We want to accomplish the following tasks:\n\nChange the date variable to date data type\nSummarize the number of consults by month and year\nFilter the data to look at just FY2022\n\nLet’s open a new script and load the libraries we’ll be working with in this lesson:\n\nlibrary(tidyverse)\n\nAnd now we can import our data set\n\nconsults <- read_csv(\"data/consults.csv\")"
+    "text": "The Data\nDownload the data for this lesson here.\nOur scenario this week is that we a spreadsheet of data tracking research consults from 2018 to 2023. We want to accomplish the following tasks:\n\nChange the date variable to date data type\nSummarize the number of consults by year\nSummarize consults by month for FY2022\n\nLet’s open a new script and load the libraries we’ll be working with in this lesson:\n\nlibrary(tidyverse)\n\nAnd now we can import our data set\n\nconsults <- read_csv(\"data/consults.csv\")"
   },
   {
     "objectID": "Week02/week02_lesson.html#step-1-changing-strings-to-dates",
@@ -109,7 +109,7 @@
     "href": "Week02/week02_lesson.html#wrapping-up",
     "title": "R Community of Practice Week 2",
     "section": "Wrapping Up",
-    "text": "Wrapping Up\nOnce again, let’s save these our objects of summarized data to our data_output folder.\n\nsaveRDS(consults_yearly, \"data_output/consults_yearly.RDS\")\n\nsaveRDS(consults_fy22_monthly, \"data_output/consults_fy22_monthly.RDS\")"
+    "text": "Wrapping Up\nOnce again, let’s save these our objects of summarized data to our data_output folder.\n\nsaveRDS(consults_yearly, \"data_output/consults_yearly.RDS\")\n\nsaveRDS(consults_fy22_monthly, \"data_output/consults_fy22_monthly.RDS\")\n\nBe sure to check out the lubridate documentation documentation for more!"
   },
   {
     "objectID": "Week01/week01_slides.html",
@@ -299,5 +299,12 @@
     "title": "R Community of Practice Week 3",
     "section": "Building a grouped bar chart",
     "text": "Building a grouped bar chart\nMapping a variable to an aesthetic is especially useful when we have third variable we want to express on our graph. For example, what if we want to compare attendance by both affiliation and status? To do this we can create a grouped bar chart by mapping fill to the status variable.\n\nall_workshops %>% \n  ggplot(mapping=aes(x=affiliation, fill=status)) +\n  geom_bar()\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nWhen you map an aesthetic with aes() in the ggplot() function it is inherited by all subsequent layers. When you map in a geom_*() function it is applied only to that layer.\n\n\nBy default this creates a stacked bar chart. To make it grouped, we add a position=\"dodged\" argument to geom_bar()\n\nall_workshops %>% \n  ggplot(mapping=aes(x=affiliation, fill=status)) + \n  geom_bar(position = \"dodge\")\n\n\n\n\nTo make our graph look less crowded, we can also modify the width of the bars. Note this is done outside of the aes() function.\n\nall_workshops %>% \n  ggplot(mapping=aes(x=affiliation, fill=status)) +\n  geom_bar(position = \"dodge\", width = 0.75)"
+  },
+  {
+    "objectID": "Week02/week02_lesson.html#step-2-summarize-data-by-year",
+    "href": "Week02/week02_lesson.html#step-2-summarize-data-by-year",
+    "title": "R Community of Practice Week 2",
+    "section": "Step 2: Summarize data by year",
+    "text": "Step 2: Summarize data by year\nAnother set of functions in lubridate help with extracting pieces of dates.\nFor example:\n\nyear(myRealDate)\n## [1] 2023\nmonth(myRealDate)\n## [1] 6\nday(myRealDate)\n## [1] 22\nwday(myRealDate)\n## [1] 5\n\nLet’s summarize the total number of consults for each year in our data set.\n\nconsults_yearly <- consults %>% \n  count(year=year(date), name=\"total_consults\")\n\nconsults_yearly\n\n# A tibble: 6 × 2\n   year total_consults\n  <dbl>          <int>\n1  2018            631\n2  2019            639\n3  2020            463\n4  2021            415\n5  2022            381\n6  2023            141"
   }
 ]
