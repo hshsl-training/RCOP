@@ -8,9 +8,7 @@ navbar:
 format: 
   html:
     embed-resources: true
-    fig-width: 7
-    fig-height: 4
-    tidy: true
+    code-overflow: wrap
 toc: true
 editor: source
 css: ../styles.css
@@ -18,7 +16,7 @@ css: ../styles.css
 
 ## Introduction
 
-This week we will learn about **`ggplot2`** - a tidyverse package for visualizing data. It is a powerful and flexible tool that allows you to create fully customizable, publication quality graphics. The gg in **`ggplot2`** stands for grammar of graphics. The grammar of graphics is the underlying philosophy of the package. It focuses on creating graphics in layers. Start with the data – map the data to aesthetic qualities like size, shape, and color and geometries like dots, lines, and polygons. Further refine the appearance of your plot by adjusting scales and legends, labels, coordinate systems. Add annotations.
+This week we will learn about **`ggplot2`** - a tidyverse package for visualizing data. It is a powerful and flexible tool that allows you to create fully customizable, publication quality graphics. The gg in **`ggplot2`** stands for grammar of graphics. The grammar of graphics is the underlying philosophy of the package. It focuses on creating graphics in layers. Start with the data – map the data the axes and to aesthetic qualities like size, shape, and color and geometries like dots, lines, and polygons. Further refine the appearance of your plot by adjusting scales and legends, labels, coordinate systems, and adding annotations.
 
 ## The Data
 
@@ -36,10 +34,12 @@ We'll complete the following tasks:
 
 1. Create a basic bar chart comparing workshop attendance among the various schools.
 2. Create a grouped bar chart comparing workshop attendance among the schools and university roles. 
-
-Along the way we will also learn how to customize features of our graph like the color, labels, and themes.
+3. Add titles and labels to our graph
+4. Adjust the color palette
+5. Choose a theme
 
 Let's open a new script and load the libraries we'll be working with in this lesson:
+
 ```{r}
 #| message: false
 library(tidyverse)
@@ -53,7 +53,6 @@ All `ggplot2` graphs start with the same basic template:
 <DATA> %>%
     ggplot(aes(<MAPPINGS>)) +
     <GEOM_FUNCTION>() +
-
     <Additional GEOMS, SCALES, THEMES, etc. . . >
 
 ```
@@ -69,7 +68,7 @@ We see that even this initializes the plot area of RStudio.
 
 ## Building a basic bar chart
 
-Next, we define a mapping (using the aesthetic (aes) function), by selecting the variables to be plotted and specifying how to present them in the graph, e.g. as x/y positions or characteristics such as size, shape, color, etc. Here we will say that the x axis should contain the affiliation variable. Note how the x-axis populates with some numbers and tick marks. We do not need to specify a y variable, since it will look at the count by default.
+Next, we define a mapping (using the aesthetic, or `aes()`, function), by selecting the variables to be plotted and specifying how to present them in the graph, e.g. as x/y positions or characteristics such as size, shape, color, etc. Here we will say that the x axis should contain the affiliation variable. Note how the x-axis populates with some numbers and tick marks. We do not need to specify a y variable, since it will look at the count by default.
 
 ```{r}
 all_workshops %>% 
@@ -96,59 +95,72 @@ workshop_breakdown %>%
 
 You need to make one other adjustment, and change the stat argument from it’s default of “count” to “identity” This tells it to base the y axis on the specified variable.
 
-## Setting vs Mapping Aesthetics
-
-All geoms have certain visual attributes that can be modified. Polygons like bars, have the properties fill and color. You can change the inside color of a bar with fill, and the outside with color.
-
-
-
-If we want to change the color of a bar, we can use the fill and color arguments in the geom_bar layer.
+## Setting vs mapping aesthetics
+When working with **`ggplot2`**, it's important to understand the difference between *setting* aesthetic properties and *mapping* them. All geoms have certain visual attributes that can be modified. Polygons like bars, have the properties fill and color. You can change the inside color of a bar with `fill`, and the border with `color`. We can modify the defaults with the `fill` and `color` arguments in the `geom_bar()` layer. (I've also increased the `linewidth` to make it easier to see the border color)
 
 ```{r}
 all_workshops %>% 
   ggplot(mapping=aes(x=affiliation)) +
-  geom_bar(fill="blue", color="red")
+  geom_bar(fill="blue", color="purple", linewidth=1.5)
 ```
 
 ::: {.callout-note}
-How did we know the color names "blue" and "red would work in the code above? R has several built in color names. You can see them by calling the function `colors()`. You can also specify colors using rgb and hexadecimal codes. 
+How did we know the color names "blue" and "purple" would work in the code above? R has 657 (!!) built in color names. You can see them by calling the function `colors()`. You can also specify colors using rgb and hexadecimal codes. 
 :::
-An important concept when working with ggplot is the idea of aesthetic mapping. We used the aes function to map the x and y axis to variables. We could also do this to assign color and fill to our bars. 
+ 
+Now we have manually set a value for the fill and color. To create our initial graph, we used the `mapping` argument and the `aes()` function to map the x axis to the affiliation variable. Watch what happens if we map the fill property to the affiliation variable as well.
 
 ```{r}
 all_workshops %>% 
-  ggplot(mapping=aes(x=affiliation)) +
-  geom_bar(aes(fill=affiliation))
-  
-```
-Now a different color from the default ggplot palette is mapped to each level of our `affiliation` variable.
-
-## Reordering Bars
-
-By default our graph was ordered alphabetically by level, but it is often helpful to sort the bars numerically. We can do this with the reorder function.
-
-```{r}
-all_workshops %>% 
-  ggplot(mapping = aes(x=forcats::fct_infreq(affiliation))) +
+  ggplot(mapping=aes(x=affiliation, fill=affiliation)) +
   geom_bar()
 ```
 
-## Grouped bar charts
+## Building a grouped bar chart
 
-What if we want to compare affiliation and status? To do this we can create a grouped bar chart by mapping `fill` to the `status` variable. 
+Mapping a variable to an aesthetic is especially useful when we have third variable we want to express on our graph. For example, what if we want to compare attendance by both affiliation and status? To do this we can create a grouped bar chart by mapping `fill` to the `status` variable. 
 
 ```{r}
 all_workshops %>% 
   ggplot(mapping=aes(x=affiliation, fill=status)) +
   geom_bar()
 ```
+
+::: {.callout-note}
+When you map an aesthetic with `aes()` in the `ggplot()` function it is inherited by all subsequent layers. When you map in a `geom_*()` function it is applied only to that layer. 
+:::
+
 By default this creates a stacked bar chart. To make it grouped, we add a `position="dodged"` argument to `geom_bar()`
 
 ```{r}
 all_workshops %>% 
-  ggplot(mapping=aes(x=fct_infreq(affiliation), fill=status)) +
-  geom_bar(position = "dodge", width =0.75)
+  ggplot(mapping=aes(x=affiliation, fill=status)) + 
+  geom_bar(position = "dodge")
 ```
+To make our graph look less crowded, we can also modify the width of the bars. Note this is done outside of the `aes()` function.
+
+```{r}
+all_workshops %>% 
+  ggplot(mapping=aes(x=affiliation, fill=status)) +
+  geom_bar(position = "dodge", width = 0.75)
+
+```
+
+## Adding titles and axis labels
+
+A good plot communicates clearly. So far we've talked about achieving this through the aesthetic aspects of your plot, but it's important to make sure your graph has a clear title and axis labels as well. There are a few ways to do this in **`ggplot2`**, but one of the simplest is to use the `labs()` function. 
+
+```{r}
+all_workshops %>% 
+  ggplot(mapping=aes(x=affiliation, fill=status)) +
+  geom_bar(position = "dodge", width = 0.75) + 
+  labs(title = "Who is attending library workshops?", 
+       subtitle = "Attendance by School and Role, 2018-2023", 
+       x="School Affiliation", 
+       y= "Number of Attendees",
+       fill="University Role")
+```
+
 
 ## Working with color palettes
 
@@ -158,48 +170,72 @@ There are many options for changing the color palette of your plot. You can set 
 myPalette <- c("#C8102E", "#FFCD00", "#2C2A29")
 
 all_workshops %>% 
-  ggplot(mapping=aes(x=fct_infreq(affiliation), fill=status)) +
-  geom_bar(position = "dodge", width =0.75) + scale_fill_manual(values = myPalette)
+  ggplot(mapping=aes(x=affiliation, fill=status)) +
+  geom_bar(position = "dodge", width =0.75) + 
+  labs(title = "Who is attending library workshops?", 
+       subtitle = "Attendance by School and Role, 2018-2023", 
+       x="School Affiliation", y= "Number of Attendees", 
+       fill="University Role") + 
+  scale_fill_manual(values = myPalette)
 ```
 
-Generally, it may be preferable to work with one of the built in **`ggplot2`** or R palettes, or to install one of several packages with additional palettes such as **`RColorBrewer`**, **`viridis`**, **`ggthemes`**, **`ggsci`**, or **`wesanderson`**.
+Generally, it may be preferable to work with one of the built in **`ggplot2`** or R palettes, or to install one of several packages with additional palettes such as:
+
+- [**`RColorBrewer`**](https://r-graph-gallery.com/38-rcolorbrewers-palettes.html)
+- [**`viridis`**](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html)
+- [**`ggthemes`**](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/)
+- [**`ggsci`**](https://cran.r-project.org/web/packages/ggsci/vignettes/ggsci.html)
+- [**`wesanderson`**](https://github.com/karthik/wesanderson#readme)
 
 Let's try applying a  **`viridis`** palette. **`viridis`** was designed to be especially robust for many forms of color-blindness. It is also meant to print well in grey scale. As an additional advantage, a lightweight form of the package is included with **`ggplot2`**, so there is no need to install additional packages.  
 
 ```{r}
 all_workshops %>% 
-  ggplot(mapping=aes(x=fct_infreq(affiliation), fill=status)) +
-  geom_bar(position = "dodge", width =0.75) + scale_fill_viridis_d()
+  ggplot(mapping=aes(x=affiliation, fill=status)) +
+  geom_bar(position = "dodge", width = 0.75) + 
+  labs(title = "Who is attending library workshops?", 
+       subtitle = "Attendance by School and Role, 2018-2023", 
+       x="School Affiliation", 
+       y= "Number of Attendees",
+       fill="University Role") +
+  scale_fill_viridis_d()
 ```
 
 Learn more from the [**`viridis`** documentation](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html#the-color-scales)
 
-## Adding titles and axis labels
 
-A good plot communicates clearly. So far we've talked about achieving this through the aesthetic aspects of your plot, but it's important to make sure your graph has a clear title and axis labels as well. There are a few ways to do this in **`ggplot2`**, but one of the simplest is to use the `labs()` function. 
-
-```{r}
-all_workshops %>% 
-  ggplot(mapping=aes(x=fct_infreq(affiliation), fill=status)) +
-  geom_bar(position = "dodge", width =0.75) + scale_fill_viridis_d() +
-  labs(title = "Who is attending library workshops?", subtitle = "Attendance by School and Role, 2018-2023", x="University Role", y= "Number of Attendees")
-```
 ## Changing the theme
 
-The theme of a **`ggplot2`** graph controls the overall look and all non-data elements of the plot. There are several built-in themes which can be applied as another layer. Start typing `theme_` in RStudio to see a list of themes. You can also use the `theme()` function to modify aspects of an existing theme.
+The theme of a **`ggplot2`** graph controls the overall look and all non-data elements of the plot. There are several built-in themes which can be applied as another layer. Start typing `theme_` in RStudio to see a list of themes. You can also use the `theme()` function to modify aspects of an existing theme. Here we apply `theme_classic()` which removes the grid lines and grey background of the default theme.
 
 ```{r}
 all_workshops %>% 
   ggplot(mapping=aes(x=fct_infreq(affiliation), fill=status)) +
-  geom_bar(position = "dodge", width =0.75) + scale_fill_viridis_d() +
-  labs(title = "Who is attending library workshops?", subtitle = "Attendance by School and Role, 2018-2023", x="University Role", y= "Number of Attendees") +
+  geom_bar(position = "dodge", width = 0.75) + 
+  labs(title = "Who is attending library workshops?", 
+       subtitle = "Attendance by School and Role, 2018-2023", 
+       x="School Affiliation", 
+       y= "Number of Attendees",
+       fill="University Role") +
+  scale_fill_viridis_d() +
   theme_classic()
 ```
 
 
 ## Helpful Resources
 
+### Background and Overview
+
 - [**`ggplot2`** documentation](https://ggplot2.tidyverse.org/)
+- [R for Data Science](https://r4ds.had.co.nz/)
+  - [Chapter 3, "Data Visualization"](https://r4ds.had.co.nz/data-visualisation.html)
+  - [Chapter 28, "Graphics for Communication"](https://r4ds.had.co.nz/graphics-for-communication.html)
+  
+### Tutorials for Many Kinds of Plots
 - [R Graph Gallery](https://r-graph-gallery.com/)
 - [R Graphics Cookbook](https://r-graphics.org/)
 
+### Working with Color and Other Aesthetics
+ - [R Graph Gallery Color Section](https://r-graph-gallery.com/ggplot2-color.html)
+ - [Paletteer package](https://github.com/EmilHvitfeldt/paletteer#readme)
+ - [**`ggplot2`** Aesthetic Specifications](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html)
