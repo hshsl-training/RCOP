@@ -142,12 +142,14 @@ Now lets retrieve basic information about the records we collected in one of our
 
 ## entrez_fetch()
 
-Another way to get records from the NBCI API, is by using the entrez_fetch function. entrez_summary and entrez_fetch are almost the same function, both of them will help you extract data from the NCBI API. But the difference between entrez_summary and entrez_fetch is in the way both functions arranges the data in RStudio. The entrez_summary returns a dataframe with lists of records while entrez_fetch returns an XML document.
+- Another way to get records from the NBCI API, is by using the entrez_fetch function. entrez_summary and entrez_fetch are almost the same function, both of them will help you extract data from the NCBI API. 
 
-For the entrez_summary function, rentrez has created a function that allows you to extract information from each metadata field avoiding the challenges that comes with navigating an XML parsed documents.
+- The difference between entrez_summary and entrez_fetch is in the way both functions arranges the data in RStudio. The entrez_summary returns a dataframe with lists of records while entrez_fetch returns an XML document.
+
+- For the entrez_summary function, rentrez has created a function that allows you to extract information from each metadata field avoiding the challenges that comes with navigating an XML parsed documents.
 
 
-Lets learn the syntax of the entrez_fetch function.
+ Lets learn the syntax of the entrez_fetch function.
 
 `entrez_fetch(db= "database name", id= , rettype= "xml")`
 

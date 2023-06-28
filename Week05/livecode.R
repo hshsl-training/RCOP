@@ -33,7 +33,7 @@ pcos_ir_umb_pm <- entrez_search(db="pubmed", term= "pcos[ALL] AND insulin resist
 
 #Rentrez summary command to get publication information
 #In this command we are giving a list of ids by using pcos_pm$ids. The $ operator extract or subset a specific part of a data object in R. 
-summary_pcos_pm <- entrez_summary(db="pubmed", id=pcos_pm$ids, rettype = "xml")
+summary_pcos_pm <- entrez_summary(db="pubmed", id=pcos_pm$ids)
 
 # Entrez Fetch
 fetch <- entrez_fetch(db= "pubmed", id = pcos_pm$ids, rettype = "xml")

@@ -183,9 +183,9 @@ This function takes a vector of unique IDs or just one id.
 
 But, first lets learn the syntax of the `entrez_summary()` function. 
 
-`entrez_summary(db="database name", id=, rettype = "")`
+`entrez_summary(db="<database name>", id=< >)`
 
-**The `entrez_summary()` function takes 7 arguments but you don't need to use them all. The require ones are db, id and rettype.** 
+**The `entrez_summary()` function takes 7 arguments but you don't need to use them all. The require ones are db and id.** 
 **If you will be working with web_histories later, you don't need to use the id argument.**
 
 | Argument      | Type          | Use           |
@@ -204,7 +204,7 @@ EXAMPLES:
 
 #Rentrez summary function to get publication information
 #In this command we are giving a list of ids by using pcos_pm$ids. The $ operator extract a subset of a data object in R. 
-summary_pcos_pm <- entrez_summary(db="pubmed", id=pcos_pm$ids, rettype = "xml")
+summary_pcos_pm <- entrez_summary(db="pubmed", id=pcos_pm$ids)
 
 ```
 
