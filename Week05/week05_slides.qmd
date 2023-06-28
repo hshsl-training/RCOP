@@ -114,7 +114,7 @@ The functions listed below helps you learn a little bit more about Rentrez and N
 | Function                | Usage                              |                 
 |-------------------------|------------------------------------|
 | entrez_search()         | Allows you to perform simple or boolean searches |
-| entrez_summary()        | Allows you to retrieve basic information about the records found using entrez_search() |
+| entrez_summary()        | Allows you to retrieve basic information about the records found |
 | entrez_fetch()          |  Allows you to retrieve basic information about the records in an parsed XML format    |  
 | extract_from_esummary() | Extract elements from a list of esummary records     |
 

@@ -561,21 +561,21 @@ Irmarie Fraticelli-Rodriguez
 <p>Similar to PubMed, Rentrez allows you to perform simple or boolean searches using the same structure that you would use in the PubMed search bar. The allowed boolean terms are <strong>AND, OR, and NOT</strong>.</p>
 <p>First lets learn the syntax for a simple and a boolean search:</p>
 <p><strong>Simple Search:</strong></p>
-<p><code>entrez_search(db= [database name], term= "searchword[field]")</code></p>
+<p><code>entrez_search(db= "database name", term= "searchword[field]")</code></p>
 <p><strong>Boolean search:</strong></p>
-<p><code>entrez_search(db= [database name], term= "searchword[field]" &lt;boolean term&gt; "searchword[field]")</code></p>
+<p><code>entrez_search(db= "database name", term= "searchword[field] &lt;boolean term&gt; searchword[field]")</code></p>
 </section>
 <section id="entrez_summary" class="slide level2">
 <h2>entrez_summary()</h2>
 <p>Now lets retrieve basic information about the records we collected in one of our searches. But, first lets learn the syntax of the entrez_summary function.</p>
-<p><code>entrez_summary(db="", id=, rettype = "")</code></p>
+<p><code>entrez_summary(db="database name", id=, rettype = "xml")</code></p>
 </section>
 <section id="entrez_fetch" class="slide level2">
 <h2>entrez_fetch()</h2>
 <p>Another way to get records from the NBCI API, is by using the entrez_fetch function. entrez_summary and entrez_fetch are almost the same function, both of them will help you extract data from the NCBI API. But the difference between entrez_summary and entrez_fetch is in the way both functions arranges the data in RStudio. The entrez_summary returns a dataframe with lists of records while entrez_fetch returns an XML document.</p>
 <p>For the entrez_summary function, rentrez has created a function that allows you to extract information from each metadata field avoiding the challenges that comes with navigating an XML parsed documents.</p>
 <p>Lets learn the syntax of the entrez_fetch function.</p>
-<p><code>entrez_fetch(db= &lt;database name&gt;, id= , rettype= "xml")</code></p>
+<p><code>entrez_fetch(db= "database name", id= , rettype= "xml")</code></p>
 </section>
 <section id="extract_from_esummary" class="slide level2">
 <h2>extract_from_esummary()</h2>
