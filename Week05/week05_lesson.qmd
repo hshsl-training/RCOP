@@ -320,7 +320,7 @@ summary_pcos_snp <- entrez_summary(db="snp", id=pcos_links$links$pubmed_snp, ret
 This function returns an NCBI API object called, "elink", which is a list of ids by a database.  
 
 
-# Excersice: Lets practice!
+# Exercise: Let's practice!
 
 Now that we know how to use `Rentrez` let's move this information to a friendly format!
 We are going to learn how to use the `Rentrez` helper function to extract data from the XML given by the `entrez_summary()` function
