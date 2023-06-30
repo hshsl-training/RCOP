@@ -46,7 +46,7 @@ As a way to interact with this database and perform a search query, we are going
 1. Create a `CSV` file using the extracted data from `Rentez`.
 :::
 
-## What is an Application Programming Interface?
+## What is an Application Programming Interface? {.smaller}
 
 :::: {.columns}
 
@@ -69,17 +69,6 @@ The HTTP Request Method is the format that the text should be arranged so that t
 :::
 
 ::::
-
---------
-
-::: {.r-fit-text}
-The HTTP Request Method is the format that the text should be arranged so that two or more computers understand what is being requested. With an HTTP Protocol, you can:
-
-1. Get information
-2. Post information that creates/updates a resource
-3. Delete information
-4. An many other functions...
-:::
 
 ## What is Rentrez? 
 
