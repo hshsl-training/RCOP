@@ -19,14 +19,16 @@ footer: <https://www2.hshsl.umaryland.edu/cdabs/>
 
 ## Learning Goals:
 **This section objectives are:**
-::: {.incremental}
+
+::: {.r-fit-text}
 1. Become familiar with `Rentrez` and its basic search functions.
 1. Gain an understanding of how APIs work.
 1. Learn how to select and execute `Rentrez` commands.
 1. Wrangle data to a usable form.
-:::
+::: 
 
 ## The Data
+
 ::: {.r-fit-text}
 In previous weeks, we have been working with data that exists locally, in your computers, and are in a `CSV` format. 
 
@@ -122,9 +124,8 @@ For each command, you may find a description, usage example, arguments, and retu
 Reference: [Rentrez Tutorial](https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html) by David Winter
 :::
 
-## Rentrez Helper Functions 
 
--------------------------------------------------------------------
+## Rentrez Helper Functions 
 
 ::: {.r-fit-text}
 The functions listed below help you learn a little bit more about `Rentrez` and NCBI Databases.
@@ -140,9 +141,9 @@ The functions listed below help you learn a little bit more about `Rentrez` and 
 
 ## Performing searches in NCBI API
 
-----------------------------------------------------------------
-
 ::: {.r-fit-text}
+The functions listed below help you perform searches in a NCBI Database.
+
 | Function                | Usage                              |                 
 |-------------------------|------------------------------------|
 | entrez_search()         | Allows you to perform simple or boolean searches |
@@ -229,6 +230,17 @@ pubdate <- extract_from_esummary(summary_pcos_pm,"pubdate")
 
 ## Contrasting NCBI Databases
 
+::: {.r-fit-text}
+The functions listed below help you perform searches in multiple i NCBI Databases at the same time.
+
+| Function                | Usage                              |                 
+|-------------------------|------------------------------------|
+| entrez_global_query()   | Search one term in all NCBI Databases |
+| entrez_links()          | Get cross-reference ids from multiple NCBI databases |
+
+
+:::
+
 ## entrez_global_query()
 
 The `entrez_global_query()` function allows you to search a term on all NCBI Databases.
@@ -246,7 +258,7 @@ As you can see the function takes `config= NULL` as an argument, but we are not 
 
 ## entrez_links()
 
-The `entrez_link()` function allows you to get links to related records from an NCBI database. This function uses a unique identifier or a set of unique identifiers to search related articles in other NCBI databases.
+The `entrez_link()` function allows you to get cross-reference ids from multiple NCBI database. This function uses unique identifier to search related articles in other NCBI databases.
 
 <br/>
 

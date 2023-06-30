@@ -2639,12 +2639,13 @@ background-origin: content-box;
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">The Data</a>
   <ul class="collapse">
   <li><a href="#what-is-rentrez" id="toc-what-is-rentrez" class="nav-link" data-scroll-target="#what-is-rentrez">What is Rentrez?</a></li>
-  <li><a href="#install-and-load-rentrez" id="toc-install-and-load-rentrez" class="nav-link" data-scroll-target="#install-and-load-rentrez">Install and Load Rentrez</a></li>
+  <li><a href="#install-and-load-rentrez" id="toc-install-and-load-rentrez" class="nav-link" data-scroll-target="#install-and-load-rentrez">Install and Load <code>Rentrez</code></a></li>
   </ul></li>
-  <li><a href="#rentrez-functions" id="toc-rentrez-functions" class="nav-link" data-scroll-target="#rentrez-functions">Rentrez Functions</a>
+  <li><a href="#rentrez-functions" id="toc-rentrez-functions" class="nav-link" data-scroll-target="#rentrez-functions"><code>Rentrez</code> Functions</a>
   <ul class="collapse">
   <li><a href="#helper-functions" id="toc-helper-functions" class="nav-link" data-scroll-target="#helper-functions">Helper Functions</a>
   <ul class="collapse">
@@ -2676,54 +2677,59 @@ background-origin: content-box;
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
+<p>For the last few weeks, we have been working on data that you have downloaded and is in a CSV format. Now we are shifting the gears to work with data that is not located in our computers but is on the internet.</p>
+<p>For this lesson, we are going to use <code>Rentrez</code> to get data directly from the PubMed database and from there create a data frame that can be transformed into a CSV.</p>
+</section>
+<section id="the-data" class="level1">
+<h1>The Data</h1>
+<p>Our data will be located in the National Center for BioInformation API. For this week, we need to learn how to perform search queries to the NCBI API using <code>Rentrez</code>.</p>
 <section id="what-is-rentrez" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-rentrez">What is Rentrez?</h2>
-<p>Rentrez is an R interface that allows its users to interact with NCBI API. With Rentrez, you do not need to use any additional program or terminal to access NCBI Data. This means that you can request data from multiple databases (PubMed, SNP,Clinvar,SRA, Gene and others) in the same RStudio Session.</p>
+<p><code>Rentrez</code> is an R interface that allows its users to interact with NCBI API. With <code>Rentrez</code>, you do not need to use any additional program or terminal to access NCBI Data. This means that you can request data from multiple databases (PubMed, SNP, Clinvar, SRA, Gene, and others) in the same RStudio Session.</p>
 <p>If you want to learn more about Rentrez, you can access this <a href="https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html">Rentrez Tutorial</a></p>
 </section>
 <section id="install-and-load-rentrez" class="level2">
-<h2 class="anchored" data-anchor-id="install-and-load-rentrez">Install and Load Rentrez</h2>
-<p>Now, remember that you need to install any new package that you want to use in RStudio. Also, once you have the package you need to load it.</p>
-<p>How can we do that?</p>
+<h2 class="anchored" data-anchor-id="install-and-load-rentrez">Install and Load <code>Rentrez</code></h2>
+<p>Now, remember that you need to install any new package that you want to use in RStudio. Also, once you have the package you need to load it. How can we do that?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&#39;rentrez&#39;)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rentrez)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now that have installed the package and load it into Rstudio. Lets take a breif look at the documentation available about this this resource.</p>
-<p><strong>Lets visit the <a href="https://cran.r-project.org/web/packages/rentrez/rentrez.pdf">Rentrez Documentation</a></strong></p>
-<p>This pdf provides details about each function that the R Package Rentrez has. For each function you may find a description, usage example, arguments and return value type. Remember that you can always use the <code>helper( )</code> in R to search function descriptions.</p>
+<p>Now that have installed the package and loaded it into Rstudio. Let’s take a brief look at the documentation available about this resource.</p>
+<p><strong>Let’s visit the <a href="https://cran.r-project.org/web/packages/rentrez/rentrez.pdf">Rentrez Documentation</a></strong></p>
+<p>This pdf provides details about each function that the R Package <code>Rentrez</code> has. For each function, you may find a description, usage example, arguments, and return value type. Remember that you can always use the <code>helper( )</code> in R to search function descriptions.</p>
 </section>
 </section>
 <section id="rentrez-functions" class="level1">
-<h1>Rentrez Functions</h1>
+<h1><code>Rentrez</code> Functions</h1>
 <section id="helper-functions" class="level2">
 <h2 class="anchored" data-anchor-id="helper-functions">Helper Functions</h2>
-<p>Helper functions in Rentrez allows you to get acquainted NCBI databases and their searchable fields. It also allows you get updates on when was the last time that the database was updated.</p>
+<p>Helper functions in <code>Rentrez</code> allow you to get acquainted with NCBI databases and their searchable fields. It also allows you to get updates on when was the last time that the database was updated.</p>
 <section id="entrez_dbs" class="level3">
 <h3 class="anchored" data-anchor-id="entrez_dbs">entrez_dbs()</h3>
-<p>This function provides a list of Entrez Databases that you can use to perform searches. Lets see how this function works.</p>
+<p>This function provides a list of NCBI databases that you can use to perform searches. Let’s see how this function works.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#entrez_dbs()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="entrez_db_summary" class="level3">
 <h3 class="anchored" data-anchor-id="entrez_db_summary">entrez_db_summary()</h3>
-<p>How do we know that the database is up to date? We can use the entrez_db_summary function to see the latest updates of the selected NCBI database.</p>
+<p>How do we know that the database is up to date? We can use the <code>entrez_db_summary()</code> function to see the latest updates of the selected NCBI database.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">entrez_db_summary</span>(<span class="st">&quot;pubmed&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> DbName: pubmed
  MenuName: PubMed
  Description: PubMed bibliographic record
- DbBuild: Build-2023.06.26.02.06
- Count: 35858097
- LastUpdate: 2023/06/26 02:06 </code></pre>
+ DbBuild: Build-2023.06.29.23.59
+ Count: 35885516
+ LastUpdate: 2023/06/29 23:59 </code></pre>
 </div>
 </div>
 </section>
 <section id="entrez_db_searchable" class="level3">
 <h3 class="anchored" data-anchor-id="entrez_db_searchable">entrez_db_searchable()</h3>
-<p>How can I build PubMed queries? What search fields does the database has? We can use the entrez_db_searchable function to see searchable fields and its description.</p>
+<p>How can I build PubMed queries? What search fields does the database have? We can use the <code>entrez_db_searchable()</code> function to see searchable fields and its description.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">entrez_db_searchable</span>(<span class="st">&quot;pubmed&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -2780,21 +2786,21 @@ background-origin: content-box;
   P1DAT      Date publication first accessible through Solr </code></pre>
 </div>
 </div>
-<p>Lets strategize our search! Now that we know the search fields you can use to build a query, lets perform our first search.</p>
+<p>Let’s strategize our search! Now that we know the search fields you can use to build a query, let’s perform our first search.</p>
 </section>
 </section>
 <section id="performing-searches-in-ncbi-api" class="level2">
 <h2 class="anchored" data-anchor-id="performing-searches-in-ncbi-api">Performing searches in NCBI API</h2>
-<p>The functions listed under this category allows you to use a search term or query to retrieve a list of article/object ids. This list of ids, will later allow you to retrieve partial or full summary records of that article/object. These functions permits you to to create dataframes in R, which allows easy data manipulation.</p>
+<p>The functions listed under this category allow you to use a search term or query to retrieve a list of article/object ids. This list of ids will later allow you to retrieve partial or full summary records of that article/object. These functions permit you to create data frames in R, which allows easy data manipulation.</p>
 <section id="entrez_search" class="level3">
 <h3 class="anchored" data-anchor-id="entrez_search">entrez_search()</h3>
-<p>Similar to PubMed, Rentrez allows you to perform simple or boolean searches using the same structure that you would use in the PubMed search bar. This function allows you to find records that matches your keyword.</p>
-<p>First lets learn the syntax for a simple and a boolean search:</p>
+<p>Similar to PubMed, <code>Rentrez</code> allows you to perform simple or boolean searches using the same structure that you would use in the PubMed search bar. This function allows you to find records that match your keyword.</p>
+<p>First, let’s learn the syntax for a simple and a boolean search:</p>
 <p>Simple Search:</p>
-<p><code>entrez_search(db= [database name], term= &quot;searchword[field]&quot;)</code></p>
+<p><code>entrez_search(db= &quot;database name&quot;, term= &quot;searchword[field]&quot;)</code></p>
 <p>Boolean search: The allowed boolean terms are <strong>AND, OR, and NOT</strong>.</p>
-<p><code>entrez_search(db= [database name], term= &quot;searchword[field]&quot; &lt;boolean term&gt; &quot;searchword[field]&quot;)</code></p>
-<p><strong>The entrez_search function takes 4 arguments. The required ones are db and term.</strong></p>
+<p><code>entrez_search(db= &quot;database name&quot;, term= &quot;searchword[field] &lt;boolean term&gt; searchword[field]&quot;)</code></p>
+<p><strong>The <code>entrez_search()</code> function takes 4 arguments. The required ones are db and term.</strong></p>
 <table class="table">
 <colgroup>
 <col style="width: 33%">
@@ -2851,8 +2857,8 @@ background-origin: content-box;
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Articles that include PCOS + Insulin Resistance AND have Authors affiliated with UMD</span></span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>pcos_ir_umb_pm <span class="ot">&lt;-</span> <span class="fu">entrez_search</span>(<span class="at">db=</span><span class="st">&quot;pubmed&quot;</span>, <span class="at">term=</span> <span class="st">&quot;pcos[all] AND insulin resistance[all] AND University of Maryland[affl]&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>What does the entrez_search() function RETURNS?</strong></p>
-<p>The entrez_search function returns a list of elements that includes the following:</p>
+<p><strong>What does the <code>entrez_search()</code> function RETURNS?</strong></p>
+<p>The <code>entrez_search()</code> function returns a list of elements that includes the following:</p>
 <table class="table">
 <colgroup>
 <col style="width: 33%">
@@ -2903,10 +2909,10 @@ background-origin: content-box;
 </section>
 <section id="entrez_summary" class="level3">
 <h3 class="anchored" data-anchor-id="entrez_summary">entrez_summary()</h3>
-<p>Now lets retrieve partial information about the records we collected in one of our searches. This function takes a vector of unique IDs or just one id.</p>
-<p>But, first lets learn the syntax of the <code>entrez_summary()</code> function.</p>
-<p><code>entrez_summary(db=&quot;&quot;, id=, rettype = &quot;&quot;)</code></p>
-<p><strong>The <code>entrez_summary()</code> function takes 7 arguments but you don’t need to use them all. The require ones are db, id and rettype.</strong> <strong>If you will be working with web_histories later, you don’t need to use the id argument.</strong></p>
+<p>Now let’s retrieve partial information about the records we collected in one of our searches. This function takes a vector of unique IDs or just one id.</p>
+<p>But, first, let’s learn the syntax of the <code>entrez_summary()</code> function.</p>
+<p><code>entrez_summary(db=&quot;&lt;database name&gt;&quot;, id=&lt; &gt;)</code></p>
+<p><strong>The <code>entrez_summary()</code> function takes 7 arguments but you don’t need to use them all. The required ones are db and id.</strong></p>
 <table class="table">
 <colgroup>
 <col style="width: 33%">
@@ -2961,16 +2967,17 @@ background-origin: content-box;
 <p>EXAMPLES:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Rentrez summary function to get publication information</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#In this command we are giving a list of ids by using pcos_pm$ids. The $ operator extract a subset of a data object in R. </span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>summary_pcos_pm <span class="ot">&lt;-</span> <span class="fu">entrez_summary</span>(<span class="at">db=</span><span class="st">&quot;pubmed&quot;</span>, <span class="at">id=</span>pcos_pm<span class="sc">$</span>ids, <span class="at">rettype =</span> <span class="st">&quot;xml&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#In this command we are giving a list of ids by using pcos_pm$ids. The $ operator extracts a subset of a data object in R.  </span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>summary_pcos_pm <span class="ot">&lt;-</span> <span class="fu">entrez_summary</span>(<span class="at">db=</span><span class="st">&quot;pubmed&quot;</span>, <span class="at">id=</span>pcos_pm<span class="sc">$</span>ids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>What does the <code>entrez_summary()</code> function RETURNS?</strong></p>
-<p>This function returns an NCBI API object called esummary, which means a list of items for multiple or a single record. The elements return behave like a list so you can use $ to call any item.</p>
-<p>For the <code>entrez_summary()</code> function, Rentrez has created a function that allows you to extract information from each metadata field avoiding the challenges that comes with navigating an XML documents.</p>
+<p>This function returns an NCBI API object called esummary, which means a list of items for multiple or single records. The elements return behave like a list so you can use $ to call any item.</p>
+<p>For the <code>entrez_summary()</code> function, <code>Rentrez</code> has created a function that allows you to extract information from each metadata field avoiding the challenges that come with navigating an XML document.</p>
 </section>
 <section id="extract_from_esummary" class="level3">
 <h3 class="anchored" data-anchor-id="extract_from_esummary">extract_from_esummary()</h3>
-<p>This function helps you navigate through an XMLInternalDocument and extract elements from a list of esummary records. But, first lest learn the syntax of the <code>extract_from_esummary()</code> function.</p>
+<p>This function helps you navigate through an XMLInternalDocument and extract elements from a list of esummary records.</p>
+<p>But, first and let’s learn the syntax of the <code>extract_from_esummary()</code> function.</p>
 <p><code>extract_from_esummary(esummaries, elements, simplify = TRUE)</code></p>
 <p><strong>The <code>extract_from_summary()</code> function takes 3 arguments but you don’t need to use them all. The required ones are esummary and elements.</strong></p>
 <table class="table">
@@ -3006,17 +3013,17 @@ background-origin: content-box;
 </table>
 <p>EXAMPLE:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If you have been performing searches in PubMed, you can use the following coding lines as guide.</span></span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If you have been performing searches in PubMed, you can use the following coding lines as a guide.</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>uids <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary_pcos_pm,<span class="st">&quot;uid&quot;</span>)</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>authors <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary_pcos_pm,<span class="st">&quot;authors&quot;</span>)[<span class="st">&quot;name&quot;</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>What does the extract_from_esummary() function RETURNS?</strong></p>
-<p>This function returns a list or vector containing information of the requested item.</p>
+<p>This function returns a list or vector containing information on the requested item.</p>
 </section>
 <section id="entrez_fetch" class="level3">
 <h3 class="anchored" data-anchor-id="entrez_fetch">entrez_fetch()</h3>
-<p>Another way to get records from the NBCI API, is by using the <code>entrez_fetch()</code> function. In some cases, <code>entrez_fetch()</code>, will retrieve a complete bibliographic record of the article or data object. Another difference between <code>entrez_summary</code> and <code>entrez_fetch</code> is in the way both functions arrange the data in RStudio. <code>entrez_summary()</code> in most of the cases will return a data frame with elements that behave as lists, while <code>entrez_fetch()</code> will return a XML Document.</p>
+<p>Another way to get records from the NBCI API is by using the <code>entrez_fetch()</code> function. In some cases, <code>entrez_fetch()</code>, will retrieve a complete bibliographic record of the article or data object. Another difference between <code>entrez_summary</code> and <code>entrez_fetch</code> is in the way both functions arrange the data in RStudio. <code>entrez_summary()</code> in most of the cases will return a data frame with elements that behave as lists, while <code>entrez_fetch()</code> will return an XML Document.</p>
 <p>EXAMPLE:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fetch <span class="ot">&lt;-</span> <span class="fu">entrez_fetch</span>(<span class="at">db=</span> <span class="st">&quot;pubmed&quot;</span>, <span class="at">id =</span> pcos_pm<span class="sc">$</span>ids, <span class="at">rettype =</span> <span class="st">&quot;xml&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3029,10 +3036,10 @@ background-origin: content-box;
 <h3 class="anchored" data-anchor-id="entrez_global_query">entrez_global_query()</h3>
 <p>The <code>entrez_global_query()</code> function allows you to search a term on all NCBI Entrez Databases.</p>
 <p>The syntax for this function is</p>
-<p><code>entrez_global_query(term, config = NULL, ...)</code></p>
+<p><code>entrez_global_query(term= &quot;search term&quot;, config = NULL, ...)</code></p>
 <p>As you can see the function takes config= NULL as an argument, but we are not going to use that in this tutorial.</p>
-<p>The argument <code>config</code> means the type of connection that you are requesting from the API, this could be GET or POST. In the entrez context if you are performing big data requests they recommend you to use a combination of <code>web_history</code> and <code>config = POST</code> arguments to not saturate their servers. They also ask for big data request to be done at night.</p>
-<p>Lets test this function and see what it returns.</p>
+<p>The argument <code>config</code> means the type of connection that you are requesting from the API, this could be GET or POST. In the NCBI API context if you are performing big data requests they recommend you to use a combination of <code>web_history</code> and <code>config = POST</code> arguments to not saturate their servers. They also ask for a big data request to be done at night.</p>
+<p>Let’s test this function and see what it returns.</p>
 <p>EXAMPLE:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>global_query <span class="ot">&lt;-</span> (<span class="st">&quot;PCOS&quot;</span>)</span>
@@ -3044,15 +3051,15 @@ Warning in FUN(X[[i]], ...): NAs introduced by coercion</code></pre>
 </div>
 </div>
 <p><strong>What does the entrez_global_query() function RETURNS?</strong></p>
-<p>This function returns a named vector with counts for each a database. This means a list of totals of articles found related to your search term by database.</p>
+<p>This function returns a named vector with counts for each database. This means a list of totals of articles found related to your search term for each database.</p>
 <p>Another function that allows you to contrast searches within the NBCI databases is the <code>entrez_links()</code> function.</p>
 </section>
 <section id="entrez_links" class="level3">
 <h3 class="anchored" data-anchor-id="entrez_links">entrez_links()</h3>
-<p>The <code>entrez_link()</code> function allows you to get links of related records from an NCBI database. This function uses a unique identifier or a set of unique identifiers to search related articles in other NCBI databases.</p>
-<p>Lets have a look at the syntax of this function.</p>
-<p><code>entrez_link(dbfrom = &quot;&quot; , web_history = &quot;&quot; , id = &quot;&quot; , db = &quot;&quot;, cmd = &quot;&quot;, by_id = FALSE, config = &quot;&quot;)</code></p>
-<p>Lets have a look of the arguments required for this function.</p>
+<p>The <code>entrez_link()</code> function allows you to get links to related records from an NCBI database. This function uses a unique identifier or a set of unique identifiers to search related articles in other NCBI databases.</p>
+<p>Let’s have a look at the syntax of this function.</p>
+<p><code>entrez_link(dbfrom = &quot;database name&quot; , web_history = &quot;&quot; , id = &quot;&quot; , db = &quot;database name&quot;, cmd = &quot;&quot;, by_id = FALSE, config = &quot;&quot;)</code></p>
+<p>Let’s have a look at the arguments required for this function.</p>
 <table class="table">
 <colgroup>
 <col style="width: 33%">
@@ -3075,7 +3082,7 @@ Warning in FUN(X[[i]], ...): NAs introduced by coercion</code></pre>
 <tr class="even">
 <td>web_history</td>
 <td>WEB HISTORY OBJECT</td>
-<td>Store article/object ids in NCBI servers</td>
+<td>Stored article/object ids in NCBI servers</td>
 </tr>
 <tr class="odd">
 <td>id</td>
@@ -3108,14 +3115,14 @@ Warning in FUN(X[[i]], ...): NAs introduced by coercion</code></pre>
 <p>EXAMPLE:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#If using pubmed, select an article and perform a search using a DOI, PMID or PCMID</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Lets select an article that is related with two characteristics of PCOS, Insulin Resistance and Metabolic Syndrome</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Let&#39;s select an article that is related to two characteristics of PCOS, Insulin Resistance, and Metabolic Syndrome</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Selected Article </span></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Genetics of Insulin Resistance and the Metabolic Syndrome, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4911377/</span></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#PMCID: PMC4911377</span></span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#PMID: 27312935</span></span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Our results shows that there are related articles in databases such as the Single Nucleotide Polymorphism Database(dbSNP), Medgen, the Taxonomy database and others</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Our results show that there are related articles in databases such as the Single Nucleotide Polymorphism Database(dbSNP), Medgen, the Taxonomy database, and others</span></span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>pcos_links <span class="ot">&lt;-</span><span class="fu">entrez_link</span>(<span class="at">dbfrom=</span><span class="st">&quot;pubmed&quot;</span>, <span class="at">id=</span><span class="st">&quot;10.1007/s11886-016-0755-4&quot;</span>, <span class="at">db=</span> <span class="st">&quot;all&quot;</span>)</span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Searching the titles for articles that cited the selected article</span></span>
@@ -3126,24 +3133,24 @@ Warning in FUN(X[[i]], ...): NAs introduced by coercion</code></pre>
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>summary_pcos_snp <span class="ot">&lt;-</span> <span class="fu">entrez_summary</span>(<span class="at">db=</span><span class="st">&quot;snp&quot;</span>, <span class="at">id=</span>pcos_links<span class="sc">$</span>links<span class="sc">$</span>pubmed_snp, <span class="at">rettype =</span> <span class="st">&quot;xml&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>What does the entrez_link function returns?</strong></p>
-<p>This function returns an NCBI API object called, “elink”, which is a list of id’s by database.</p>
+<p>This function returns an NCBI API object called, “elink”, which is a list of ids by a database.</p>
 </section>
 </section>
 </section>
 <section id="excersice-lets-practice" class="level1">
 <h1>Excersice: Lets practice!</h1>
-<p>Now that we know how to use rentrez lets move this information to a friendly format! We are going to learn how to use Rentrez helper function to extract data from the XML given by the entrez_summary function</p>
+<p>Now that we know how to use <code>Rentrez</code> let’s move this information to a friendly format! We are going to learn how to use the <code>Rentrez</code> helper function to extract data from the XML given by the <code>entrez_summary()</code> function</p>
 <p>Our objective is to:</p>
 <ol type="1">
-<li>Build your query: Identify your search terms, adequate database, search fields and perform the search using rentrez<br>
+<li>Build your query: Identify your search terms, adequate database, and search fields and perform the search using rentrez<br>
 </li>
 <li>Get article/object summaries.<br>
 </li>
-<li>Select the values that you would like to save (example: author, title, source).</li>
+<li>Select the values that you would like to save (for example author, title, source).</li>
 <li>Create and format a CSV or any other type of document appropriate for your search.</li>
 </ol>
 <p><strong>STEP #1</strong></p>
-<p>Build your query: Identify your search terms, adequate database, search fields and perform the search using rentrez.</p>
+<p>Build your query: Identify your search terms, adequate database, and search fields and perform the search using <code>Rentrez</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&lt;YOUR ANSWER HERE&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -3153,12 +3160,12 @@ Warning in FUN(X[[i]], ...): NAs introduced by coercion</code></pre>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&lt;YOUR ANSWER HERE&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>STEP #3</strong></p>
-<p>Select the values that you would like to save (example: author, title, source)</p>
+<p>Select the values that you would like to save (for example author, title, source)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&lt;YOUR ANSWER HERE&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>STEP #4</strong></p>
-<p>Create and format a CSV or any other type of document appropiate for your search.</p>
+<p>Create and format a CSV or any other type of document appropriate for your search.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&lt;YOUR ANSWER HERE&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>

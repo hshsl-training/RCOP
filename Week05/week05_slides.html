@@ -6,7 +6,9 @@
 <script src="week05_slides_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="week05_slides_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="week05_slides_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="week05_slides_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="week05_slides_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="week05_slides_files/libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="week05_slides_files/libs/quarto-contrib/videojs/video-js.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.2.335">
 
   <meta name="author" content="Irmarie Fraticelli-Rodriguez">
@@ -402,49 +404,64 @@ Irmarie Fraticelli-Rodriguez
 
   <p class="date">7/13/23</p>
 </section>
-<section id="learning-objectives" class="slide level2">
-<h2>Learning Objectives:</h2>
-<p>This section objectives are:</p>
-<ul>
-<li>Explore the Rentrez API documentation.</li>
-<li>Download Rentrez and learn basic search functions.</li>
-<li>Perform simple and Boolean searches.</li>
-<li>Extract data using Rentrez helper function and placing it into a dataframe.</li>
-<li>Create a CSV file using the extracted data from Rentez.</li>
-</ul>
-<p><strong>Output of this session:</strong></p>
-<ul>
-<li>A CSV file with bibliographic data extracted from Rentrez.</li>
-</ul>
+<section id="learning-goals" class="slide level2">
+<h2>Learning Goals:</h2>
+<p><strong>This section objectives are:</strong></p>
+<div class="r-fit-text">
+<ol type="1">
+<li>Become familiar with <code>Rentrez</code> and its basic search functions.</li>
+<li>Gain an understanding of how APIs work.</li>
+<li>Learn how to select and execute <code>Rentrez</code> commands.</li>
+<li>Wrangle data to a usable form.</li>
+</ol>
+</div>
 </section>
-<section>
-<section id="what-is-an-application-programming-interface" class="title-slide slide level1 center">
-<h1>What is an Application Programming Interface?</h1>
-<ul>
-<li><p>Is a way that two or more computers programs communicate with each other.</p></li>
-<li><p>An API can operate in different ways, but for this exercise we will be working under a HTTP Request Methods. What that means?</p></li>
-</ul>
-<p>The HTTP Request Method is the format that the text should be arranged so that the two or more computers understand what is being requested. With an HTTP Protocol you can:</p>
+<section id="the-data" class="slide level2">
+<h2>The Data</h2>
+<div class="r-fit-text">
+<p>In previous weeks, we have been working with data that exists locally, in your computers, and are in a <code>CSV</code> format.</p>
+<p>Not all data is formatted in a <code>CSV</code>. Sometimes we may need to connect directly with databases to extract data and we may get it in other formats like <code>JSON</code> or <code>XML</code>.</p>
+<p>Today our data comes from PubMed, a National Center for Biotechnology Information (NCBI) database.</p>
+<p>As a way to interact with this database and perform a search query, we are going to use <code>Rentrez</code>.</p>
+<p><strong>Output of this session:</strong></p>
+<ol type="1">
+<li>Download <code>Rentrez</code> and learn basic search functions.</li>
+<li>Perform simple and Boolean searches.</li>
+<li>Extract data using the <code>Rentrez</code> helper functions and place it into a data frame.</li>
+<li>Create a <code>CSV</code> file using the extracted data from <code>Rentez</code>.</li>
+</ol>
+</div>
+</section>
+<section id="what-is-an-application-programming-interface" class="slide level2">
+<h2>What is an Application Programming Interface?</h2>
+<div class="r-fit-text">
+<p>Is a way that two or more computer programs communicate with each other.</p>
+<p>An API can operate in different ways, but for this exercise, we will be working under an HTTP Request Method.</p>
+<video id="video_shortcode_videojs_video1" width="500" height="300" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title=""><source src="dinner.mp4"></video>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="r-fit-text">
+<p>The HTTP Request Method is the format that the text should be arranged so that two or more computers understand what is being requested. With an HTTP Protocol, you can:</p>
 <ol type="1">
 <li>Get information</li>
-<li>Post information which creates/updates a resource</li>
+<li>Post information that creates/updates a resource</li>
 <li>Delete information</li>
 <li>An many other functions…</li>
 </ol>
+</div>
 </section>
 <section id="what-is-rentrez" class="slide level2">
 <h2>What is Rentrez?</h2>
-<ul>
-<li>Rentrez is an R interface that allows its users to interact with NCBI API.</li>
-<li>With Rentrez, you do not need to use any additional program or terminal to access NCBI Data.
-<ul>
-<li>This means that you can request data from multiple databases (PubMed, SNP,Clinvar,SRA, Gene and others) in the same RStudio Session.</li>
-</ul></li>
-</ul>
+<p><code>Rentrez</code> is an R interface that allows its users to interact with NCBI API.</p>
+<p>With Rentrez, you do not need to use any additional program or terminal to access NCBI Data.</p>
+<p>This means that you can request data from multiple databases (PubMed, SNP, Clinvar, SRA, Gene, and others) in the same RStudio Session.</p>
 </section>
 <section id="install-and-load-rentrez" class="slide level2">
 <h2>Install and Load Rentrez</h2>
-<p>So, lets install and load rentrez in our RStudio.</p>
+<div class="r-fit-text">
+<p>So, let’s install and load rentrez in our RStudio.</p>
 <div class="cell">
 <details open="">
 <summary>Code</summary>
@@ -453,40 +470,39 @@ Irmarie Fraticelli-Rodriguez
 <span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(rentrez)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Now that we know that we have installed the package and load it into Rstudio. Lets take a look at the documentation available about this this resource.</p>
+<p>Now that we know that we have installed the package and loaded it into Rstudio. Let’s take a look at the documentation available about this resource.</p>
+</div>
 </section>
-<section id="lets-visit-the-rentrez-documentation" class="slide level2">
-<h2>Lets visit the <a href="https://cran.r-project.org/web/packages/rentrez/rentrez.pdf">Rentrez Documentation</a></h2>
-<p>This pdf provides details about each function that the R Package Rentrez has.</p>
-<p>For each command you may find a description, usage example, arguments and return value type.</p>
+<section id="rentrez-documentation" class="slide level2">
+<h2>Rentrez Documentation</h2>
+<p><strong>Lets visit the <a href="https://cran.r-project.org/web/packages/rentrez/rentrez.pdf">Rentrez Documentation</a></strong></p>
+<p>This pdf provides details about each function that the R Package <code>Rentrez</code> has.</p>
+<p>For each command, you may find a description, usage example, arguments, and return value type.</p>
 <p><strong>Remember that you can always use the <code>help(&lt;function&gt;)</code> in R to search command descriptions.</strong></p>
-</section></section>
-<section id="rentrez-functions" class="title-slide slide level1 center">
-<h1>Rentrez Functions</h1>
+</section>
+<section id="rentrez-functions" class="slide level2">
+<h2>Rentrez Functions</h2>
+<div class="r-fit-text">
 <ol type="1">
 <li>Rentrez Helper Functions</li>
 <li>Rentrez Search Functions</li>
 <li>Rentrez linking or contrasting database functions</li>
 </ol>
-<p><strong>Not covered areas in this RCOP session</strong></p>
+<p><strong>Areas we will NOT be covering</strong></p>
 <ol type="1">
-<li>Using <code>use_history</code> or <code>web_history</code> function arguments</li>
+<li>Using <code>use_history</code> or <code>web_history</code> function arguments.</li>
 <li>Setting up an account with NCBI API to perform big data queries using API credentials.</li>
-<li>Fetch DNA sequences in fasta format</li>
+<li>Fetch DNA sequences in fasta format.</li>
 <li>Fetch a parsed XML document</li>
-<li>Using the entrez_links narrowing searches functionalities.</li>
+<li>Using the <code>entrez_links()</code> narrowing search functionalities.</li>
 </ol>
 <p>Reference: <a href="https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html">Rentrez Tutorial</a> by David Winter</p>
+</div>
 </section>
-
-<section>
-<section id="rentrez-helper-functions" class="title-slide slide level1 center">
-<h1>Rentrez Helper Functions</h1>
-
-</section>
-<section class="slide level2">
-
-<p>The functions listed below helps you learn a little bit more about Rentrez and NCBI Databases.</p>
+<section id="rentrez-helper-functions" class="slide level2">
+<h2>Rentrez Helper Functions</h2>
+<div class="r-fit-text">
+<p>The functions listed below help you learn a little bit more about <code>Rentrez</code> and NCBI Databases.</p>
 <table>
 <colgroup>
 <col style="width: 40%">
@@ -517,14 +533,12 @@ Irmarie Fraticelli-Rodriguez
 </tr>
 </tbody>
 </table>
-</section></section>
-<section>
-<section id="performing-searches-in-ncbi-api" class="title-slide slide level1 center">
-<h1>Performing searches in NCBI API</h1>
-
+</div>
 </section>
-<section class="slide level2">
-
+<section id="performing-searches-in-ncbi-api" class="slide level2">
+<h2>Performing searches in NCBI API</h2>
+<div class="r-fit-text">
+<p>The functions listed below help you perform searches in a NCBI Database.</p>
 <table>
 <colgroup>
 <col style="width: 40%">
@@ -547,7 +561,7 @@ Irmarie Fraticelli-Rodriguez
 </tr>
 <tr class="odd">
 <td>entrez_fetch()</td>
-<td>Allows you to retrieve basic information about the records in an parsed XML format</td>
+<td>Allows you to retrieve basic information about the records in a parsed XML format</td>
 </tr>
 <tr class="even">
 <td>extract_from_esummary()</td>
@@ -555,109 +569,155 @@ Irmarie Fraticelli-Rodriguez
 </tr>
 </tbody>
 </table>
+</div>
 </section>
 <section id="entrez_search" class="slide level2">
 <h2>entrez_search()</h2>
-<p>Similar to PubMed, Rentrez allows you to perform simple or boolean searches using the same structure that you would use in the PubMed search bar. The allowed boolean terms are <strong>AND, OR, and NOT</strong>.</p>
-<p>First lets learn the syntax for a simple and a boolean search:</p>
+<p>Similar to PubMed, <code>Rentrez</code> allows you to perform simple or boolean searches using the same structure that you would use in the PubMed search bar. The allowed boolean terms are <strong>AND, OR, and NOT</strong>.</p>
+<p><br></p>
+<p>First, let’s learn the syntax for a simple and a boolean search:</p>
+<p><br></p>
 <p><strong>Simple Search:</strong></p>
-<p><code>entrez_search(db= "database name", term= "searchword[field]")</code></p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>pcos_pm <span class="ot">&lt;-</span> <span class="fu">entrez_search</span>(<span class="at">db=</span><span class="st">"pubmed"</span>, <span class="at">term =</span> <span class="st">"pcos[all]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <p><strong>Boolean search:</strong></p>
-<p><code>entrez_search(db= "database name", term= "searchword[field] &lt;boolean term&gt; searchword[field]")</code></p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>pcos_ir_pm <span class="ot">&lt;-</span> <span class="fu">entrez_search</span>(<span class="at">db=</span><span class="st">"pubmed"</span>, <span class="at">term=</span> <span class="st">"pcos[all] AND insulin resistance[all]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 </section>
 <section id="entrez_summary" class="slide level2">
 <h2>entrez_summary()</h2>
-<p>Now lets retrieve basic information about the records we collected in one of our searches. But, first lets learn the syntax of the entrez_summary function.</p>
-<p><code>entrez_summary(db="database name", id=, rettype = "xml")</code></p>
+<p>Now let’s retrieve basic information about the records we collected in one of our searches. But, first, let’s learn the syntax of the <code>entrez_summary()</code> function.</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>summary_pcos_pm <span class="ot">&lt;-</span> <span class="fu">entrez_summary</span>(<span class="at">db=</span><span class="st">"pubmed"</span>, <span class="at">id=</span>pcos_pm<span class="sc">$</span>ids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 </section>
 <section id="entrez_fetch" class="slide level2">
 <h2>entrez_fetch()</h2>
 <ul>
-<li><p>Another way to get records from the NBCI API, is by using the entrez_fetch function. entrez_summary and entrez_fetch are almost the same function, both of them will help you extract data from the NCBI API.</p></li>
-<li><p>The difference between entrez_summary and entrez_fetch is in the way both functions arranges the data in RStudio. The entrez_summary returns a dataframe with lists of records while entrez_fetch returns an XML document.</p></li>
-<li><p>For the entrez_summary function, rentrez has created a function that allows you to extract information from each metadata field avoiding the challenges that comes with navigating an XML parsed documents.</p></li>
+<li><p>Another way to get records from the NBCI API, is by using the <code>entrez_fetch()</code> function. <code>entrez_summary()</code> and <code>entrez_fetch()</code> are almost the same function, both of them will help you extract data from the NCBI API.</p></li>
+<li><p>The difference between <code>entrez_summary()</code> and <code>entrez_fetch()</code> is in the way both functions arrange the data in RStudio. The <code>entrez_summary()</code> returns a data frame with lists of records while <code>entrez_fetch()</code> returns an XML document.</p></li>
+<li><p>For the <code>entrez_summary()</code> function, rentrez has created a function that allows you to extract information from each metadata field avoiding the challenges that come with navigating XML-parsed documents. <br> Let’s learn the syntax of the <code>entrez_fetch()</code> function.</p></li>
 </ul>
-<p>Lets learn the syntax of the entrez_fetch function.</p>
-<p><code>entrez_fetch(db= "database name", id= , rettype= "xml")</code></p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>fetch <span class="ot">&lt;-</span> <span class="fu">entrez_fetch</span>(<span class="at">db=</span> <span class="st">"pubmed"</span>, <span class="at">id =</span> pcos_pm<span class="sc">$</span>ids, <span class="at">rettype =</span> <span class="st">"xml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 </section>
 <section id="extract_from_esummary" class="slide level2">
 <h2>extract_from_esummary()</h2>
-<p>This function helps you navigate through an XMLInternalDocument and extract elements from a list of esummary records. But, first lest learn the syntax of the extract_from_esummary function.</p>
-<p><code>extract_from_esummary(esummaries, elements, simplify = TRUE)</code></p>
-</section></section>
-<section>
-<section id="contrasting-ncbi-databases" class="title-slide slide level1 center">
-<h1>Contrasting NCBI Databases</h1>
-
+<p>This function helps you navigate through an XMLInternalDocument and extract elements from a list of esummary records. But, first, let’s learn the syntax of the <code>extract_from_esummary()</code> function.</p>
+<p><br></p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>uids <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary_pcos_pm,<span class="st">"uid"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>authors <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary_pcos_pm,<span class="st">"authors"</span>)[<span class="st">"name"</span>,]</span>
+<span id="cb6-3"><a href="#cb6-3"></a>pubdate <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary_pcos_pm,<span class="st">"pubdate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="contrasting-ncbi-databases" class="slide level2">
+<h2>Contrasting NCBI Databases</h2>
+<div class="r-fit-text">
+<p>The functions listed below help you perform searches in multiple i NCBI Databases at the same time.</p>
+<table>
+<colgroup>
+<col style="width: 40%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>entrez_global_query()</td>
+<td>Search one term in all NCBI Databases</td>
+</tr>
+<tr class="even">
+<td>entrez_links()</td>
+<td>Get cross-reference ids from multiple NCBI databases</td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 <section id="entrez_global_query" class="slide level2">
 <h2>entrez_global_query()</h2>
-<p>The entrez_global_query() function allows you to search a term on all NCBI Entrez Databases.</p>
-<p>The syntax for this function is</p>
-<p><code>entrez_global_query(term, config = NULL, ...)</code></p>
-<p>As you can see the function takes config= NULL as an argument, but we are not going to use that. The argument config in this context means the type of connection that you are requesting from the API, this could be GET or POST. In the entrez context if you are performing big data requests they recommend you to use a combination of web_history and config = POST arguments to not saturate their servers. They also ask for big data request to be done at night, again to not saturate their servers.</p>
+<p>The <code>entrez_global_query()</code> function allows you to search a term on all NCBI Databases.</p>
+<p><br></p>
+<p>The syntax for this function is:</p>
+<p><br></p>
+<p><code>entrez_global_query(&lt;"term"&gt;, config = NULL, ...)</code></p>
+<p>As you can see the function takes <code>config= NULL</code> as an argument, but we are not going to use that. The argument config in this context means the type of connection that you are requesting from the API, this could be GET or POST. In the NCBI databases context if you are performing big data requests they recommend you to use a combination of <code>web_history</code> and <code>config = POST</code> arguments to not saturate their servers. They also ask for big data requests to be done at night, again to not saturate their servers.</p>
 </section>
 <section id="entrez_links" class="slide level2">
 <h2>entrez_links()</h2>
-<p>The entrez_link() function allows you to get links of related records from an NCBI database. This function uses a unique identifier or a set of unique identifiers to search related articles in other NCBI databases.</p>
-<p>Lets have a look at the syntax of this function.</p>
-<p><code>entrez_link(dbfrom = "" , web_history = "" , id = "" , db = "", cmd = "", by_id = FALSE, config = "")</code></p>
-</section></section>
-<section>
-<section id="excersice-lets-practice" class="title-slide slide level1 center">
-<h1>Excersice: Lets practice!</h1>
-<p>Now that we know how to use rentrez lets move this information to a friendly format! We are going to learn how to use Rentrez helper function to extract data from the XML given by the entrez_summary function</p>
+<p>The <code>entrez_link()</code> function allows you to get cross-reference ids from multiple NCBI database. This function uses unique identifier to search related articles in other NCBI databases.</p>
+<p><br></p>
+<p>Let’s have a look at the syntax of this function.</p>
+<p><br></p>
+<p><code>entrez_link(dbfrom = &lt;" "&gt; , web_history = &lt;" "&gt; , id = &lt;" "&gt; , db = &lt;" "&gt;, cmd = &lt;" "&gt;, by_id = &lt;" "&gt;, config = &lt;" "&gt;)</code></p>
+</section>
+<section id="exercise-lets-practice" class="slide level2">
+<h2>Exercise: Let’s practice!</h2>
+<p>Now that we know how to use <code>Rentrez</code> let’s move this information to a friendly format! We are going to learn how to use the <code>Rentrez</code> helper function to extract data from the XML given by the <code>entrez_summary()</code> function</p>
 <p>Our objective is to:</p>
 <ol type="1">
-<li>Build your query: Identify your search terms, adequate database, search fields and perform the search using rentrez.</li>
-<li>Get article/object summaries.</li>
-<li>Select the values that you would like to save (example: author, title, source).</li>
+<li>Build your query: Identify your search terms, adequate database, and search fields and perform the search using rentrez<br>
+</li>
+<li>Get article/object summaries.<br>
+</li>
+<li>Select the values that you would like to save (for example author, title, source).</li>
 <li>Create and format a CSV or any other type of document appropriate for your search.</li>
 </ol>
 </section>
 <section id="step-1" class="slide level2">
-<h2>STEP 1</h2>
-<p>Build your query: Identify your search terms, adequate database, search fields and perform the search using rentrez.</p>
+<h2><strong>STEP #1</strong></h2>
+<p>Build your query: Identify your search terms, adequate database, and search fields and perform the search using <code>Rentrez</code>.</p>
 <div class="cell">
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#&lt;YOUR ANSWER HERE&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+
 </div>
 </section>
 <section id="step-2" class="slide level2">
-<h2>STEP 2</h2>
+<h2><strong>STEP #2</strong></h2>
 <p>Get article summaries</p>
 <div class="cell">
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#&lt;YOUR ANSWER HERE&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+
 </div>
 </section>
 <section id="step-3" class="slide level2">
-<h2>STEP 3</h2>
-<p>Select the values that you would like to save (example: author, title, source)</p>
+<h2><strong>STEP #3</strong></h2>
+<p>Select the values that you would like to save (for example author, title, source)</p>
 <div class="cell">
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#&lt;YOUR ANSWER HERE&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+
 </div>
 </section>
 <section id="step-4" class="slide level2">
-<h2>STEP 4</h2>
+<h2><strong>STEP #4</strong></h2>
 <p>Create and format a CSV or any other type of document appropriate for your search.</p>
 <div class="cell">
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">#&lt;YOUR ANSWER HERE&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+
 </div>
 <div class="footer footer-default">
 <p><a href="https://www2.hshsl.umaryland.edu/cdabs/" class="uri">https://www2.hshsl.umaryland.edu/cdabs/</a></p>
 </div>
-</section></section>
+</section>
     </div>
   </div>
 
@@ -778,7 +838,7 @@ Irmarie Fraticelli-Rodriguez
         showNotes: false,
 
         // Global override for autoplaying embedded media (null/true/false)
-        autoPlayMedia: null,
+        autoPlayMedia: true,
 
         // Global override for preloading lazy-loaded iframes (null/true/false)
         preloadIframes: null,
@@ -1039,6 +1099,7 @@ Irmarie Fraticelli-Rodriguez
       }
     });
     </script>
+    
     
 
 </body></html>
