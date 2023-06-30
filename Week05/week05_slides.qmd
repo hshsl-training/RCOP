@@ -48,15 +48,27 @@ As a way to interact with this database and perform a search query, we are going
 
 ## What is an Application Programming Interface?
 
-::: {.r-fit-text}
+:::: {.columns}
 
+::: {.column width="60%"}
 Is a way that two or more computer programs communicate with each other.
 
 An API can operate in different ways, but for this exercise, we will be working under an HTTP Request Method.  
 
 {{< video data-autoplay src="dinner.mp4" width="500" height="300" >}}
-
 :::
+
+::: {.column width="40%"}
+
+The HTTP Request Method is the format that the text should be arranged so that two or more computers understand what is being requested. With an HTTP Protocol, you can:
+
+1. Get information
+2. Post information that creates/updates a resource
+3. Delete information
+4. An many other functions...
+:::
+
+::::
 
 --------
 
