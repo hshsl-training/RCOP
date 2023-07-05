@@ -97,16 +97,6 @@ Now that we know that we have installed the package and loaded it into Rstudio. 
 
 :::
 
-## Rentrez Documentation
-
- **Lets visit the [Rentrez Documentation](https://cran.r-project.org/web/packages/rentrez/rentrez.pdf)**
-
-This pdf provides details about each function that the R Package `Rentrez` has.
- 
-For each command, you may find a description, usage example, arguments, and return value type. 
-
-**Remember that you can always use the `help(<function>)` in R to search command descriptions.** 
-
 ## Rentrez Functions
 
 ::: {.r-fit-text}
@@ -120,7 +110,8 @@ For each command, you may find a description, usage example, arguments, and retu
 2. Setting up an account with NCBI API to perform big data queries using API credentials. 
 3. Fetch DNA sequences in fasta format.
 4. Fetch a parsed XML document
-5. Using the `entrez_links()` narrowing search functionalities.
+5. How to use Rentrez linking or contrasting database functions
+
 
 Reference: [Rentrez Tutorial](https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html) by David Winter
 :::
@@ -136,7 +127,7 @@ The functions listed below help you learn a little bit more about `Rentrez` and 
 | entrez_dbs()            | List of Entrez Databases                             |
 | entrez_db_summary()     | Brief description of what the database is            |
 | entrez_db_searchable()  | Set of search fields that can used with this database |
-| entrez_db_links()       | Set of databases that might contain linked records   |
+
 
 :::
 
@@ -149,7 +140,6 @@ The functions listed below help you perform searches in a NCBI Database.
 |-------------------------|------------------------------------|
 | entrez_search()         | Allows you to perform simple or boolean searches |
 | entrez_summary()        | Allows you to retrieve basic information about the records found |
-| entrez_fetch()          |  Allows you to retrieve basic information about the records in a parsed XML format    |  
 | extract_from_esummary() | Extract elements from a list of esummary records     |
 
 :::
@@ -183,7 +173,6 @@ pcos_ir_pm <- entrez_search(db="pubmed", term= "pcos[all] AND insulin resistance
 
 ```
 
-
 ## entrez_summary()
 
 Now let's retrieve basic information about the records we collected in one of our searches. But, first, let's learn the syntax of the `entrez_summary()` function.
@@ -192,24 +181,6 @@ Now let's retrieve basic information about the records we collected in one of ou
 #| echo: true
 
 summary_pcos_pm <- entrez_summary(db="pubmed", id=pcos_pm$ids)
-
-```
-
-
-## entrez_fetch()
-
-* Another way to get records from the NBCI API, is by using the `entrez_fetch()` function. `entrez_summary()` and `entrez_fetch()` are almost the same function, both of them will help you extract data from the NCBI API. 
-
-* The difference between `entrez_summary()` and `entrez_fetch()` is in the way both functions arrange the data in RStudio. The `entrez_summary()` returns a data frame with lists of records while `entrez_fetch()` returns an XML document.
-
-* For the `entrez_summary()` function, rentrez has created a function that allows you to extract information from each metadata field avoiding the challenges that come with navigating XML-parsed documents.
- <br/>
-Let's learn the syntax of the `entrez_fetch()` function.
- 
-```{r}
-#| echo: true
-
-fetch <- entrez_fetch(db= "pubmed", id = pcos_pm$ids, rettype = "xml")
 
 ```
 
@@ -227,47 +198,6 @@ authors <- extract_from_esummary(summary_pcos_pm,"authors")["name",]
 pubdate <- extract_from_esummary(summary_pcos_pm,"pubdate")
 
 ```
-
-
-## Contrasting NCBI Databases
-
-::: {.r-fit-text}
-The functions listed below help you perform searches in multiple i NCBI Databases at the same time.
-
-| Function                | Usage                              |                 
-|-------------------------|------------------------------------|
-| entrez_global_query()   | Search one term in all NCBI Databases |
-| entrez_links()          | Get cross-reference ids from multiple NCBI databases |
-
-
-:::
-
-## entrez_global_query()
-
-The `entrez_global_query()` function allows you to search a term on all NCBI Databases.
-
-<br/>
-
-The syntax for this function is:
-
-<br/>
-
-`entrez_global_query(<"term">, config = NULL, ...)`
-
-As you can see the function takes `config= NULL` as an argument, but we are not going to use that. The argument config in this context means the type of connection that you are requesting from the API, this could be GET or POST. In the NCBI databases context if you are performing big data requests they recommend you to use a combination of `web_history` and `config = POST` arguments to not saturate their servers. They also ask for big data requests to be done at night, again to not saturate their servers.
-
-
-## entrez_links()
-
-The `entrez_link()` function allows you to get cross-reference ids from multiple NCBI database. This function uses unique identifier to search related articles in other NCBI databases.
-
-<br/>
-
-Let's have a look at the syntax of this function.
-
-<br/>
-
-`entrez_link(dbfrom = <" "> , web_history = <" "> , id = <" "> , db = <" ">, cmd = <" ">, by_id = <" ">, config = <" ">)`
 
 
 ## Exercise: Let's practice!
