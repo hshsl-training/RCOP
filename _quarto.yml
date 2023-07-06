@@ -17,8 +17,6 @@ website:
     background: primary
     search: false
     left:
-      - text: Home
-        file: index.qmd
       - text: Week01
         file: Week01/week01_lesson.qmd
       - text: Week02

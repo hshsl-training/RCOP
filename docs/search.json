@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "NNLM + CDABS R Community of Practice",
     "section": "",
-    "text": "Objective:\nThe objective of this website is to provide supporting documentation for R Community of Practice. In the navigation bar you will find each week lesson.\nWeekly Topics\n\n\n\n\n\n\n\n\nWeek\nTopic\nSlides\n\n\n\n\nWeek 1\nReading multiple files\nWeek 1\n\n\nWeek 2\nWorking with Dates\nWeek 2\n\n\nWeek 3\nCreating a bar chart with ggplot2\nWeek 3\n\n\nWeek 4\nTransforming data from wide to long\n\n\n\nWeek 5\nAccessing NCBI data with the Rentrez package\n\n\n\nWeek 6\nCommunicating with Quarto\n\n\n\n\nDownload the data by week for all the lessons here."
+    "text": "Objective:\nThe objective of this website is to provide supporting documentation for R Community of Practice. In the navigation bar you will find each week lesson.\nWeekly Topics\n\n\n\n\n\n\n\n\nWeek\nTopic\nSlides\n\n\n\n\nWeek 1\nReading multiple files\nWeek 1\n\n\nWeek 2\nWorking with Dates\nWeek 2\n\n\nWeek 3\nCreating a bar chart with ggplot2\nWeek 3\n\n\nWeek 4\nTransforming data from wide to long\nWeek 4\n\n\nWeek 5\nAccessing NCBI data with the Rentrez package\n\n\n\nWeek 6\nCommunicating with Quarto\n\n\n\n\nDownload the data by week for all the lessons here."
   },
   {
     "objectID": "Week01/week01_lesson.html",
@@ -348,5 +348,131 @@
     "title": "R Community of Practice",
     "section": "Learning Goals",
     "text": "Learning Goals\n\n\nBecome familiar with the basic components of a ggplot2 graph\nUnderstand the concept of “aesthetic mapping”\nUse ggplot2 to create bar graphs\nUse ggplot2 to customize graphs"
+  },
+  {
+    "objectID": "Week04/week04_lesson.html",
+    "href": "Week04/week04_lesson.html",
+    "title": "R Community of Practice Week 4",
+    "section": "",
+    "text": "This week we will look at the difference between the wide and long data format. This concept is related to the concept of “tidy” data, from which the tidyverse takes its name.\nAs a review, with tidy data:\n\nEach column is a variable\nEach row is an observation\nEach cell is a value.\n\nThe tidyverse packages are so called because they provide a set of tools for both producing and working with tidy data. As Figure 1 illustrates, tidy data is preferable because it is generally more predictable to work with.\n\n\n\n\n\n\n\n\n\n\nFigure 1: Tidy Data Benefits 1\n\n\nggplot2 generally requires your data to be tidy in order produce plots. In this lesson, we’ll be using the tidyr package to make our data tidy."
+  },
+  {
+    "objectID": "Week04/week04_lesson.html#the-data",
+    "href": "Week04/week04_lesson.html#the-data",
+    "title": "R Community of Practice Week 4",
+    "section": "2 The Data",
+    "text": "2 The Data\nThis week we are looking at shelving statistics. We have a small data set which tracks numbers of materials shelved by type over four months.\nLet’s open up a new script and load the tidyverse.\n\nlibrary(tidyverse)\n\nAnd now let’s load the data:\n\nshelving_wide <- read_csv(\"data/shelving_wide.csv\")\n\nThis is a fairly small data set of just 8 rows and 6 columns.\n\n\n\n\n\n\n\n\n\n\n\n\n\nmonth\nshelver\nstacks_books\nreference_books\nbound_journals\nunbound_journals\n\n\n\n\n1\nA\n0\n0\n337\n0\n\n\n1\nB\n81\n12\n0\n0\n\n\n2\nA\n0\n0\n325\n2\n\n\n2\nB\n62\n13\n0\n0\n\n\n3\nA\n0\n8\n258\n0\n\n\n3\nB\n138\n8\n5\n0\n\n\n4\nA\n0\n0\n72\n0\n\n\n4\nB\n70\n12\n0\n0\n\n\n\n\n\nOur ultimate goal is to be able to summarize and represent this data in a bar plot.\nLet’s think about some ways we might visualize this data:\n\nNumber of items shelved by material type\nNumber of items shelved by month\nNumber of items shelved by type and month\nNumber of items shelved by shelver (also broken down by type, month)\n\nGiven what we learned about ggplot2 in our last lesson, our code should look something like this.\nshelving_wide %>% \n  ggplot(mapping=aes(x=???, y=???)) +\n  geom_bar(stat=\"identity\")\n\nIt’s challenging to name a column for x and a column for y, because this data is in what’s called a wide format, which we’ll describe more in the next section.\nSo our goal this week is to:\n\nPivot data from the wide to long format\nSummarize data in a bar plot."
+  },
+  {
+    "objectID": "Week04/week04_lesson.html#wide-vs-long-data",
+    "href": "Week04/week04_lesson.html#wide-vs-long-data",
+    "title": "R Community of Practice Week 4",
+    "section": "3 Wide vs Long data",
+    "text": "3 Wide vs Long data\nA wide data set is one in which a variable is distributed across several rows. In our shelving_wide data frame, we have four columns: stacks_books, reference_books, bound_journals, and unbound_journals. These all represent the type of material being shelved. So, we could say that those column names represent values of the variable material type. Another variable of interest is the count of items being shelved, which is being stored in the cells of those four material type columns. Other variables in this data frame are month and shelver.\nData in this format violates Rule 1 of tidy data, because each column does not represent a single variable, instead we have the variable type of material spread out over 4 columns.\nTo make our data set tidy we would want to reduce those four columns to two columns, one for material type, and one for the count of items. By reducing the number of columns, we must also increase the number of rows. So, we are lengthening our data set to make it tidy. The final result will look like:\n\n\n\n\n\n\nmonth\nshelver\nmaterial_type\nnumber_shelved\n\n\n\n\n1\nA\nstacks_books\n0\n\n\n1\nA\nreference_books\n0\n\n\n1\nA\nbound_journals\n337\n\n\n1\nA\nunbound_journals\n0\n\n\n1\nB\nstacks_books\n81\n\n\n1\nB\nreference_books\n12\n\n\n1\nB\nbound_journals\n0\n\n\n1\nB\nunbound_journals\n0\n\n\n2\nA\nstacks_books\n0\n\n\n2\nA\nreference_books\n0\n\n\n2\nA\nbound_journals\n325\n\n\n2\nA\nunbound_journals\n2\n\n\n2\nB\nstacks_books\n62\n\n\n2\nB\nreference_books\n13\n\n\n2\nB\nbound_journals\n0\n\n\n2\nB\nunbound_journals\n0\n\n\n3\nA\nstacks_books\n0\n\n\n3\nA\nreference_books\n8\n\n\n3\nA\nbound_journals\n258\n\n\n3\nA\nunbound_journals\n0\n\n\n3\nB\nstacks_books\n138\n\n\n3\nB\nreference_books\n8\n\n\n3\nB\nbound_journals\n5\n\n\n3\nB\nunbound_journals\n0\n\n\n4\nA\nstacks_books\n0\n\n\n4\nA\nreference_books\n0\n\n\n4\nA\nbound_journals\n72\n\n\n4\nA\nunbound_journals\n0\n\n\n4\nB\nstacks_books\n70\n\n\n4\nB\nreference_books\n12\n\n\n4\nB\nbound_journals\n0\n\n\n4\nB\nunbound_journals\n0\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nWide data is not “bad”, and is very common in real world data sets, because it is easy for humans to track and read data that way. But a tidy, or long, format may make it easier to analyze that data with a computer."
+  },
+  {
+    "objectID": "Week04/week04_lesson.html#pivot_longer",
+    "href": "Week04/week04_lesson.html#pivot_longer",
+    "title": "R Community of Practice Week 4",
+    "section": "4 pivot_longer()",
+    "text": "4 pivot_longer()\nTo lengthen our data, we’ll use the pivot_longer() function from the tidyr package. There are four arguments we need to provide:\n\ndata - the data frame to lengthen\ncols - the columns we want to pivot on\nnames_to - the name of a new column which will have our old column names as values\nvalues_to - the name of a new column which will hold the cell values of the pivoted columns\n\n\nshelving_long <- \n  shelving_wide %>% \n  pivot_longer(cols = stacks_books:unbound_journals, \n               names_to = \"material_type\",\n               values_to = \"count\")\n\nNotice that our new “long” data frame has 32 observations and 4 variables."
+  },
+  {
+    "objectID": "Week04/week04_lesson.html#sec-plot",
+    "href": "Week04/week04_lesson.html#sec-plot",
+    "title": "R Community of Practice Week 4",
+    "section": "5 Plotting the Data",
+    "text": "5 Plotting the Data\nNow it should be easier to create our bar plot.\n\nshelving_long %>% \n  ggplot(mapping=aes(x=material_type, y=count)) +\n  geom_bar(stat=\"identity\") +\n  labs(title=\"Number of items shelved by material type\", \n       x=\"Material Type\", \n       y=\"Number of items shelved\")"
+  },
+  {
+    "objectID": "Week04/week04_lesson.html#challenge",
+    "href": "Week04/week04_lesson.html#challenge",
+    "title": "R Community of Practice Week 4",
+    "section": "6 Challenge",
+    "text": "6 Challenge\nUsing what you learned last week, how could you create a plot of the number of items shelved each month by type as shown below. Open the code box to see a solution.\n\n\nReveal Solution\nshelving_long %>% \n  ggplot(mapping=aes(x=month, y=count, fill=material_type)) +\n  geom_bar(stat=\"identity\", position = \"dodge\") +\n  labs(title=\"Number of items shelved by material type\", \n       x=\"Month\", \n       y=\"Number of items shelved\", \n       fill=\"Material Type\") +\n  scale_fill_viridis_d(labels=c('Bound Journals', 'Reference Books', 'Stacks Books', 'Unbound Journals'))\n\n\n\n\n\nHow might we plot all four variables: month, shelver, material_type, and count? (Hint: check out the ggplot2 documentation on faceting)\n\n\nReveal Solution\nshelving_long %>% \n  ggplot(mapping=aes(x=month, y=count, fill=material_type)) +\n  geom_bar(stat=\"identity\", position = \"dodge\") +\n  labs(title=\"Number of items shelved each month\",\n       subtitle= \"By material type and shelver\", \n       x=\"Month\", \n       y=\"Number of items shelved\", \n       fill=\"Material Type\") +\n  scale_fill_viridis_d(labels=c('Bound Journals', 'Reference Books', 'Stacks Books', 'Unbound Journals')) +\n  facet_wrap(~shelver)"
+  },
+  {
+    "objectID": "Week04/week04_lesson.html#wrapping-up",
+    "href": "Week04/week04_lesson.html#wrapping-up",
+    "title": "R Community of Practice Week 4",
+    "section": "7 Wrapping Up",
+    "text": "7 Wrapping Up\nUse ggsave() to save the plot you created in Section 5 as a .jpg file."
+  },
+  {
+    "objectID": "Week04/week04_lesson.html#further-reading",
+    "href": "Week04/week04_lesson.html#further-reading",
+    "title": "R Community of Practice Week 4",
+    "section": "8 Further Reading",
+    "text": "8 Further Reading\nThere’s much more that can be done with pivot_longer() and it’s companion function pivot_wider and with the tidyr package in general. Check out the following resources for more information:\n\ntidyr documentation\nTidy Data Explanation\nPivoting Article"
+  },
+  {
+    "objectID": "Week04/week04_slides.html",
+    "href": "Week04/week04_slides.html",
+    "title": "R Community of Practice",
+    "section": "",
+    "text": "Define the concept of tidy data\nDefine what is meant by long and wide data\nUnderstand the pros and cons of working with wide or long data.\nUse the tidyr package to pivot a data frame from wide to long"
+  },
+  {
+    "objectID": "Week04/week04_slides.html#the-data",
+    "href": "Week04/week04_slides.html#the-data",
+    "title": "R Community of Practice",
+    "section": "The Data",
+    "text": "The Data\nScenario: We want to visualize a small dataset of shelving statistics.\nWe’ll complete the following tasks:\n\nPivot the data frame from wide to long using tidyr package\nPlot the data frame using what we learned about ggplot2"
+  },
+  {
+    "objectID": "Week04/week04_slides.html#what-is-tidy-data",
+    "href": "Week04/week04_slides.html#what-is-tidy-data",
+    "title": "R Community of Practice",
+    "section": "What is Tidy Data 1?",
+    "text": "What is Tidy Data 1?"
+  },
+  {
+    "objectID": "Week04/week04_slides.html#tidy-data-is-predictable",
+    "href": "Week04/week04_slides.html#tidy-data-is-predictable",
+    "title": "R Community of Practice",
+    "section": "Tidy Data is predictable 2",
+    "text": "Tidy Data is predictable 2"
+  },
+  {
+    "objectID": "Week04/week04_slides.html#tidy-data-is-more-efficient",
+    "href": "Week04/week04_slides.html#tidy-data-is-more-efficient",
+    "title": "R Community of Practice",
+    "section": "Tidy Data is more efficient 3",
+    "text": "Tidy Data is more efficient 3"
+  },
+  {
+    "objectID": "Week04/week04_slides.html#why-isnt-our-data-tidy",
+    "href": "Week04/week04_slides.html#why-isnt-our-data-tidy",
+    "title": "R Community of Practice",
+    "section": "Why isn’t our data tidy?",
+    "text": "Why isn’t our data tidy?\n\n\n\n\n\n\n\n\n\n\n\n\n\nmonth\nshelver\nstacks_books\nreference_books\nbound_journals\nunbound_journals\n\n\n\n\n1\nA\n0\n0\n337\n0\n\n\n1\nB\n81\n12\n0\n0\n\n\n2\nA\n0\n0\n325\n2\n\n\n2\nB\n62\n13\n0\n0\n\n\n3\nA\n0\n8\n258\n0\n\n\n3\nB\n138\n8\n5\n0\n\n\n4\nA\n0\n0\n72\n0\n\n\n4\nB\n70\n12\n0\n0"
+  },
+  {
+    "objectID": "Week04/week04_slides.html#how-would-we-plot-the-data",
+    "href": "Week04/week04_slides.html#how-would-we-plot-the-data",
+    "title": "R Community of Practice",
+    "section": "How would we plot the data?",
+    "text": "How would we plot the data?\nshelving_wide %>% \n  ggplot(mapping=aes(x=???, y=???)) +\n  geom_bar(stat=\"identity\")"
+  },
+  {
+    "objectID": "Week04/week04_slides.html#wide-vs-long-data",
+    "href": "Week04/week04_slides.html#wide-vs-long-data",
+    "title": "R Community of Practice",
+    "section": "Wide vs long data",
+    "text": "Wide vs long data\n\nlong data\n\ndata represented with minimum number of columns necessary, tidy data\n\nwide data\n\nVariables may be spread across multiple columns. Column names often represent variable values"
+  },
+  {
+    "objectID": "Week04/week04_slides.html#our-goal",
+    "href": "Week04/week04_slides.html#our-goal",
+    "title": "R Community of Practice",
+    "section": "Our Goal",
+    "text": "Our Goal\n\n\n\n\n\n\nmonth\nshelver\nmaterial_type\nnumber_shelved\n\n\n\n\n1\nA\nstacks_books\n0\n\n\n1\nA\nreference_books\n0\n\n\n1\nA\nbound_journals\n337\n\n\n1\nA\nunbound_journals\n0\n\n\n1\nB\nstacks_books\n81\n\n\n1\nB\nreference_books\n12\n\n\n1\nB\nbound_journals\n0\n\n\n1\nB\nunbound_journals\n0\n\n\n2\nA\nstacks_books\n0\n\n\n2\nA\nreference_books\n0\n\n\n2\nA\nbound_journals\n325\n\n\n2\nA\nunbound_journals\n2\n\n\n2\nB\nstacks_books\n62\n\n\n2\nB\nreference_books\n13\n\n\n2\nB\nbound_journals\n0\n\n\n2\nB\nunbound_journals\n0\n\n\n3\nA\nstacks_books\n0\n\n\n3\nA\nreference_books\n8\n\n\n3\nA\nbound_journals\n258\n\n\n3\nA\nunbound_journals\n0\n\n\n3\nB\nstacks_books\n138\n\n\n3\nB\nreference_books\n8\n\n\n3\nB\nbound_journals\n5\n\n\n3\nB\nunbound_journals\n0\n\n\n4\nA\nstacks_books\n0\n\n\n4\nA\nreference_books\n0\n\n\n4\nA\nbound_journals\n72\n\n\n4\nA\nunbound_journals\n0\n\n\n4\nB\nstacks_books\n70\n\n\n4\nB\nreference_books\n12\n\n\n4\nB\nbound_journals\n0\n\n\n4\nB\nunbound_journals\n0"
+  },
+  {
+    "objectID": "Week04/week04_slides.html#pivot_longer",
+    "href": "Week04/week04_slides.html#pivot_longer",
+    "title": "R Community of Practice",
+    "section": "pivot_longer()",
+    "text": "pivot_longer()\nTo lengthen our data, we’ll use the pivot_longer() function from the tidyr package. There are four arguments we need to provide:\n\ndata - the data frame to lengthen\ncols - the columns we want to pivot on\nnames_to - the name of a new column which will have our old column names as values\nvalues_to - the name of a new column which will hold the cell values of the pivoted columns"
   }
 ]
