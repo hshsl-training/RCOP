@@ -1,0 +1,204 @@
+---
+title: "R Community of Practice Week 4"
+subtitle: "Pivoting Data from Wide to Long"
+number-sections: true
+title-block-banner: white
+title-block-banner-color: black
+navbar:
+    page-navigation: true
+format: 
+  html:
+    embed-resources: true
+    code-overflow: wrap
+toc: true
+editor: source
+css: ../styles.css
+---
+
+## Introduction
+This week we will look at the difference between the wide and long data format. This concept is related to the concept of "tidy" data, from which the **`tidyverse`** takes its name.
+
+As a review, with tidy data:
+
+1. Each column is a variable
+1. Each row is an observation
+1. Each cell is a value.
+
+The **`tidyverse`** packages are so called because they provide a set of tools for both producing and working with tidy data. As @fig-tidy illustrates, tidy data is preferable because it is generally more predictable to work with.
+
+::: {#fig-tidy layout-ncol=2}
+
+![](horst_tidydata_2.jpg){fig-alt="There are two sets of anthropomorphized data tables. The top group of three tables are all rectangular and smiling, with a shared speech bubble reading “our columns are variables and our rows are observations!”. Text to the left of that group reads “The standard structure of tidy data means that “tidy datasets are all alike…” The lower group of four tables are all different shapes, look ragged and concerned, and have different speech bubbles reading (from left to right) “my column are values and my rows are variables”, “I have variables in columns AND in rows”, “I have multiple variables in a single column”, and “I don’t even KNOW what my deal is.” Next to the frazzled data tables is text “...but every messy dataset is messy in its own way. -Hadley Wickham.”"}
+
+![](horst_tidy_data_3.jpg){fig-alt="On the left is a happy cute fuzzy monster holding a rectangular data frame with a tool that fits the data frame shape. On the workbench behind the monster are other data frames of similar rectangular shape, and neatly arranged tools that also look like they would fit those data frames. The workbench looks uncluttered and tidy. The text above the tidy workbench reads “When working with tidy data, we can use the same tools in similar ways for different datasets…” On the right is a cute monster looking very frustrated, using duct tape and other tools to haphazardly tie data tables together, each in a different way. The monster is in front of a messy, cluttered workbench. The text above the frustrated monster reads “...but working with untidy data often means reinventing the wheel with one-time approaches that are hard to iterate or reuse.”"}
+
+Tidy Data Benefits ^["Illustrations from the [Openscapes](https://www.openscapes.org/) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst"]
+
+:::
+
+**`ggplot2`** generally requires your data to be tidy in order produce plots. In this lesson, we'll be using the **`tidyr`** package to make our data tidy.
+
+## The Data
+
+This week we are looking at shelving statistics. We have a small data set which tracks numbers of materials shelved by type over four months.
+
+Let's open up a new script and load the **`tidyverse`**.
+
+```{r}
+#| message: false
+library(tidyverse)
+
+```
+
+And now let's load the data:
+
+```{r}
+#| message: false
+shelving_wide <- read_csv("data/shelving_wide.csv")
+
+```
+
+This is a fairly small data set of just 8 rows and 6 columns.
+
+```{r}
+#| echo: false
+knitr::kable(shelving_wide)
+```
+
+Our ultimate goal is to be able to summarize and represent this data in a bar plot. 
+
+Let's think about some ways we might visualize this data:
+
+1. Number of items shelved by material type
+2. Number of items shelved by month
+3. Number of items shelved by type and month
+4. Number of items shelved by shelver (also broken down by type, month)
+
+Given what we learned about **`ggplot2`** in our last lesson, our code should look something like this.
+
+``` 
+shelving_wide %>% 
+  ggplot(mapping=aes(x=???, y=???)) +
+  geom_bar(stat="identity")
+
+```
+
+It's challenging to name a column for x and a column for y, because this data is in what's called a **wide** format, which we'll describe more in the next section. 
+
+So our goal this week is to:
+
+1. Pivot data from the wide to long format
+2. Summarize data in a bar plot. 
+
+
+## Wide vs Long data
+
+A wide data set is one in which a variable is distributed across several rows. In our `shelving_wide` data frame, we have four columns: `stacks_books`, `reference_books`, `bound_journals`, and `unbound_journals`. These all represent the **type of material** being shelved. So, we could say that those column names represent **values** of the **variable** `material type`.  Another **variable** of interest is the `count` of items being shelved, which is being stored in the cells of those four `material type` columns. Other variables in this data frame are `month` and `shelver`. 
+
+Data in this format violates Rule 1 of tidy data, because each column does not represent a single variable, instead we have the variable **type of material** spread out over 4 columns. 
+
+To make our data set tidy we would want to reduce those four columns to two columns, one for material type, and one for the count of items. By reducing the number of columns, we must also increase the number of rows. So, we are **lengthening** our data set to make it tidy. The final result will look like:
+
+:::{.scrolling}
+
+```{r}
+#| echo: false
+
+shelving_long <- shelving_wide %>% 
+  pivot_longer(cols = stacks_books:unbound_journals, names_to = "material_type",
+               values_to = "number_shelved")
+
+knitr::kable(shelving_long)
+```
+
+:::
+
+:::{.callout-note}
+
+Wide data is not "bad", and is very common in real world data sets, because it is easy for humans to track and read data that way. But a tidy, or long, format may make it easier to analyze that data with a computer.
+:::
+
+## `pivot_longer()`
+
+To lengthen our data, we'll use the `pivot_longer()` function from the **`tidyr`** package. There are four arguments we need to provide:
+
+1. `data` - the data frame to lengthen
+1. `cols` - the columns we want to pivot on
+1. `names_to` - the name of a new column which will have our old column names as values
+1. `values_to` - the name of a new column which will hold the cell values of the pivoted columns
+
+```{r}
+shelving_long <- 
+  shelving_wide %>% 
+  pivot_longer(cols = stacks_books:unbound_journals, 
+               names_to = "material_type",
+               values_to = "count")
+```
+
+Notice that our new "long" data frame has 32 observations and 4 variables.
+
+## Plotting the Data {#sec-plot}
+
+Now it should be easier to create our bar plot.
+
+```{r}
+shelving_long %>% 
+  ggplot(mapping=aes(x=material_type, y=count)) +
+  geom_bar(stat="identity") +
+  labs(title="Number of items shelved by material type", 
+       x="Material Type", 
+       y="Number of items shelved")
+
+```
+
+## Challenge
+
+Using what you learned last week, how could you create a plot of the number of items shelved each month by type as shown below. Open the code box to see a solution.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Reveal Solution"
+shelving_long %>% 
+  ggplot(mapping=aes(x=month, y=count, fill=material_type)) +
+  geom_bar(stat="identity", position = "dodge") +
+  labs(title="Number of items shelved by material type", 
+       x="Month", 
+       y="Number of items shelved", 
+       fill="Material Type") +
+  scale_fill_viridis_d(labels=c('Bound Journals', 'Reference Books', 'Stacks Books', 'Unbound Journals'))
+
+```
+
+How might we plot all four variables: `month`, `shelver`, `material_type`, and `count`? (Hint: check out the **`ggplot2`** documentation on faceting)
+
+```{r}
+#| code-fold: true
+#| code-summary: "Reveal Solution"
+
+shelving_long %>% 
+  ggplot(mapping=aes(x=month, y=count, fill=material_type)) +
+  geom_bar(stat="identity", position = "dodge") +
+  labs(title="Number of items shelved each month",
+       subtitle= "By material type and shelver", 
+       x="Month", 
+       y="Number of items shelved", 
+       fill="Material Type") +
+  scale_fill_viridis_d(labels=c('Bound Journals', 'Reference Books', 'Stacks Books', 'Unbound Journals')) +
+  facet_wrap(~shelver)
+
+```
+
+## Wrapping Up
+
+Use `ggsave()` to save the plot you created in @sec-plot as a .jpg file. 
+
+## Further Reading
+
+There's much more that can be done with `pivot_longer()` and it's companion function `pivot_wider` and with the **`tidyr`** package in general. Check out the following resources for more information:
+
+- [**`tidyr`** documentation](https://tidyr.tidyverse.org/)
+- [Tidy Data Explanation](https://tidyr.tidyverse.org/articles/tidy-data.html)
+- [Pivoting Article](https://tidyr.tidyverse.org/articles/pivot.html)
+
+
+
