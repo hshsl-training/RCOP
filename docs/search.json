@@ -424,21 +424,21 @@
     "href": "Week04/week04_slides.html#what-is-tidy-data",
     "title": "R Community of Practice",
     "section": "What is Tidy Data 1?",
-    "text": "What is Tidy Data 1?"
+    "text": "What is Tidy Data 1?\n\n“Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst”"
   },
   {
     "objectID": "Week04/week04_slides.html#tidy-data-is-predictable",
     "href": "Week04/week04_slides.html#tidy-data-is-predictable",
     "title": "R Community of Practice",
-    "section": "Tidy Data is predictable 2",
-    "text": "Tidy Data is predictable 2"
+    "section": "Tidy Data is predictable 1",
+    "text": "Tidy Data is predictable 1\n\n“Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst”"
   },
   {
     "objectID": "Week04/week04_slides.html#tidy-data-is-more-efficient",
     "href": "Week04/week04_slides.html#tidy-data-is-more-efficient",
     "title": "R Community of Practice",
-    "section": "Tidy Data is more efficient 3",
-    "text": "Tidy Data is more efficient 3"
+    "section": "Tidy Data is more efficient 1",
+    "text": "Tidy Data is more efficient 1\n\n“Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst”"
   },
   {
     "objectID": "Week04/week04_slides.html#why-isnt-our-data-tidy",
@@ -474,5 +474,12 @@
     "title": "R Community of Practice",
     "section": "pivot_longer()",
     "text": "pivot_longer()\nTo lengthen our data, we’ll use the pivot_longer() function from the tidyr package. There are four arguments we need to provide:\n\ndata - the data frame to lengthen\ncols - the columns we want to pivot on\nnames_to - the name of a new column which will have our old column names as values\nvalues_to - the name of a new column which will hold the cell values of the pivoted columns"
+  },
+  {
+    "objectID": "Week04/week04_slides.html#learning-goals",
+    "href": "Week04/week04_slides.html#learning-goals",
+    "title": "R Community of Practice",
+    "section": "Learning Goals",
+    "text": "Learning Goals\n\n\nDefine the concept of tidy data\nDefine what is meant by long and wide data\nUnderstand the pros and cons of working with wide or long data.\nUse the tidyr package to pivot a data frame from wide to long"
   }
 ]
