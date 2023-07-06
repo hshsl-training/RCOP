@@ -1,0 +1,97 @@
+---
+title: "R Community of Practice"
+subtitle: "Week 4"
+format: 
+  revealjs:
+    editor: source
+    theme: custom.scss
+    logo: rcop_hex_logo.png
+---
+
+## Learning Goals
+
+::: incremental
+
+1.  Define the concept of tidy data
+2.  Define what is meant by long and wide data
+3.  Understand the pros and cons of working with wide or long data.
+4.  Use the **`tidyr`** package to pivot a data frame from wide to long
+
+:::
+
+## The Data
+
+**Scenario:** We want to visualize a small dataset of shelving statistics. 
+
+We'll complete the following tasks:
+
+1. Pivot the data frame from wide to long using **`tidyr`** package
+1. Plot the data frame using what we learned about **`ggplot2`**
+
+## What is Tidy Data ^["Illustrations from the [Openscapes](https://www.openscapes.org/) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst"]?
+
+![](horst_tidydata.jpg){height=450 fig-alt="Stylized text providing an overview of Tidy Data. The top reads “Tidy data is a standard way of mapping the meaning of a dataset to its structure. - Hadley Wickham.” On the left reads “In tidy data: each variable forms a column; each observation forms a row; each cell is a single measurement.” There is an example table on the lower right with columns ‘id’, ‘name’ and ‘color’ with observations for different cats, illustrating tidy data structure."}
+
+## Tidy Data is predictable ^["Illustrations from the [Openscapes](https://www.openscapes.org/) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst"]
+
+
+![](horst_tidydata_2.jpg){height=450 fig-alt="There are two sets of anthropomorphized data tables. The top group of three tables are all rectangular and smiling, with a shared speech bubble reading “our columns are variables and our rows are observations!”. Text to the left of that group reads “The standard structure of tidy data means that “tidy datasets are all alike…” The lower group of four tables are all different shapes, look ragged and concerned, and have different speech bubbles reading (from left to right) “my column are values and my rows are variables”, “I have variables in columns AND in rows”, “I have multiple variables in a single column”, and “I don’t even KNOW what my deal is.” Next to the frazzled data tables is text “...but every messy dataset is messy in its own way. -Hadley Wickham.”"}
+
+## Tidy Data is more efficient ^["Illustrations from the [Openscapes](https://www.openscapes.org/) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst"]
+
+![](horst_tidy_data_3.jpg){height=450 fig-alt="On the left is a happy cute fuzzy monster holding a rectangular data frame with a tool that fits the data frame shape. On the workbench behind the monster are other data frames of similar rectangular shape, and neatly arranged tools that also look like they would fit those data frames. The workbench looks uncluttered and tidy. The text above the tidy workbench reads “When working with tidy data, we can use the same tools in similar ways for different datasets…” On the right is a cute monster looking very frustrated, using duct tape and other tools to haphazardly tie data tables together, each in a different way. The monster is in front of a messy, cluttered workbench. The text above the frustrated monster reads “...but working with untidy data often means reinventing the wheel with one-time approaches that are hard to iterate or reuse.”"}
+
+## Why isn't our data tidy? {.smaller}
+
+```{r}
+#| message: false
+#| echo: false
+
+library(tidyverse)
+        
+shelving_wide <- read_csv("data/shelving_wide.csv")
+
+knitr::kable(shelving_wide)
+```
+
+## How would we plot the data?
+
+``` 
+shelving_wide %>% 
+  ggplot(mapping=aes(x=???, y=???)) +
+  geom_bar(stat="identity")
+
+```
+
+## Wide vs long data
+
+long data
+  : data represented with minimum number of columns necessary, tidy data
+
+wide data
+  : Variables may be spread across multiple columns. Column names often represent variable values 
+  
+## Our Goal
+
+:::{.scrolling}
+
+```{r}
+#| echo: false
+
+shelving_long <- shelving_wide %>% 
+  pivot_longer(cols = stacks_books:unbound_journals, names_to = "material_type",
+               values_to = "number_shelved")
+
+knitr::kable(shelving_long)
+```
+
+:::
+
+## `pivot_longer()`
+
+To lengthen our data, we'll use the `pivot_longer()` function from the **`tidyr`** package. There are four arguments we need to provide:
+
+1. `data` - the data frame to lengthen
+1. `cols` - the columns we want to pivot on
+1. `names_to` - the name of a new column which will have our old column names as values
+1. `values_to` - the name of a new column which will hold the cell values of the pivoted columns
