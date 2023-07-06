@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="week05_slides_files/libs/clipboard/clipboard.min.js"></script>
-<script src="week05_slides_files/libs/quarto-html/tabby.min.js"></script>
-<script src="week05_slides_files/libs/quarto-html/popper.min.js"></script>
-<script src="week05_slides_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="week05_slides_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="week05_slides_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="week05_slides_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="week05_v2_slides_files/libs/clipboard/clipboard.min.js"></script>
+<script src="week05_v2_slides_files/libs/quarto-html/tabby.min.js"></script>
+<script src="week05_v2_slides_files/libs/quarto-html/popper.min.js"></script>
+<script src="week05_v2_slides_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="week05_v2_slides_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="week05_v2_slides_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="week05_v2_slides_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.2.335">
 
   <meta name="author" content="Irmarie Fraticelli-Rodriguez">
@@ -14,8 +14,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="week05_slides_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="week05_slides_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="week05_v2_slides_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="week05_v2_slides_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -93,11 +93,11 @@
     code span.vs { color: #abe338; } /* VerbatimString */
     code span.wa { color: #dcc6e0; } /* Warning */
   </style>
-  <link rel="stylesheet" href="week05_slides_files/libs/revealjs/dist/theme/quarto.css" id="theme">
-  <link href="week05_slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="week05_slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="week05_slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="week05_slides_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="week05_v2_slides_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link href="week05_v2_slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="week05_v2_slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="week05_v2_slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="week05_v2_slides_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
 
   .callout {
@@ -402,14 +402,18 @@ Irmarie Fraticelli-Rodriguez
 
   <p class="date">7/13/23</p>
 </section>
+<section class="slide level2">
+
+<div class="cell">
+
+</div>
+</section>
 <section id="learning-goals" class="slide level2">
 <h2>Learning Goals:</h2>
 <p><strong>This section objectives are:</strong></p>
 <div class="r-fit-text">
 <ol type="1">
 <li>Become familiar with <code>Rentrez</code> and its basic search functions.</li>
-<li>Gain an understanding of how APIs work.</li>
-<li>Learn how to select and execute <code>Rentrez</code> commands.</li>
 <li>Wrangle data to a usable form.</li>
 </ol>
 </div>
@@ -424,9 +428,7 @@ Irmarie Fraticelli-Rodriguez
 <p><strong>Output of this session:</strong></p>
 <ol type="1">
 <li>Download <code>Rentrez</code> and learn basic search functions.</li>
-<li>Perform simple and Boolean searches.</li>
-<li>Extract data using the <code>Rentrez</code> helper functions and place it into a data frame.</li>
-<li>Create a <code>CSV</code> file using the extracted data from <code>Rentez</code>.</li>
+<li>Create a graph or document using your search results.</li>
 </ol>
 </div>
 </section>
@@ -436,42 +438,8 @@ Irmarie Fraticelli-Rodriguez
 <p>With Rentrez, you do not need to use any additional program or terminal to access NCBI Data.</p>
 <p>This means that you can request data from multiple databases (PubMed, SNP, Clinvar, SRA, Gene, and others) in the same RStudio Session.</p>
 </section>
-<section id="install-and-load-rentrez" class="slide level2">
-<h2>Install and Load Rentrez</h2>
-<div class="r-fit-text">
-<p>So, let’s install and load rentrez in our RStudio.</p>
-<div class="cell">
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#install.packages('rentrez')</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(rentrez)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p>Now that we know that we have installed the package and loaded it into Rstudio. Let’s take a look at the documentation available about this resource.</p>
-</div>
-</section>
 <section id="rentrez-functions" class="slide level2">
 <h2>Rentrez Functions</h2>
-<div class="r-fit-text">
-<ol type="1">
-<li>Rentrez Helper Functions</li>
-<li>Rentrez Search Functions</li>
-<li>Rentrez linking or contrasting database functions</li>
-</ol>
-<p><strong>Areas we will NOT be covering</strong></p>
-<ol type="1">
-<li>Using <code>use_history</code> or <code>web_history</code> function arguments.</li>
-<li>Setting up an account with NCBI API to perform big data queries using API credentials.</li>
-<li>Fetch DNA sequences in fasta format.</li>
-<li>Fetch a parsed XML document</li>
-<li>How to use Rentrez linking or contrasting database functions</li>
-</ol>
-<p>Reference: <a href="https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html">Rentrez Tutorial</a> by David Winter</p>
-</div>
-</section>
-<section id="rentrez-helper-functions" class="slide level2">
-<h2>Rentrez Helper Functions</h2>
 <div class="r-fit-text">
 <p>The functions listed below help you learn a little bit more about <code>Rentrez</code> and NCBI Databases.</p>
 <table>
@@ -544,14 +512,14 @@ Irmarie Fraticelli-Rodriguez
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>pcos_pm <span class="ot">&lt;-</span> <span class="fu">entrez_search</span>(<span class="at">db=</span><span class="st">"pubmed"</span>, <span class="at">term =</span> <span class="st">"pcos[all]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>pcos_pm <span class="ot">&lt;-</span> <span class="fu">entrez_search</span>(<span class="at">db=</span><span class="st">"pubmed"</span>, <span class="at">term =</span> <span class="st">"pcos[all]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p><strong>Boolean search:</strong></p>
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>pcos_ir_pm <span class="ot">&lt;-</span> <span class="fu">entrez_search</span>(<span class="at">db=</span><span class="st">"pubmed"</span>, <span class="at">term=</span> <span class="st">"pcos[all] AND insulin resistance[all]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>pcos_ir_pm <span class="ot">&lt;-</span> <span class="fu">entrez_search</span>(<span class="at">db=</span><span class="st">"pubmed"</span>, <span class="at">term=</span> <span class="st">"pcos[all] AND insulin resistance[all]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -561,7 +529,7 @@ Irmarie Fraticelli-Rodriguez
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>summary_pcos_pm <span class="ot">&lt;-</span> <span class="fu">entrez_summary</span>(<span class="at">db=</span><span class="st">"pubmed"</span>, <span class="at">id=</span>pcos_pm<span class="sc">$</span>ids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>summary_pcos_pm <span class="ot">&lt;-</span> <span class="fu">entrez_summary</span>(<span class="at">db=</span><span class="st">"pubmed"</span>, <span class="at">id=</span>pcos_pm<span class="sc">$</span>ids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -572,24 +540,27 @@ Irmarie Fraticelli-Rodriguez
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>uids <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary_pcos_pm,<span class="st">"uid"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2"></a>authors <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary_pcos_pm,<span class="st">"authors"</span>)[<span class="st">"name"</span>,]</span>
-<span id="cb5-3"><a href="#cb5-3"></a>pubdate <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary_pcos_pm,<span class="st">"pubdate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>uids <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary_pcos_pm,<span class="st">"uid"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>authors <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary_pcos_pm,<span class="st">"authors"</span>)[<span class="st">"name"</span>,]</span>
+<span id="cb4-3"><a href="#cb4-3"></a>pubdate <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary_pcos_pm,<span class="st">"pubdate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
 <section id="exercise-lets-practice" class="slide level2">
 <h2>Exercise: Let’s practice!</h2>
-<p>Now that we know how to use <code>Rentrez</code> let’s move this information to a friendly format! We are going to learn how to use the <code>Rentrez</code> helper function to extract data from the XML given by the <code>entrez_summary()</code> function</p>
+<p>Now lets perform our own searches!</p>
+<p>We are going to use the <code>Rentrez</code> functions to extract data from an NCBI database.</p>
 <p>Our objective is to:</p>
 <ol type="1">
-<li>Build your query: Identify your search terms, adequate database, and search fields and perform the search using rentrez<br>
-</li>
-<li>Get article/object summaries.<br>
-</li>
-<li>Select the values that you would like to save (for example author, title, source).</li>
-<li>Create and format a CSV or any other type of document appropriate for your search.</li>
+<li><p>Build your query: Identify your search terms, adequate database, search fields and perform the search using rentrez.</p></li>
+<li><p>Get article/object summaries.</p></li>
+<li><p>Select the values that you would like to save (for example author, title, source).</p></li>
+<li><p>Select one of two outputs:</p></li>
 </ol>
+<ul>
+<li>Create a graph that represents the results of your search.</li>
+<li>Move CSV or any other type of document appropriate for your search.</li>
+</ul>
 </section>
 <section id="step-1" class="slide level2">
 <h2><strong>STEP #1</strong></h2>
@@ -614,11 +585,17 @@ Irmarie Fraticelli-Rodriguez
 </section>
 <section id="step-4" class="slide level2">
 <h2><strong>STEP #4</strong></h2>
-<p>Create and format a CSV or any other type of document appropriate for your search.</p>
+<ul>
+<li>Select one of two outputs:
+<ul>
+<li>Create a graph that represents the results of your search.</li>
+</ul></li>
+</ul>
 <div class="cell">
 
 </div>
-<div class="footer footer-default">
+
+<img src="rcop_hex_logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
 <p><a href="https://www2.hshsl.umaryland.edu/cdabs/" class="uri">https://www2.hshsl.umaryland.edu/cdabs/</a></p>
 </div>
 </section>
@@ -626,19 +603,19 @@ Irmarie Fraticelli-Rodriguez
   </div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="week05_slides_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="week05_v2_slides_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="week05_slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="week05_slides_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="week05_slides_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="week05_slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="week05_slides_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="week05_v2_slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="week05_v2_slides_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="week05_v2_slides_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="week05_v2_slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="week05_v2_slides_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="week05_slides_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="week05_slides_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="week05_slides_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="week05_slides_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="week05_v2_slides_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="week05_v2_slides_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="week05_v2_slides_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="week05_v2_slides_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -742,7 +719,7 @@ Irmarie Fraticelli-Rodriguez
         showNotes: false,
 
         // Global override for autoplaying embedded media (null/true/false)
-        autoPlayMedia: true,
+        autoPlayMedia: null,
 
         // Global override for preloading lazy-loaded iframes (null/true/false)
         preloadIframes: null,
