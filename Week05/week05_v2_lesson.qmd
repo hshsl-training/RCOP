@@ -20,18 +20,32 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 
-For the last few weeks, we have been working on data that you have downloaded and is in a CSV format. Now we are shifting the gears to work with data that is not located in our computers but is on the internet. 
+This week you will learn about NCBI Database API and how to access their data from RStudio.
 
-For this lesson, we are going to use `Rentrez` to get data directly from the PubMed database and from there create a data frame that can be transformed into a CSV.
+For the last few weeks, you have been working on data that you have downloaded and manage to access it locally using RStudio. Now we are shifting the gears to work with data that is not located in our computers but is on the internet. 
+
+For this lesson, we are going to use `Rentrez` to get data directly from the PubMed database.
 
 # The Data
 
-Our data will be located in the National Center for BioInformation API. 
-For this week, we need to learn how to perform search queries to the NCBI API using `Rentrez`. 
+For this week, we will be working with semi-structured data. This type of data lacks of predefined community metadata structures. Also, it is the type of data that does not conforms to any specific schema such as MODS, METS, BIBFRAME, EAD or others. 
+
+Our data will be located in the National Center for BioInformation (NCBI) Database. 
+
+The NCBI Database has a XML proprietary format, meaning that we rely on [Entrez](https://www.ncbi.nlm.nih.gov/books/NBK25497/?report=reader) documentation and [tutorials](https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html) to understand how to access information. 
+
+For this week, we need to learn how to perform search queries to the NCBI Entrez API using `Rentrez`. Also, we need to learn how to transform this data into a usable format. 
+
+We will complete the following tasks: 
+
+1. Install and Load Rentrez. 
+2. Perform simple and boolean searches. 
+3. Get esummaries (partial information of an article) for a list of ids. 
+4. Extract information from the esumaries. 
 
 ## What is Rentrez?
 
-`Rentrez` is an R interface that allows its users to interact with NCBI API. With `Rentrez`, you do not need to use any additional program or terminal to access NCBI Data. This means that you can request data from multiple databases (PubMed, SNP, Clinvar, SRA, Gene, and others) in the same RStudio Session. 
+`Rentrez` is an R interface that allows its users to interact with NCBI API, such as PubMed, GenBank, GEO and more. With `Rentrez`, you do not need to use any additional program or terminal to access NCBI Data. This means that you can request data from multiple databases in the same RStudio Session. 
 
 If you want to learn more about Rentrez, you can access this [Rentrez Tutorial](https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html)
 
@@ -65,7 +79,7 @@ This function provides a list of NCBI databases that you can use to perform sear
 
 ```{r}
 
-#entrez_dbs()
+entrez_dbs()
 
 ```
 
@@ -95,7 +109,7 @@ Now that we know the search fields you can use to build a query, let's perform o
 
 ## Performing searches in NCBI API
 
-The functions listed under this category allow you to use a search term or query to retrieve a list of article/object ids. This list of ids will later allow you to retrieve partial or full summary records of that article/object. These functions permit you to create data frames in R, which allows easy data manipulation. 
+The functions listed under this category allow you to use a search term or query to retrieve a list of article/object ids. This list of ids will later allow you to retrieve partial or full summary records of that article/object. 
 
 ### entrez_search()
 
@@ -249,7 +263,7 @@ The syntax for this function is
 As you can see the function takes config= NULL as an argument, but we are not going to use that in this tutorial. 
 
 The argument `config` means the type of connection that you are requesting from the API, this could be GET or POST. 
-In the NCBI API context if you are performing big data requests they recommend you to use a combination of `web_history` and `config = POST` arguments to not saturate their servers. They also ask for a big data request to be done at night. 
+In the NCBI API context if you are performing big data requests they recommend you to use a combination of `web_history` and `config = POST` arguments to not saturate their servers.
 
 Let's test this function and see what it returns. 
 
@@ -320,57 +334,71 @@ summary_pcos_snp <- entrez_summary(db="snp", id=pcos_links$links$pubmed_snp, ret
 This function returns an NCBI API object called, "elink", which is a list of ids by a database.  
 
 
-# Exercise: Let's practice!
+## Exercise: Let's practice!
 
-Now that we know how to use `Rentrez` let's move this information to a friendly format!
-We are going to learn how to use the `Rentrez` helper function to extract data from the XML given by the `entrez_summary()` function
+Now lets perform our own searches!
+
+We are going to use the `Rentrez` functions to extract data from an NCBI database. 
 
 Our objective is to: 
 
-1. Build your query: Identify your search terms, adequate database, and search fields and perform the search using rentrez  
-2. Get article/object summaries.  
-3. Select the values that you would like to save (for example author, title, source).
-4. Create and format a CSV or any other type of document appropriate for your search. 
+1. Build your query: Identify your search terms, adequate database, search fields and perform the search using rentrez.
 
-**STEP #1**
+2. Get article/object summaries.  
+
+3. Select the values that you would like to save (for example author, title, source).
+
+4. Select one of two outputs: 
+  - Create a graph that represents the results of your search.
+  - Move CSV or any other type of document appropriate for your search. 
+
+## **STEP #1**
 
 Build your query: Identify your search terms, adequate database, and search fields and perform the search using `Rentrez`.    
 
 ```{r}
+# Im interested in seeing Dr. Kristen Stafford Publications, Associate Professor of Epidemiology and Deputy Director - Center for International Health, Education, and Biosecurity
 
-#<YOUR ANSWER HERE>
+search <- entrez_search(db="pubmed", term = "Kristen A. Stafford[AUTH]",retmax=100)
 
 ```
 
 
-**STEP #2**  
+## **STEP #2**  
 
 Get article summaries
 
 ```{r}
 
-#<YOUR ANSWER HERE>
+summary <- entrez_summary(db="pubmed", id=search$ids)
 
 ```
 
 
-**STEP #3**
+## **STEP #3**
 
 Select the values that you would like to save (for example author, title, source)
 
 ```{r}
+# I want to know how many publications she has and in what journal she publishes the most. 
 
-#<YOUR ANSWER HERE>
-  
+pubdate <- extract_from_esummary(summary,"pubdate") %>%
+  substr(start= 1, stop=4)
+source <- extract_from_esummary(summary,"source")
+
 ```
 
 
-**STEP #4** 
-
-Create and format a CSV or any other type of document appropriate for your search.  
-
+## **STEP #4** 
+Create a graph that represents the results of your search.
 ```{r}
 
-#<YOUR ANSWER HERE>
+ggplot(mapping = aes(x=source)) + 
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90)) # To rotate journals names
+
+ggplot(mapping = aes(x=pubdate)) + 
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90)) 
 
 ```

@@ -24,8 +24,10 @@ library(rentrez)
 **Our objectives for today are:**
 
 ::: {.r-fit-text}
-1. Become familiar with `Rentrez` and its basic search functions.
-1. Wrangle data to a usable form.
+Become familiar with `Rentrez`:
+1. Search functions
+2. NCBI Databases
+3. 
 ::: 
 
 ## Challenges of Working with Data an Unknown Source
@@ -138,8 +140,6 @@ authors <- extract_from_esummary(summary_pcos_pm,"authors")["name",]
 pubdate <- extract_from_esummary(summary_pcos_pm,"pubdate")
 
 ```
-
-
 ## Exercise: Let's practice!
 
 Now lets perform our own searches!
@@ -163,8 +163,9 @@ Our objective is to:
 Build your query: Identify your search terms, adequate database, and search fields and perform the search using `Rentrez`.    
 
 ```{r}
+# Im interested in seeing Dr. Kristen Stafford Publications, Associate Professor of Epidemiology and Deputy Director - Center for International Health, Education, and Biosecurity
 
-pcos_pm <- entrez_search(db="pubmed", term = "pcos[all]")
+search <- entrez_search(db="pubmed", term = "Kristen A. Stafford[AUTH]",retmax=100)
 
 ```
 
@@ -175,7 +176,7 @@ Get article summaries
 
 ```{r}
 
-summary_pcos_pm <- entrez_summary(db="pubmed", id=pcos_pm$ids)
+summary <- entrez_summary(db="pubmed", id=search$ids)
 
 ```
 
@@ -185,30 +186,26 @@ summary_pcos_pm <- entrez_summary(db="pubmed", id=pcos_pm$ids)
 Select the values that you would like to save (for example author, title, source)
 
 ```{r}
+# I want to know how many publications she has and in what journal she publishes the most. 
 
-uids <- extract_from_esummary(summary_pcos_pm,"uid")
-authors <- extract_from_esummary(summary_pcos_pm,"authors")["name",]
-pubdate <- extract_from_esummary(summary_pcos_pm,"pubdate")
-title <- extract_from_esummary(summary_pcos_pm,"title")
-pubtype <- extract_from_esummary(summary_pcos_pm,"pubtype")
-source <- extract_from_esummary(summary_pcos_pm,"source")
-issue <- extract_from_esummary(summary_pcos_pm,"issue")
-volume <- extract_from_esummary(summary_pcos_pm,"volume")
-pages <- extract_from_esummary(summary_pcos_pm,"pages")
-articleids <- extract_from_esummary(summary_pcos_pm,"articleids", simplify=FALSE)
-  
+pubdate <- extract_from_esummary(summary,"pubdate") %>%
+  substr(start= 1, stop=4)
+source <- extract_from_esummary(summary,"source")
+
 ```
 
 
 ## **STEP #4** 
-- Select one of two outputs: 
-  - Create a graph that represents the results of your search.
+Create a graph that represents the results of your search.
 ```{r}
-#Create data frame
-#data <- tibble(authors,title,pubtype,source,issue,volume,pages,pubdate,uids)
 
-#data %>% 
-#  ggplot(mapping = aes(x=source)) + 
-#  geom_bar()
+ggplot(mapping = aes(x=source)) + 
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90)) # To rotate journals names
+
+ggplot(mapping = aes(x=pubdate)) + 
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90)) 
 
 ```
+

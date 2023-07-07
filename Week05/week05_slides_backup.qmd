@@ -208,6 +208,11 @@ install.packages("yaml")
 library(yaml)
 library(tidyverse)
 
+#Atomic Data
+Value that has than more option
+#Non atomic Data
+Value that does not have more then one option
+
 # Include Non Atomic Fields (author, pubtype)
 yaml_data <- tibble(authors,title,pubtype,source,issue,volume,pages,pubdate,uids)
 
@@ -217,5 +222,7 @@ csv_data <- tibble(title,source,issue,volume,pages,pubdate,uids)
 # Store in YAML and CSV formats respectively
 write_yaml(transpose(yaml_data),"pcos.yaml")
 write_csv(csv_data,"pcos.csv")
+
+
 
 ```
