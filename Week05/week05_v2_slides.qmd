@@ -16,38 +16,31 @@ format:
    logo: rcop_hex_logo.png
 footer: <https://www2.hshsl.umaryland.edu/cdabs/>
 ---
-```{r}
-library(rentrez)
-```
-
 ## Learning Goals:
-**Our objectives for today are:**
-
 ::: {.r-fit-text}
-Become familiar with `Rentrez`:
-1. Search functions
-2. NCBI Databases
-3. 
-::: 
+**Our goals for today are:**
 
-## Challenges of Working with Data an Unknown Source
+* Become familiar Rentrez. 
+* Learn basic search functions.
+* Extract information from the esumaries.
 
-::: {.r-fit-text}
-- The data may not arranged in a standardized format (BIBFRAME, MARC, METS, MODS, EAD...)
-- The source documentation may be incomplete, or may not answer our questions.
-- Not knowing what extra steps we may need to take to clean the data, so it can be usable. 
-::: 
+**Challenges of Working with Data an Unknown Source**
+
+* The data may not arranged in a standardized format (BIBFRAME, MARC, METS, MODS, EAD...)
+* The source documentation may be incomplete, or may not answer our questions.
+* Not knowing what extra steps we may need to take to clean the data, so it can be usable. 
+
+:::
 
 ## The Data
 
 ::: {.r-fit-text}
 **Scenario**: Today our data comes from PubMed, a National Center for Biotechnology Information (NCBI) database. Our data outputs, will contain bibliographic information about our search query. 
-
 We want to accomplish the following tasks: 
 
 1. Download `Rentrez`.
-1. Learn basic search functions.
-1. Create a graph or document using your search results. 
+1. Perform simple and boolean searches.
+1. Create a graph using your search results. 
 :::
 
 ## What is Rentrez? 
@@ -58,6 +51,16 @@ With Rentrez, you do not need to use any additional program or terminal to acces
 
 This means that you can request data from multiple databases (PubMed, SNP, Clinvar, SRA, Gene, and others) in the same RStudio Session.
 
+## Install and Load `Rentrez`
+
+Now, remember that you need to install any new package that you want to use in RStudio. Also, once you have the package you need to load it.
+
+```{r}
+#| echo: true
+#install.packages('rentrez')
+library(rentrez)
+
+```
 
 ## Rentrez Functions 
 
@@ -69,21 +72,18 @@ The functions listed below help you learn a little bit more about `Rentrez` and 
 | entrez_dbs()            | List of Entrez Databases                             |
 | entrez_db_summary()     | Brief description of what the database is            |
 | entrez_db_searchable()  | Set of search fields that can used with this database |
-
-
 :::
 
-## Performing searches in NCBI API
+## Performing searches with Rentrez
 
 ::: {.r-fit-text}
-The functions listed below help you perform searches in a NCBI Database.
+The functions listed below help you perform searches to a NCBI Database.
 
 | Function                | Usage                              |                 
 |-------------------------|------------------------------------|
 | entrez_search()         | Allows you to perform simple or boolean searches |
 | entrez_summary()        | Allows you to retrieve basic information about the records found |
 | extract_from_esummary() | Extract elements from a list of esummary records     |
-
 :::
 
 ## entrez_search()
@@ -154,18 +154,19 @@ Our objective is to:
 
 3. Select the values that you would like to save (for example author, title, source).
 
-4. Select one of two outputs: 
-  - Create a graph that represents the results of your search.
-  - Move CSV or any other type of document appropriate for your search. 
+4. Create a graph that represents the results of your search.
 
 ## **STEP #1**
 
 Build your query: Identify your search terms, adequate database, and search fields and perform the search using `Rentrez`.    
 
 ```{r}
+#| echo: true
+#| output: true
 # Im interested in seeing Dr. Kristen Stafford Publications, Associate Professor of Epidemiology and Deputy Director - Center for International Health, Education, and Biosecurity
 
 search <- entrez_search(db="pubmed", term = "Kristen A. Stafford[AUTH]",retmax=100)
+search
 
 ```
 
@@ -175,18 +176,22 @@ search <- entrez_search(db="pubmed", term = "Kristen A. Stafford[AUTH]",retmax=1
 Get article summaries
 
 ```{r}
-
+#| echo: true
+#| output: true
 summary <- entrez_summary(db="pubmed", id=search$ids)
-
+summary
 ```
-
 
 ## **STEP #3**
 
 Select the values that you would like to save (for example author, title, source)
 
 ```{r}
+#| output: false
+#| echo: true
 # I want to know how many publications she has and in what journal she publishes the most. 
+
+library(tidyverse)
 
 pubdate <- extract_from_esummary(summary,"pubdate") %>%
   substr(start= 1, stop=4)
@@ -194,18 +199,24 @@ source <- extract_from_esummary(summary,"source")
 
 ```
 
-
 ## **STEP #4** 
 Create a graph that represents the results of your search.
 ```{r}
-
+#| echo: true
+#| output: true
 ggplot(mapping = aes(x=source)) + 
   geom_bar() +
-  theme(axis.text.x = element_text(angle = 90)) # To rotate journals names
-
+  theme(axis.text.x = element_text(angle = 90)) + # To rotate journals names
+  labs(title = "Kristen's Stafford Publications per journal", # Set up graph title and labels
+       x="Journal", y= "Amount")
+```
+----
+```{r}
+#| echo: true
+#| output: true
 ggplot(mapping = aes(x=pubdate)) + 
   geom_bar() +
-  theme(axis.text.x = element_text(angle = 90)) 
-
+  theme(axis.text.x = element_text(angle = 90)) +
+   labs(title = "Kristen's Stafford Publications per year", # Set up graph title and labels
+       x="Year", y= "Amount")
 ```
-
