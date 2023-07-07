@@ -121,7 +121,7 @@ The allowed boolean terms are **AND, OR, and NOT**.
 * List of arguments and its usage: 
   + db, name of the database to search for 
   + term, the search term, you can also use MeSH terms to perform your search
-  + retmax, the default of retrievable ids is 20, this field can be used to change that number 
+  + retmax, the default of retrievable ids is 20, this argument can be used to change that number 
   + retmode, to select the format of your output (XML or JSON), by default will be XML
   + use_history, to store a history of searches in NCBI's server
 
