@@ -20,21 +20,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 
-This week you will learn about NCBI Database API and how to access their data from RStudio.
+This week you will learn about `Rentrez`, an R interface that allows its users to interact with NCBI API. With `Rentrez`, you do not need to use any additional program or terminal to access NCBI Data. As an R practitioner, you can request data from multiple databases in the same RStudio Session. 
 
-For the last few weeks, you have been working on data that you have downloaded and manage to access it locally using RStudio. Now we are shifting the gears to work with data that is not located in our computers but is on the internet. 
-
-For this lesson, we are going to use `Rentrez` to get data directly from the PubMed database.
+For the last few weeks, you have been working on data that you have downloaded and manage to access it locally using RStudio. Now we are shifting the gears to work with data that is not located in our computers but dynamically requested from an API. 
 
 # The Data
 
-For this week, we will be working with semi-structured data. This type of data lacks of predefined community metadata structures. Also, it is the type of data that does not conforms to any specific schema such as MODS, METS, BIBFRAME, EAD or others. 
+For this lesson, we are going to use `Rentrez` to get semi-structured data directly from the PubMed database. Semi-structured data is usually represented through XML, JSON and other formats. Due to its nature semi-structured data can sometimes be hard to tabulate. 
 
 Our data will be located in the National Center for BioInformation (NCBI) Database. 
 
-The NCBI Database has a XML proprietary format, meaning that we rely on [Entrez](https://www.ncbi.nlm.nih.gov/books/NBK25497/?report=reader) documentation and [tutorials](https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html) to understand how to access information. 
-
-For this week, we need to learn how to perform search queries to the NCBI Entrez API using `Rentrez`. Also, we need to learn how to transform this data into a usable format. 
+The NCBI Database uses its own metadata schema. You can find more information at the [Entrez](https://www.ncbi.nlm.nih.gov/books/NBK25497/?report=reader) documentation and [tutorials](https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html) to understand how to access information. 
 
 We will complete the following tasks: 
 
@@ -43,15 +39,9 @@ We will complete the following tasks:
 3. Get esummaries (partial information of an article) for a list of ids. 
 4. Extract information from the esumaries. 
 
-## What is Rentrez?
-
-`Rentrez` is an R interface that allows its users to interact with NCBI API, such as PubMed, GenBank, GEO and more. With `Rentrez`, you do not need to use any additional program or terminal to access NCBI Data. This means that you can request data from multiple databases in the same RStudio Session. 
-
-If you want to learn more about Rentrez, you can access this [Rentrez Tutorial](https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html)
-
 ## Install and Load `Rentrez`
 
-Now, remember that you need to install any new package that you want to use in RStudio.  Also, once you have the package you need to load it. How can we do that?
+Now, remember that you need to install any new package that you want to use in RStudio. Also, once you have the package you need to load it.
 
 ```{r}
 
@@ -107,7 +97,7 @@ entrez_db_searchable("pubmed")
 Let's strategize our search!
 Now that we know the search fields you can use to build a query, let's perform our first search. 
 
-## Performing searches in NCBI API
+## Performing searches with Rentrez
 
 The functions listed under this category allow you to use a search term or query to retrieve a list of article/object ids. This list of ids will later allow you to retrieve partial or full summary records of that article/object. 
 
@@ -128,14 +118,12 @@ The allowed boolean terms are **AND, OR, and NOT**.
 
 **The `entrez_search()` function takes 4 arguments. The required ones are db and term.**  
 
-| Argument      | Type         | Use           |
-| ------------- |------------- |-------------  |
-| db            | CHARACTER    | Name of the database to search for |
-| term          | CHARACTER    | The search term, you can also use MeSH terms to perform your search |
-| retmax        | INTEGER      |  The default of retrievable ids is 20, this field can be used to change that number |
-| retmode       | VECTOR       | To select the format of your output (XML or JSON), by default will be XML  |
-| use_history   | LOGICAL      | To store a history of searches in NCBI's server |
-
+* List of arguments and its usage: 
+  + db, name of the database to search for 
+  + term, the search term, you can also use MeSH terms to perform your search
+  + retmax, the default of retrievable ids is 20, this argument can be used to change that number 
+  + retmode, to select the format of your output (XML or JSON), by default will be XML
+  + use_history, to store a history of searches in NCBI's server
 
 EXAMPLES: 
 
@@ -158,16 +146,13 @@ pcos_ir_umb_pm <- entrez_search(db="pubmed", term= "pcos[all] AND insulin resist
 
 **What does the `entrez_search()` function RETURNS?** 
 
-The `entrez_search()` function returns a list of elements that includes the following: 
-
-| Value         | Type          | Description   |
-| ------------- | ------------- | ------------- |
-| ids           | INTEGER | Is an identifying number for each publication record found |
-| count         | INTEGER | Is the total number of records found  |
-| retmax        | INTEGER | Is the maximum of records that you can retrieve, the default is 20 |
-| web_history   | WEB HISTORY OBJECT | Stored article/object ids in NCBI server |
-| QueryTranslation | CHARACTER       | NCBI interpretation of your search term |
-| file          | XMLInternalDocument | Type of file return from search, the default is XML |
+* The `entrez_search()` function returns a list of elements that includes the following: 
+  + ids, is an identifying number for each publication record found
+  + count, is the total number of records found
+  + retmax, is the maximum of records that you can retrieve, the default is 20
+  + web_history, stored article/object ids in NCBI server
+  + QueryTranslation, NCBI interpretation of your search term
+  + file, type of file return from search, the default is XML
 
 An important field here is the QueryTranslation value which allows you to see how NCBI API has interpreted your selected term words according to MESH Terms. Another important field is the ids, this field will have a list of ids that later will allow you to retrieve partial or full summary records. 
 
@@ -181,15 +166,10 @@ But, first, let's learn the syntax of the `entrez_summary()` function.
 
 **The `entrez_summary()` function takes 7 arguments but you don't need to use them all. The required ones are db and id.**
 
-| Argument      | Type          | Use           |
-| ------------- | ------------- | ------------- |
-| db           | CHARACTER | Name of the database to search for |
-| id           | VECTOR  | Unique ID(s) for records in database  |
-| web_history  | WEB HISTORY OBJECT | Stored article/object ids in NCBI server |
-| version      | CHARACTER | Either 1.0 or 2.0 |
-| always_return_list | LOGICAL | Return a list of esummary objects even when only one ID is provided |
-| retmode      | CHARACTER | By default, xml will be used for version 1.0 records |
-| config       | VECTOR | Configuration options passed to httr::GET |
+* List of arguments and its usage: 
+  + db, name of the database to search for
+  + id, unique ID(s) for records in database
+  + web_history, stored article/object ids in NCBI server
 
 EXAMPLES:
 
@@ -218,11 +198,10 @@ But, first and let's learn the syntax of the `extract_from_esummary()` function.
 
 **The `extract_from_summary()` function takes 3 arguments but you don't need to use them all. The required ones are esummary and elements.**
 
-| Argument      | Type          | Use           |
-| ------------- | ------------- | ------------- |
-| esumaries     | ENTREZ_SUMMARY ITEM | Either an esummary or an esummary_list (as returned by entrez_summary) |
-| elements      | CHARACTER           | Unique ID(s) for records in database  |
-| simplify      | LOGICAL             | If possible return a vector |
+* List of arguments and its usage:
+  + esumaries, either an esummary or an esummary_list (as returned by entrez_summary)
+  + elements, unique ID(s) for records in database
+  + simplify, if possible return a vector 
 
 EXAMPLE:
 
@@ -269,10 +248,11 @@ Let's test this function and see what it returns.
 
 EXAMPLE:
 ```{r}
-
+#| warning: false
 global_query <- ("PCOS")
 all_databases <- entrez_global_query(global_query)
-
+# Lets view the results
+all_databases
 ```
 
 **What does the entrez_global_query() function RETURNS?**
@@ -291,50 +271,55 @@ Let's have a look at the syntax of this function.
 
 `entrez_link(dbfrom = "database name" , web_history = "" , id = "" , db = "database name", cmd = "", by_id = FALSE, config = "")`
 
-Let's have a look at the arguments required for this function.  
+* Let's have a look at the arguments required for this function.  
+  + dbfrom, name of database from which the Id(s) originate
+  + web_history, stored article/object ids in NCBI servers 
+  + id, vector with unique ID(s) for records in database db 
+  + db, name of the database to search for links 
+  + cmd, select an option from a defined list: neighbor, neighbor_score, neighbor_hsitory, acheck, ncheck, lcheck, llinks, llinkslib, prlinks 
+  + by_id, if FALSE (default) return a single elink objects containing links for all of the provided ids. Alternatively, if TRUE return a list of elink objects, one for each ID in id. 
+  + config, configuration options passed to httr::GET
 
-| Argument      | Type          | Use           |
-| ------------- | ------------- | ------------- |
-| dbfrom  | CHARACTER  | Name of database from which the Id(s) originate |
-| web_history      | WEB HISTORY OBJECT  | Stored article/object ids in NCBI servers |
-| id      | VECTOR              | Vector with unique ID(s) for records in database db |
-| db      | CHARACTER           | Name of the database to search for links |
-| cmd     | CHARACER            | Select an option from a defined list: neighbor, neighbor_score, neighbor_hsitory, acheck, ncheck, lcheck, llinks, llinkslib, prlinks |
-| by_id   | LOGICAL             | If FALSE (default) return a single elink objects containing links for all of the provided ids. Alternatively, if TRUE return a list of elink objects, one for each ID in id. |
-| config  | VECTOR              | Configuration options passed to httr::GET |
-
-Lets test this variable!
+Let's test this variable!
 
 EXAMPLE:
+
+Let's select an article that is related to two characteristics of PCOS, Insulin Resistance, and Metabolic Syndrome. 
+
+One option can be:
+
+Brown, Audrey E, and Mark Walker. “Genetics of Insulin Resistance and the Metabolic Syndrome.” Current cardiology reports vol. 18,8 (2016): 75. doi:10.1007/s11886-016-0755-4
+
 ```{r}
-
-#If using pubmed, select an article and perform a search using a DOI, PMID or PCMID
-# Let's select an article that is related to two characteristics of PCOS, Insulin Resistance, and Metabolic Syndrome
-
-#Selected Article 
-#Genetics of Insulin Resistance and the Metabolic Syndrome, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4911377/
-#PMCID: PMC4911377
-#PMID: 27312935
-
-#Our results show that there are related articles in databases such as the Single Nucleotide Polymorphism Database(dbSNP), Medgen, the Taxonomy database, and others
+#| warning: false
 pcos_links <-entrez_link(dbfrom="pubmed", id="10.1007/s11886-016-0755-4", db= "all")
-
-#Searching the titles for articles that cited the selected article
-summary_pcos_citedin <- entrez_summary(db="pubmed", id=pcos_links$links$pubmed_pubmed_citedin, rettype = "xml")
-#Searching for matches in the SRA Database
-summary_pcos_sra <- entrez_summary(db="sra", id=pcos_links$links$pubmed_sra, rettype = "xml")
-#Searching for matches in the SNP Database
-summary_pcos_snp <- entrez_summary(db="snp", id=pcos_links$links$pubmed_snp, rettype = "xml")
-
-
+pcos_links$links
 ```
+
+Our results shows that there are related articles in databases such as the SRA, SNP, and others.
+
+Now searching the titles for articles that cited the our initial selected article.
+```{r}
+summary_pcos_citedin <- entrez_summary(db="pubmed", id=pcos_links$links$pubmed_pubmed_citedin, rettype = "xml")
+summary_pcos_citedin
+```
+Now searching for matches in the SRA Database.
+```{r}
+summary_pcos_sra <- entrez_summary(db="sra", id=pcos_links$links$pubmed_sra, rettype = "xml")
+summary_pcos_sra
+```
+Now searching for matches in the SNP Database
+```{r}
+summary_pcos_snp <- entrez_summary(db="snp", id=pcos_links$links$pubmed_snp, rettype = "xml")
+summary_pcos_snp
+```
+
 
 **What does the entrez_link function returns?** 
 
 This function returns an NCBI API object called, "elink", which is a list of ids by a database.  
 
-
-## Exercise: Let's practice!
+# Exercise: Let's practice!
 
 Now lets perform our own searches!
 
@@ -348,11 +333,9 @@ Our objective is to:
 
 3. Select the values that you would like to save (for example author, title, source).
 
-4. Select one of two outputs: 
-  - Create a graph that represents the results of your search.
-  - Move CSV or any other type of document appropriate for your search. 
+4. Create a graph that represents the results of your search.
 
-## **STEP #1**
+**STEP #1**
 
 Build your query: Identify your search terms, adequate database, and search fields and perform the search using `Rentrez`.    
 
@@ -364,7 +347,7 @@ search <- entrez_search(db="pubmed", term = "Kristen A. Stafford[AUTH]",retmax=1
 ```
 
 
-## **STEP #2**  
+**STEP #2**  
 
 Get article summaries
 
@@ -375,13 +358,14 @@ summary <- entrez_summary(db="pubmed", id=search$ids)
 ```
 
 
-## **STEP #3**
+**STEP #3**
 
 Select the values that you would like to save (for example author, title, source)
 
 ```{r}
+#| output: false
 # I want to know how many publications she has and in what journal she publishes the most. 
-
+library(tidyverse)
 pubdate <- extract_from_esummary(summary,"pubdate") %>%
   substr(start= 1, stop=4)
 source <- extract_from_esummary(summary,"source")
@@ -389,7 +373,7 @@ source <- extract_from_esummary(summary,"source")
 ```
 
 
-## **STEP #4** 
+**STEP #4** 
 Create a graph that represents the results of your search.
 ```{r}
 
@@ -402,3 +386,68 @@ ggplot(mapping = aes(x=pubdate)) +
   theme(axis.text.x = element_text(angle = 90)) 
 
 ```
+
+# Learning +1
+
+## Rentrez `web_history`
+
+To perform big data requests, `Rentrez` offers the `use_history` boolean argument. When you enable history in a search, the object returned includes a `web_history` object that can be used to paginate across results. Without the `web_history` object results are limited to the first `N` results set using `retmax`.
+
+When you enable `use_history` in a search, the search object includes a small sample of ids. However, using the `web_history` object in combination of the `retmax` and `retstart` you will be able to obtain far more records than you would obtain from a search without `web_history`.
+
+Currently, pagination is limited to 10,000 records without an API key. 
+
+## Example
+
+#### Scenario
+
+I'm interested in gathering a list of genes related to PCOS publications within the years 2021 to 2024. 
+
+#### Setting my search
+
+In this instance I'm enabling use history because eventually I want to examine cross-references in between PubMed and Gene. 
+
+```{r}
+search <- entrez_search(db="pubmed", term="pcos AND 2021:2024[PDAT]", use_history= TRUE)
+```
+
+#### Obtained Linked Gene IDs from the "gene" NCBI Database
+
+```{r}
+
+all_pubmed_gene_link = c() # Empty list to accumulate results
+page_size <- 100 # retmax and page_size needs to be the same number
+max_limit <- 1000 # Can't be higher that 10000 due to API limits
+max_results <- min(search$count,max_limit) # Set max result number for efficiency
+
+for(page_start in seq(1,max_results,page_size)){
+  links <- entrez_link(
+    dbfrom="pubmed", db="gene",
+    web_history = search$web_history, 
+    by_id = FALSE, # Return a unified list of genes, instead of genes per PubMed publication
+    retmax = page_size, 
+    retstart = page_start # page_start controls pagination
+  )
+# Add results to list
+  all_pubmed_gene_link <- c(
+    all_pubmed_gene_link, 
+    links$links$pubmed_gene
+  ) 
+}
+
+```
+#### Why do we used a for-loop?
+
+In this instance a for-loop was needed to iteratively query the API. If API queries are performed in bulk, there is a higher risk of hitting the API's rate limit. `Rentrez` offers internal functionality that, in theory, should protect the code from getting blocked by the API.
+
+#### Display first results
+```{r}
+
+head(all_pubmed_gene_link)
+
+```
+
+ 
+
+
+
