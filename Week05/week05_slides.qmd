@@ -24,23 +24,28 @@ footer: <https://www2.hshsl.umaryland.edu/cdabs/>
 * Learn basic search functions.
 * Extract information from the esumaries.
 
-**Challenges of Working with Data an Unknown Source**
-
-* The data may not arranged in a standardized format (BIBFRAME, MARC, METS, MODS, EAD...)
-* The source documentation may be incomplete, or may not answer our questions.
-* Not knowing what extra steps we may need to take to clean the data, so it can be usable. 
-
 :::
 
 ## The Data
 
 ::: {.r-fit-text}
-**Scenario**: Today our data comes from PubMed, a National Center for Biotechnology Information (NCBI) database. Our data outputs, will contain bibliographic information about our search query. 
-We want to accomplish the following tasks: 
+**Scenario**:
 
-1. Download `Rentrez`.
-1. Perform simple and boolean searches.
-1. Create a graph using your search results. 
+Today our data comes from PubMed, a National Center for Biotechnology Information (NCBI) database. Our data outputs, will contain bibliographic information about our search query. 
+
+**Challenges of Working with Data from an Unknown Source**
+
+* The data may not arranged in a standardized format (BIBFRAME, MARC, METS, MODS, EAD...)
+* The source documentation may be incomplete, or may not answer our questions.
+* Not knowing what extra steps we may need to take to clean the data, so it can be usable. 
+
+
+**We want to accomplish the following tasks:**
+
+* Download `Rentrez`.
+* Perform simple and boolean searches.
+* Create a graph using your search results. 
+
 :::
 
 ## What is Rentrez? 
