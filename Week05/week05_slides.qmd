@@ -9,9 +9,7 @@ format:
    theme: [default, custom.scss]
    slide-number: true
    smaller: true
-   scrollable: true
    preview-links: true
-   code-fold: show
    code-overflow: wrap
    logo: rcop_hex_logo.png
 footer: <https://www2.hshsl.umaryland.edu/cdabs/>
@@ -168,7 +166,7 @@ Build your query: Identify your search terms, adequate database, and search fiel
 ```{r}
 #| echo: true
 #| output: true
-# Im interested in seeing Dr. Kristen Stafford Publications, Associate Professor of Epidemiology and Deputy Director - Center for International Health, Education, and Biosecurity
+# Im interested in seeing Dr. Kristen Stafford Publications
 
 search <- entrez_search(db="pubmed", term = "Kristen A. Stafford[AUTH]",retmax=100)
 search
@@ -219,7 +217,7 @@ ggplot(mapping = aes(x=source)) +
 ```{r}
 #| echo: true
 #| output: true
-ggplot(mapping = aes(x=pubdate)) + 
+ggplot(mapping = aes(x=pubdate)) +
   geom_bar() +
   theme(axis.text.x = element_text(angle = 90)) +
    labs(title = "Kristen's Stafford Publications per year", # Set up graph title and labels

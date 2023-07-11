@@ -306,7 +306,6 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
-      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -442,11 +441,8 @@ Irmarie Fraticelli-Rodriguez
 <h2>Install and Load <code>Rentrez</code></h2>
 <p>Now, remember that you need to install any new package that you want to use in RStudio. Also, once you have the package you need to load it.</p>
 <div class="cell">
-<details open="">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#install.packages('rentrez')</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(rentrez)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="rentrez-functions" class="slide level2">
@@ -521,27 +517,18 @@ Irmarie Fraticelli-Rodriguez
 <p><br></p>
 <p><strong>Simple Search:</strong></p>
 <div class="cell">
-<details open="">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>pcos_pm <span class="ot">&lt;-</span> <span class="fu">entrez_search</span>(<span class="at">db=</span><span class="st">"pubmed"</span>, <span class="at">term =</span> <span class="st">"pcos[all]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p><strong>Boolean search:</strong></p>
 <div class="cell">
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>pcos_ir_pm <span class="ot">&lt;-</span> <span class="fu">entrez_search</span>(<span class="at">db=</span><span class="st">"pubmed"</span>, <span class="at">term=</span> <span class="st">"pcos[all] AND insulin resistance[all] AND Clinical Trial[ptyp]</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>pcos_ir_pm <span class="ot">&lt;-</span> <span class="fu">entrez_search</span>(<span class="at">db=</span><span class="st">"pubmed"</span>, <span class="at">term=</span> <span class="st">"pcos[all] AND insulin resistance[all]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="entrez_summary" class="slide level2">
 <h2>entrez_summary()</h2>
 <p>Now let’s retrieve basic information about the records we collected in one of our searches. But, first, let’s learn the syntax of the <code>entrez_summary()</code> function.</p>
 <div class="cell">
-<details open="">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>summary_pcos_pm <span class="ot">&lt;-</span> <span class="fu">entrez_summary</span>(<span class="at">db=</span><span class="st">"pubmed"</span>, <span class="at">id=</span>pcos_pm<span class="sc">$</span>ids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="extract_from_esummary" class="slide level2">
@@ -549,12 +536,9 @@ Irmarie Fraticelli-Rodriguez
 <p>This function helps you navigate through an XMLInternalDocument and extract elements from a list of esummary records. But, first, let’s learn the syntax of the <code>extract_from_esummary()</code> function.</p>
 <p><br></p>
 <div class="cell">
-<details open="">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>uids <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary_pcos_pm,<span class="st">"uid"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2"></a>authors <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary_pcos_pm,<span class="st">"authors"</span>)[<span class="st">"name"</span>,]</span>
 <span id="cb5-3"><a href="#cb5-3"></a>pubdate <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary_pcos_pm,<span class="st">"pubdate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="exercise-lets-practice" class="slide level2">
@@ -573,13 +557,10 @@ Irmarie Fraticelli-Rodriguez
 <h2><strong>STEP #1</strong></h2>
 <p>Build your query: Identify your search terms, adequate database, and search fields and perform the search using <code>Rentrez</code>.</p>
 <div class="cell">
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Im interested in seeing Dr. Kristen Stafford Publications, Associate Professor of Epidemiology and Deputy Director - Center for International Health, Education, and Biosecurity</span></span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Im interested in seeing Dr. Kristen Stafford Publications</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a></span>
 <span id="cb6-3"><a href="#cb6-3"></a>search <span class="ot">&lt;-</span> <span class="fu">entrez_search</span>(<span class="at">db=</span><span class="st">"pubmed"</span>, <span class="at">term =</span> <span class="st">"Kristen A. Stafford[AUTH]"</span>,<span class="at">retmax=</span><span class="dv">100</span>)</span>
 <span id="cb6-4"><a href="#cb6-4"></a>search</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Entrez search result with 51 hits (object contains 51 IDs and no web_history object)
  Search term (as translated):  stafford, kristen a[Author] </code></pre>
@@ -590,11 +571,8 @@ Irmarie Fraticelli-Rodriguez
 <h2><strong>STEP #2</strong></h2>
 <p>Get article summaries</p>
 <div class="cell">
-<details open="">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>summary <span class="ot">&lt;-</span> <span class="fu">entrez_summary</span>(<span class="at">db=</span><span class="st">"pubmed"</span>, <span class="at">id=</span>search<span class="sc">$</span>ids)</span>
 <span id="cb8-2"><a href="#cb8-2"></a>summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of  51 esummary records. First record:
 
@@ -618,8 +596,6 @@ esummary result with 42 items:
 <h2><strong>STEP #3</strong></h2>
 <p>Select the values that you would like to save (for example author, title, source)</p>
 <div class="cell">
-<details open="">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># I want to know how many publications she has and in what journal she publishes the most. </span></span>
 <span id="cb10-2"><a href="#cb10-2"></a></span>
 <span id="cb10-3"><a href="#cb10-3"></a><span class="fu">library</span>(tidyverse)</span>
@@ -627,35 +603,28 @@ esummary result with 42 items:
 <span id="cb10-5"><a href="#cb10-5"></a>pubdate <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary,<span class="st">"pubdate"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb10-6"><a href="#cb10-6"></a>  <span class="fu">substr</span>(<span class="at">start=</span> <span class="dv">1</span>, <span class="at">stop=</span><span class="dv">4</span>)</span>
 <span id="cb10-7"><a href="#cb10-7"></a>source <span class="ot">&lt;-</span> <span class="fu">extract_from_esummary</span>(summary,<span class="st">"source"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </section>
 <section id="step-4" class="slide level2">
 <h2><strong>STEP #4</strong></h2>
 <p>Create a graph that represents the results of your search.</p>
 <div class="cell">
-<details open="">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>source)) <span class="sc">+</span> </span>
 <span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
 <span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>)) <span class="sc">+</span> <span class="co"># To rotate journals names</span></span>
 <span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Kristen's Stafford Publications per journal"</span>, <span class="co"># Set up graph title and labels</span></span>
 <span id="cb11-5"><a href="#cb11-5"></a>       <span class="at">x=</span><span class="st">"Journal"</span>, <span class="at">y=</span> <span class="st">"Amount"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 
 </div>
 <img data-src="week05_slides_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
 <div class="cell">
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>pubdate)) <span class="sc">+</span> </span>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>pubdate)) <span class="sc">+</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
 <span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>)) <span class="sc">+</span></span>
 <span id="cb12-4"><a href="#cb12-4"></a>   <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Kristen's Stafford Publications per year"</span>, <span class="co"># Set up graph title and labels</span></span>
 <span id="cb12-5"><a href="#cb12-5"></a>       <span class="at">x=</span><span class="st">"Year"</span>, <span class="at">y=</span> <span class="st">"Amount"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output-display">
 <p><img data-src="week05_slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="960"></p>
 </div>
