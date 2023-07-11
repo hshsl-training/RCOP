@@ -1,0 +1,23 @@
+---
+title: "My Document"
+format:
+  docx:
+    toc: true
+    number-sections: true
+    highlight-style: github
+---
+#Present
+  Final product of this presentation
+  
+# What is RMarkdown and Quarto
+1. Present Markdown Pattern
+2. Differences between Markdown and Quartp
+
+
+#Instlling tinytex to produce pdf
+quarto install tinytex
+
+# Parts of a .qdm file
+
+# What is YAML and how I can use it with Quarto Document. 
+
