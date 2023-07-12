@@ -7,8 +7,8 @@ navbar:
     page-navigation: true
 format: 
   html:
-    code-overflow: wrap
     embed-resources: true
+    code-overflow: wrap
 toc: true
 editor: source
 css: ../styles.css
