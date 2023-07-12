@@ -31,6 +31,6 @@ website:
 
 format:
   html:
-    theme: cosmo
+    theme: yeti
     editor: source
     toc: true
