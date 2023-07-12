@@ -1,23 +1,42 @@
 ---
-title: "My Document"
-format:
-  docx:
-    toc: true
-    number-sections: true
-    highlight-style: github
+title: "R Community of Practice Week 5"
+subtitle: "Creating Reports using Quarto"
+title-block-banner: white
+title-block-banner-color: black
+navbar:
+    page-navigation: true
+format: 
+  html:
+    embed-resources: true
+toc: true
+editor: source
+css: ../styles.css
 ---
-#Present
+# Introduction
+
+This week we're going to use RStudio in a way we haven't used before.
+We will be using RStudio, to format and generate .docx documents and .pptx presentations.
+
+1. Introduce participants to Quarto, its purpose, features and benefits.
+2. Get participants acquainted to Quarto's document structure. 
+3. Practice structuring documents using RMarkdown
+
+# The Data
+
+This week we are not going to work with data, but we will be referencing content from the past 5 weeks. 
+
+# Present
   Final product of this presentation
   
 # What is RMarkdown and Quarto
 1. Present Markdown Pattern
-2. Differences between Markdown and Quartp
-
-
-#Instlling tinytex to produce pdf
-quarto install tinytex
+2. Differences between Markdown and Quarto
 
 # Parts of a .qdm file
 
-# What is YAML and how I can use it with Quarto Document. 
+## What is YAML and how I can use it with Quarto Document.
+
+## How I can use code chunks
+
+
 
