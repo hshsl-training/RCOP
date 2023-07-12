@@ -15,7 +15,7 @@ css: ../styles.css
 # Introduction
 
 This week we're going to use RStudio in a way we haven't used before.
-We will be using RStudio, to format and generate .docx documents and .pptx presentations.
+We will be using RStudio, to format and generate .pptx presentations.
 
 1. Introduce participants to Quarto, its purpose, features and benefits.
 2. Get participants acquainted to Quarto's document structure. 
@@ -23,12 +23,36 @@ We will be using RStudio, to format and generate .docx documents and .pptx prese
 
 # The Data
 
-This week we are not going to work with data, but we will be referencing content from the past 5 weeks. 
+For this week we are not going to work with data, but we will be referencing content from the last 5 weeks. 
 
-# Present
-  Final product of this presentation
+**Scenario**
+Your supervisor is asking you to create a presentation about the the skills you have learn for the last few weeks. In this presentation, you need to answer the following questions:
+
+* Question 1?
+* Question 2?
+* Question 3?
+
+To accomplish this request, you will need to complete the following tasks:
+1. Create a .qdm file.
+2. Structure your presentation using RMarkdown
+3. Create the requested content
+3. Stylish your presentation using YAML
   
-# What is RMarkdown and Quarto
+# What is Quarto
+
+Quarto is an publishing tool for creating interactive and dynamic documents. 
+With Quarto, you can create reproducible articles, presentation, websites, blogs, and books in HTML, PDF, MS Word, ePub, and more.
+
+In the same RStudio Session, you can combine data analysis and data visualization, to support your article, presentation, website or other. 
+
+In fact, the materials generated in this course and this website are begin structured in a Quarto [document](https://github.com/hshsl-training/RCOP/blob/main/Week04/week04_lesson.qmd).
+
+One of the goals that Quarto has is "is to make the process of creating and collaborating on scientific and technical documents dramatically better."
+
+
+
+
+
 1. Present Markdown Pattern
 2. Differences between Markdown and Quarto
 
