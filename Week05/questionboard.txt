@@ -1,0 +1,4 @@
+1. What R tips and tricks you discovered while working with your project?
+2. Evaluating where you are currently at with your project, what do you think is your next step?
+3. From the skills we have learned this summer, what do you think helps you the most with your project?
+4. Is there a database/website you use in your work? Take a minute to see if it has an available R package or API
