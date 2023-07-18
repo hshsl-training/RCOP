@@ -1,6 +1,6 @@
 ---
 title: "R Community of Practice Week 5"
-subtitle: "Creating Reports using Quarto"
+subtitle: "Creating .pptx using Quarto"
 title-block-banner: white
 title-block-banner-color: black
 navbar:
@@ -17,13 +17,19 @@ css: ../styles.css
 This week we're going to use RStudio in a way we haven't used before.
 We will be using RStudio, to format and generate .pptx presentations.
 
+This lesson objectives are: 
+
 1. Introduce participants to Quarto, its purpose, features and benefits.
 2. Get participants acquainted to Quarto's document structure. 
-3. Practice structuring documents using RMarkdown
+3. Practice structuring documents using RMarkdown.
 
 # The Data
 
 For this week we are not going to work with data, but we will be referencing content from the last 5 weeks. 
+
+:::{.callout-note}
+We suggest you download a pre-formatted .qmd file published in our [OSF](https://osf.io/fsg4w/) with the name `pre-formatted.qdm` under week 6.
+:::
 
 **Scenario**
 Your supervisor is asking you to create a presentation about the the skills you have learn for the last few weeks. In this presentation, you need to answer the following questions:
@@ -33,32 +39,85 @@ Your supervisor is asking you to create a presentation about the the skills you 
 * Question 3?
 
 To accomplish this request, you will need to complete the following tasks:
-1. Create a .qdm file.
-2. Structure your presentation using RMarkdown
-3. Create the requested content
-3. Stylish your presentation using YAML
+
+ 1. Create a .qdm file.
+ 2. Structure your presentation using RMarkdown
+ 3. Create the requested content
+ 4. Stylish your presentation using YAML
   
-# What is Quarto
+# What is Quarto?
 
-Quarto is an publishing tool for creating interactive and dynamic documents. 
-With Quarto, you can create reproducible articles, presentation, websites, blogs, and books in HTML, PDF, MS Word, ePub, and more.
+Quarto is an publishing tool for creating interactive and dynamic documents. One of the goals that Quarto has is "is to make the process of creating and collaborating on scientific and technical documents dramatically better".
 
-In the same RStudio Session, you can combine data analysis and data visualization, to support your article, presentation, website or other. 
+With Quarto, you can create reproducible articles, presentation, websites, blogs, and books in HTML, PDF, MS Word, ePub, and more. Quarto supports reproducible research by ensuring document format standardization across multiple files. 
 
-In fact, the materials generated in this course and this website are begin structured in a Quarto [document](https://github.com/hshsl-training/RCOP/blob/main/Week04/week04_lesson.qmd).
+In the same RStudio Session, you can combine data analysis and data visualization, to support your article, presentation, website or other. In the same .qmd file you can mix images, video, data and code, to produce a document.  
 
-One of the goals that Quarto has is "is to make the process of creating and collaborating on scientific and technical documents dramatically better."
+In fact, the materials generated in this course and its website are structured as a collection of Quarto [documents](https://github.com/hshsl-training/RCOP/blob/main/Week04/week04_lesson.qmd). We uploaded all of our code and .qmd files to a website called GitHub, and this website does the rendering of the materials for us. 
+
+# Components of a .qdm file
+ 
+The structure of a .qmd file is simple. 
+
+Every .qmd document starts with the following lines:
+
+```yaml
+---
+title: "Untitled"
+editor: visual
+---
+```
+
+And depending of the document this may look different.
+
+Anything that goes inside of the hyphens is considered a YAML text. 
+
+And anything that goes after the last trio of hyphens, can be a combination of R code chunks and RMarkdown, as shown in the image below. 
+
+![](qdm_example_rstudio.png)
+
+## What is YAML and RMarkdown?
+
+### YAML
+
+YAML is another data structure that can be use for data serialization or to set up configurations in a file or website.
+
+In our context, we will be using YAML as a configuration language to help us stylish our presentation. YAML configuration in Quarto can offer us many options to customize our presentation, from the color schema of our presentation (theme) to how we would like to display code chunks and graphics in a presentation (code-fold, code-overflow, etc). 
+
+But first, we may need to understand what are the basic Quarto options for YAML. 
+
+Lets take a look at the following example:
+
+This YAML configuration is setting up the title, subtitle, author, and dates of the document. Anything after format, except by footer, is setting up the style of the document. 
+
+```yaml
+---
+title: "Accessing NCBI data with the Rentrez package"
+subtitle: "R Community of Practice June 15 - July 20"
+author: "Irmarie Fraticelli-Rodriguez"
+date: "07/13/2023"
+format:
+  revealjs:
+   theme: [default, custom.scss]
+   slide-number: true
+   smaller: true
+   scrollable: true
+   preview-links: true
+   code-fold: show
+   code-overflow: wrap
+   logo: rcop_hex_logo.png
+footer: <https://www2.hshsl.umaryland.edu/cdabs/>
+---
+```
+In this YAML example, you can see that indentation is very important. Anything that sets up the metadata of the document such as title, subtitle, author, date, format and footer does not go indented. 
+But anything that sets up the style of the website goes indented and as part of the format option. 
+
+:::{.callout-note}
+We may recognize .pptx as a power point format, but Quarto has many other presentation format such as revealjs. One of the benefits of using revealjs and even creating your presentation with Quarto is that you avoid any complication that may come with using the Power Point interface. Also, you can easily manipulate all slide information on the same page. 
+:::
 
 
-
-
-
-1. Present Markdown Pattern
-2. Differences between Markdown and Quarto
-
-# Parts of a .qdm file
-
-## What is YAML and how I can use it with Quarto Document.
+### RMarkdown
 
 ## How I can use code chunks
 
