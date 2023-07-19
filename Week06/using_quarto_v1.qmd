@@ -33,19 +33,19 @@ We suggest you download a pre-formatted .qmd file published in our [OSF](https:/
 
 ## What is Quarto?
 
-Quarto is an publishing tool for creating interactive and dynamic documents. One of the goals that Quarto has is "is to make the process of creating and collaborating on scientific and technical documents dramatically better".
+Quarto is a publishing tool for creating interactive and dynamic documents. One of the goals that Quarto has is "to make the process of creating and collaborating on scientific and technical documents dramatically better."
 
 With Quarto, you can create reproducible articles, presentation, websites, blogs, and books in HTML, PDF, MS Word, ePub, and more. Quarto supports reproducible research by ensuring document format standardization across multiple files. 
 
-In the same RStudio Session, you can combine data analysis and data visualization, to support your article, presentation, website or other. In the same .qmd file you can mix images, video, data and code, to produce a document.  
+In the same RStudio Session, you can combine data analysis and data visualization, to support your article, presentation, website or other. In the same `.qmd` file you can mix images, video, data and code, to produce a document.  
 
-In fact, the materials generated in this course and its website are structured as a collection of Quarto [documents](https://github.com/hshsl-training/RCOP/blob/main/Week04/week04_lesson.qmd). We uploaded all of our code and .qmd files to a website called GitHub, and this website does the rendering of the materials for us. 
+In fact, the materials generated in this course, its webpages and slides, are structured as a collection of Quarto [documents](https://github.com/hshsl-training/RCOP/blob/main/Week04/week04_lesson.qmd). We uploaded all of our code and `.qmd` files to a website called GitHub, and this website does the rendering of the materials for us. 
 
 ## Components of a .qmd file
  
-The structure of a .qmd file is simple. 
+The structure of a `.qmd` file is simple. 
 
-Every .qmd presentation starts with the following lines:
+Every `.qmd` presentation starts with the following lines:
 
 ```yaml
 ---
@@ -63,13 +63,15 @@ And anything that goes after the last trio of hyphens, can be a combination of R
 
 Depending of the type of document your YAML configurations may look different. For example, in the image shown above, the YAML configuration is setting up an website.
 
-### What is YAML and RMarkdown?
 
-#### YAML
 
-YAML is another data structure that can be use for data serialization or to set up configurations in a file or website.
+## What is YAML and RMarkdown?
 
-In our context, we will be using YAML as a configuration language to help us stylish our presentation. YAML configuration in Quarto can offer us many options to customize our presentation, from the color schema of our presentation (theme) to how we would like to display code chunks and graphics in a presentation (code-fold, code-overflow, etc). 
+### YAML
+
+YAML is another data structure format that can be use for data serialization or to set up configurations in a file or website.
+
+In our context, we will be using YAML as a configuration language to help us style our presentation. YAML configuration in Quarto can offer us many options to customize our presentation, from the color schema of our presentation (theme) to how we would like to display code chunks and graphics in a presentation (code-fold, code-overflow, etc). 
 
 ::: {.callout-tip}
 ## Quarto Documentation
@@ -117,9 +119,223 @@ Take a look at the revealjs and Quarto documentation.
 
 :::
 
-#### RMarkdown
+### RMarkdown
 
 RMarkdown is an extension of Markdown, with this language you can combine R results from data analysis with plain text producing a formatted and reproducible document. 
+
+#### Headings
+
+Headings represent a way to arrange content in a markdown document. 
+They represent different levels of hierarchy and help readers understand the document's outline. Markdown headings are created using hash `#` symbols at the beginning of a line, followed by a space and text.
+
+It is recommended to leave a blank line before and after headings. 
+
+---
+
+:::: {.columns}
+
+::: {.column width="40%"}
+##### Code
+```
+# Header 1
+
+## Header 2
+
+### Header 3
+
+#### Header 4
+
+##### Header 5
+
+###### Header 6
+```
+:::
+
+::: {.column width="40%"}
+##### Render
+
+# Header 1
+
+## Header 2
+
+### Header 3
+
+#### Header 4
+
+##### Header 5
+
+###### Header 6
+:::
+
+::::
+
+---
+
+</br>
+
+##### **How headings work in Quarto?**
+
+You can create slides in Quarto using the `##` symbol. 
+The `##` symbol can be accompanied by text, that when rendered represents the title of the slide.
+
+---
+
+:::: {.columns}
+
+::: {.column width="40%"}
+##### Code
+```{=html}
+## What is Rentrez?
+</br></br>
+`Rentrez` is an R interface that allows its users to interact with NCBI API.
+</br></br>
+With Rentrez, you do not need to use any additional program or terminal to access NCBI Data.
+</br></br>
+This means that you can request data from multiple databases (PubMed, SNP, Clinvar, SRA, Gene, and others) in the same RStudio Session.
+```
+:::
+
+::: {.column width="40%"}
+##### Render
+
+## What is Rentrez? 
+
+`Rentrez` is an R interface that allows its users to interact with NCBI API.
+
+With Rentrez, you do not need to use any additional program or terminal to access NCBI Data. 
+
+This means that you can request data from multiple databases (PubMed, SNP, Clinvar, SRA, Gene, and others) in the same RStudio Session.
+:::
+
+::::
+
+---
+
+##### **Slides without title**
+
+Another way to create titles is by using three hyphens `---`. This method is used if you do not have a title for your slide. 
+
+Below an example from the [Quarto Website](https://quarto.org/docs/presentations/index.html#creating-slides):
+
+---
+
+:::: {.columns}
+
+::: {.column width="30%"}
+##### Code
+```
+---
+title: "Habits"
+author: "John Doe"
+format: revealjs
+---
+
+- Turn off alarm
+- Get out of bed
+
+---
+
+- Get in bed
+- Count sheep
+```
+:::
+
+::: {.column width="65%"}
+##### Render
+
+![Rendered Slides: First with title and two without title](no_title.png)
+
+:::
+::::
+
+---
+
+#### Paragraphs
+
+Paragraphs in markdown displays as you would normally see them in a text editor. 
+![](paragraphs.jpg)
+In the th
+
+#### Ordered Lists
+
+DESCRIBE ORDERED LISTS
+
+---
+
+:::: {.columns}
+
+::: {.column width="40%"}
+##### Code
+```
+In the morning:
+
+1. Wake Up
+2. Shut Alarm Off
+3. Brush teeth
+4. Take Bath
+5. Get Dressed
+6. Feed pets
+7. Grab Essentials
+8. Leave for work
+```
+:::
+
+
+::: {.column width="40%"}
+##### Render
+In the morning:
+
+1. Wake Up
+2. Shut Alarm Off
+3. Brush teeth
+4. Take Bath
+5. Get Dressed
+6. Feed pets
+7. Grab Essentials
+8. Leave for work
+:::
+
+::::
+
+---
+
+#### Un-ordered (Bullet) Lists
+
+DESCRIBE UN-ORDERED LISTS
+
+---
+
+:::: {.columns}
+
+::: {.column width="40%"}
+##### Code
+```
+My pets:
+
+* Tomasina
+* Cometa
+```
+:::
+
+::: {.column width="40%"}
+##### Render
+My pets:
+
+* Tomasina
+* Cometa
+:::
+
+::::
+
+---
+
+#### Images
+
+#### Links
+
+:::{.callout-note}
+Want to learn more about Markdown, check out its [documentation](https://www.markdownguide.org/getting-started/)
+:::
 
 ## Integrating code and graphs in your document
 
