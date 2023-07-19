@@ -27,10 +27,6 @@ This lesson objectives are:
 
 For this week we are not going to work with data, but we will be referencing content from the last 5 weeks. 
 
-:::{.callout-note}
-We suggest you download a pre-formatted .qmd file published in our [OSF](https://osf.io/fsg4w/) with the name `pre-formatted.qmd` under week 6.
-:::
-
 ## What is Quarto?
 
 Quarto is a publishing tool for creating interactive and dynamic documents. One of the goals that Quarto has is "to make the process of creating and collaborating on scientific and technical documents dramatically better."
@@ -132,7 +128,7 @@ They represent different levels of hierarchy and help readers understand the doc
 
 It is recommended to leave a blank line before and after headings. 
 
----
+Example:
 
 :::: {.columns}
 
@@ -173,14 +169,12 @@ It is recommended to leave a blank line before and after headings.
 
 ---
 
-</br>
-
 ##### **How headings work in Quarto Presentations?**
 
 You can create slides in Quarto using the `##` symbol. 
 The `##` symbol can be accompanied by text, that when rendered represents the title of the slide.
 
----
+Example:
 
 :::: {.columns}
 
@@ -219,7 +213,7 @@ Another way to create titles is by using three hyphens `---`. This method is use
 
 Below an example from the [Quarto Website](https://quarto.org/docs/presentations/index.html#creating-slides):
 
----
+Example:
 
 :::: {.columns}
 
@@ -259,7 +253,7 @@ By using markdown and Quarto, you can comment your code without the need of usin
 
 To split text in separate paragraphs you need to use two consecutive newlines. 
 
----
+Example:
 
 ##### Single newline
 
@@ -308,7 +302,7 @@ Paragraph 2
 
 ---
 
-The example bellow contains multiple inline formatting options that you can do with markdown, such as: 
+Another example containing multiple inline formatting options such as: 
 
 * italic letters `*txt*`
 * bold letters `**txt**`
@@ -342,11 +336,7 @@ To know more about this fuction, you can visit this [tutorial](https://cran.r-pr
 
 Similar to PubMed, `Rentrez` allows you to perform simple or boolean searches using the same structure that you would use in the PubMed search bar. The allowed boolean terms are **AND, OR, and NOT**.
 
-<br/>
-
 First, let's learn the syntax for a simple and a boolean search:
-
-<br/>
 
 **Simple Search:**
 
@@ -356,6 +346,7 @@ To know more about this function, you can visit this [tutorial](https://cran.r-p
 
 ::::
 
+---
 
 #### Ordered Lists
 
@@ -363,7 +354,7 @@ Ordered lists can be created in markdown very easily as shown in the example bel
 
 It is important to insert a newline before the list so it can get render appropiatedly. 
 
----
+Example:
 
 :::: {.columns}
 
@@ -407,7 +398,7 @@ Sometimes ordered lists can get very large and keeping an eye to the number orde
 
 If you use the same number consistently across the list, markdown will also understand that it is an ordered list. 
 
-
+Example:
 
 :::: {.columns}
 
@@ -421,7 +412,6 @@ In the morning:
 1. Brush teeth
 ```
 :::
-
 
 ::: {.column width="40%"}
 ##### Render
@@ -444,7 +434,7 @@ To create unrecorded lists you need to use the `*`, `+` or `-` symbol. It is rec
 
 Also, it is important to create a newline before the list so it can get render appropiatedly. 
 
----
+Example:
 
 :::: {.columns}
 
@@ -472,6 +462,14 @@ My pets:
 
 #### Images
 
+Another option that Markdown offers is to use images in plain text. 
+To increase accessibility to your content it is recommended to use alt text, so that images can be described by screen reader machines.
+
+The syntax is the following:
+
+`![Alt](/path/to/img.jpg)`
+
+Examples: 
 
 :::: {.columns}
 
@@ -479,16 +477,17 @@ My pets:
 ##### Code
 
 ```
-Image from directory path
-![](tomasina.jpeg)
+**Image from directory path**
+![Cat in top of a wood rocking 
+horse](tomasina.jpeg)
 ```
 :::
 
 ::: {.column width="40%"}
 ##### Render
 
-Image from directory path
-![](tomasina.jpeg)
+**Image from directory path**
+![Cat in top of a wood rocking horse](tomasina.jpeg)
 :::
 ::::
 
@@ -496,27 +495,133 @@ Image from directory path
 
 ::: {.column width="40%"}
 ```
-Image from URL
-![](https://catamazing.com/cdn/
+**Image from URL**
+![Cat with a shark costume]
+(https://catamazing.com/cdn/
 shop/files/catshark.jpg?
 v=1649869148)
 ```
 :::
 
 ::: {.column width="40%"}
-Image from URL
-![](https://catamazing.com/cdn/shop/files/catshark.jpg?v=1649869148)
+**Image from URL**
+![Cat with a shark costume](https://catamazing.com/cdn/shop/files/catshark.jpg?v=1649869148)
 :::
 ::::
-
-#### Integrating code and graphs in your document
 
 :::{.callout-note}
 Markdown allows you to use multiple formatting elements in a plan text document. Since it can be used to write any type of document, it includes multiple functions that you can explore in this [website](https://www.markdownguide.org/cheat-sheet/).
 :::
 
+---
+
+#### Integrating code and graphs in your document
+
+Rmarkdown is an authoring framework for data science, you can use it to connect with data, analyze it, save the code and produce a report. As mentioned before, Rmarkdown is an extension of Markdown. This means that all of the functions that we learn before can be applied when integrating r code to the document. 
+
+Code chunks in RMarkdown are created by the following syntax: 
+
+```{{r}}
+
+```
 
 
+Rmarkdown allows customization of code chunks so users can decide if they want to displays any results, raw code, errors, warnings and add any caption to graphical results. Code chunks can be customized with the following options: 
+
+| Customization           | Type                    |       Usage                        |
+|-------------------------|-------------------------|------------------------------------|
+| `include =`            |logical (TRUE/FALSE)     |prevents code and results from appearing in the finished file. R Markdown still runs the code in the chunk, and the results can be used by other chunks.|
+| `echo =`                |logical (TRUE/FALSE)     |prevents code, but not the results from appearing in the finished file. This is a useful way to embed figures.|
+| `message =`             |logical (TRUE/FALSE)     |prevents messages that are generated by code from appearing in the finished file.|
+| `warning =`             |logical (TRUE/FALSE)     |prevents warnings that are generated by code from appearing in the finished.|
+| `fig.cap = "..."`       |logical (TRUE/FALSE)     |adds a caption to graphical results.|
+
+Table from [RMarkdown Documentation](https://rmarkdown.rstudio.com/lesson-3.html).
+
+To explore more code chunk options you can also visit this [Knitr Website](https://yihui.org/knitr/options/).
+
+Examples:
+
+The example below makes use of the `echo= TRUE` option which allows users to display the code and its results. 
+
+:::: {.columns}
+
+::: {.column width="50%"}
+##### Code
+
+<pre><code>```{r echo=TRUE}
+library(rentrez)
+library(ggplot2)
+
+search &lt;- entrez_search(
+  db = "pubmed", 
+  term = "Kristen A. Stafford[AUTH]",
+  retmax=100)
+
+summary &lt;- entrez_summary(
+  db = "pubmed",
+  id=search$ids)
+
+source &lt;- extract_from_esummary(
+  summary, 
+  "source")
+
+ggplot(mapping = aes(x=source)) + 
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90)) + 
+  labs(
+    title = "Kristen's Stafford Publications per journal",
+    x="Journal", 
+    y= "Amount")
+```</code></pre>
+
+:::
+
+::: {.column width="50%"}
+
+##### Render
+
+```{r echo=TRUE}
+library(rentrez)
+library(ggplot2)
+
+search <- entrez_search(
+  db = "pubmed", 
+  term = "Kristen A. Stafford[AUTH]",
+  retmax=100)
+
+summary <- entrez_summary(
+  db = "pubmed",
+  id=search$ids)
+
+source <- extract_from_esummary(
+  summary, 
+  "source")
+
+ggplot(mapping = aes(x=source)) + 
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90)) + 
+  labs(
+    title = "Kristen's Stafford Publications per journal",
+    x="Journal", 
+    y= "Amount")
+```
+
+:::
+
+::::
+
+::: {.callout-note}
+## .Rmd vs .qmd
+As you may progress learning Rmarkdown and Quarto, you may notice two file extensions `.Rmd` and `.qmd`. Although both files may look very similar and even can make usage of the same functions, one of the greatest difference is that .qmd files (Quarto files), can also interact with other programming languages. In a Quarto file you can interact with other scripting languages such as Python, R, or SQL at the same time by specifying code language at the code chunk curly brackets. 
+
+RMark
+
+If you want to learn more about this, you can tale a look at the following link:
+
+* [Quarto sounds similar to R Markdown.](https://quarto.org/docs/faq/rmarkdown.html#quarto-sounds-similar-to-r-markdown.-what-is-the-difference-and-why-create-a-new-project)
+
+:::
 
 ## Exercise: Let's Practice
 
