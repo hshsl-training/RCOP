@@ -69,9 +69,9 @@ Depending of the type of document your YAML configurations may look different. F
 
 ### YAML
 
-YAML is another data structure format that can be use for data serialization or to set up configurations in a file or website.
+[YAML](https://yaml.org/) is a human-friendly data serialization language for all programming languages. YAML can be use to set up configurations in a file or website.
 
-In our context, we will be using YAML as a configuration language to help us style our presentation. YAML configuration in Quarto can offer us many options to customize our presentation, from the color schema of our presentation (`theme`) to how we would like to display code chunks and graphics in a presentation (`code-fold`, `code-overflow`, etc). 
+In our context, we will be using YAML as a configuration language to help us style our Quarto presentation. YAML configuration in Quarto can offer us many options to customize our presentation, from the color schema of our presentation (`theme`) to how we would like to display code chunks and graphics in a presentation (`code-fold`, `code-overflow`, etc). 
 
 ::: {.callout-tip}
 ## Quarto Documentation
@@ -359,7 +359,9 @@ To know more about this function, you can visit this [tutorial](https://cran.r-p
 
 #### Ordered Lists
 
-DESCRIBE ORDERED LISTS
+Ordered lists can be created in markdown very easily as shown in the example below. 
+
+It is important to insert a newline before the list so it can get render appropiatedly. 
 
 ---
 
@@ -398,11 +400,49 @@ In the morning:
 
 ::::
 
+::: {.callout-tip}
+## Markdown Ordered List Trick
+
+Sometimes ordered lists can get very large and keeping an eye to the number order can be a daunting task. 
+
+If you use the same number consistently across the list, markdown will also understand that it is an ordered list. 
+
+
+
+:::: {.columns}
+
+::: {.column width="40%"}
+##### Code
+```
+In the morning:
+
+1. Wake Up
+1. Shut Alarm Off
+1. Brush teeth
+```
+:::
+
+
+::: {.column width="40%"}
+##### Render
+In the morning:
+
+1. Wake Up
+1. Shut Alarm Off
+1. Brush teeth
+:::
+
+::::
+
+:::
+
 ---
 
 #### Un-ordered (Bullet) Lists
 
-DESCRIBE UN-ORDERED LISTS
+To create unrecorded lists you need to use the `*`, `+` or `-` symbol. It is recommended to maintain consistency across the document. If you selected the `+` to create un-ordered lists, try to maintain that across the document as much as possible. 
+
+Also, it is important to create a newline before the list so it can get render appropiatedly. 
 
 ---
 
@@ -433,13 +473,75 @@ My pets:
 #### Images
 
 
+:::: {.columns}
+
+::: {.column width="40%"}
+##### Code
+```
+
+
+
+
+
+
+
+
+
+
+Image from directory path
+![](tomasina.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Image from URL
+![](https://catamazing.com/cdn/
+shop/files/catshark.jpg?
+v=1649869148)
+
+```
+:::
+
+::: {.column width="40%"}
+##### Render
+Image from directory path
+![](tomasina.png)
+
+
+Image from URL
+![](https://catamazing.com/cdn/shop/files/catshark.jpg?v=1649869148)
+:::
+
+::::
+
+#### Integrating code and graphs in your document
 
 :::{.callout-note}
 Markdown allows you to use multiple formatting elements in a plan text document. Since it can be used to write any type of document, it includes multiple functions that you can explore in this [website](https://www.markdownguide.org/cheat-sheet/).
 :::
 
 
-#### Integrating code and graphs in your document
+
 
 ## Exercise: Let's Practice
 
