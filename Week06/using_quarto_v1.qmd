@@ -477,61 +477,36 @@ My pets:
 
 ::: {.column width="40%"}
 ##### Code
+
 ```
-
-
-
-
-
-
-
-
-
-
 Image from directory path
-![](tomasina.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Image from URL
-![](https://catamazing.com/cdn/
-shop/files/catshark.jpg?
-v=1649869148)
-
+![](tomasina.jpeg)
 ```
 :::
 
 ::: {.column width="40%"}
 ##### Render
+
 Image from directory path
-![](tomasina.png)
+![](tomasina.jpeg)
+:::
+::::
 
+:::: {.columns}
 
+::: {.column width="40%"}
+```
+Image from URL
+![](https://catamazing.com/cdn/
+shop/files/catshark.jpg?
+v=1649869148)
+```
+:::
+
+::: {.column width="40%"}
 Image from URL
 ![](https://catamazing.com/cdn/shop/files/catshark.jpg?v=1649869148)
 :::
-
 ::::
 
 #### Integrating code and graphs in your document
