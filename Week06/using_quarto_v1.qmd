@@ -672,8 +672,6 @@ ggplot(mapping = aes(x=source)) +
 ## .Rmd vs .qmd
 As you may progress learning Rmarkdown and Quarto, you may notice two file extensions `.Rmd` and `.qmd`. Although both files may look very similar and even can make usage of the same functions, one of the greatest difference is that .qmd files (Quarto files), can also interact with other programming languages. In a Quarto file you can interact with other scripting languages such as Python, R, or SQL at the same time by specifying code language at the code chunk curly brackets. 
 
-RMark
-
 If you want to learn more about this, you can tale a look at the following link:
 
 * [Quarto sounds similar to R Markdown.](https://quarto.org/docs/faq/rmarkdown.html#quarto-sounds-similar-to-r-markdown.-what-is-the-difference-and-why-create-a-new-project)
@@ -685,9 +683,10 @@ If you want to learn more about this, you can tale a look at the following link:
 **Scenario**
 Your supervisor is asking you to create a slide show about the the skills you have learn for the last few weeks. In this slide show, you need to answer the following questions:
 
-* Question 1?
-* Question 2?
-* Question 3?
+1. What data do you chose to work with and why? (Markdown tip: use paragraph)
+1. What questions did you had about the data that you wanted to answer in the R community of practice? (Markdown tip: use bulleted list)
+1. What steps did you to take to process the data? (Markdown tip: use ordered list)
+1. A graphical summary of what they found out? (Markdown tip: use code chunk with graph)
 
 To accomplish this request, you will need to complete the following tasks:
 
