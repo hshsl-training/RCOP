@@ -542,14 +542,18 @@ To explore more code chunk options you can also visit this [Knitr Website](https
 
 Examples:
 
-The example below makes use of the `echo= TRUE` option which allows users to display the code and its results. 
+The example below makes use of the `echo= TRUE` option which allows users to display the results of the code. 
+
+---
+
+**Setup and Data Gather** - Not interested in any output.
 
 :::: {.columns}
 
 ::: {.column width="50%"}
 ##### Code
 
-<pre><code>```{r echo=TRUE}
+<pre><code>```{r include=FALSE}
 library(rentrez)
 library(ggplot2)
 
@@ -565,23 +569,13 @@ summary &lt;- entrez_summary(
 source &lt;- extract_from_esummary(
   summary, 
   "source")
-
-ggplot(mapping = aes(x=source)) + 
-  geom_bar() +
-  theme(axis.text.x = element_text(angle = 90)) + 
-  labs(
-    title = "Kristen's Stafford Publications per journal",
-    x="Journal", 
-    y= "Amount")
 ```</code></pre>
-
 :::
 
 ::: {.column width="50%"}
 
 ##### Render
-
-```{r echo=TRUE}
+```{r include=FALSE}
 library(rentrez)
 library(ggplot2)
 
@@ -597,7 +591,35 @@ summary <- entrez_summary(
 source <- extract_from_esummary(
   summary, 
   "source")
+```
+:::
 
+::::
+
+---
+
+**No Source Code Displayed** - `echo=FALSE`
+
+:::: {.columns}
+
+::: {.column width="50%"}
+##### Code
+
+<pre><code>```{r echo=FALSE}
+ggplot(mapping = aes(x=source)) + 
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90)) + 
+  labs(
+    title = "Kristen's Stafford Publications per journal",
+    x="Journal", 
+    y= "Amount")
+```</code></pre>
+:::
+
+::: {.column width="50%"}
+##### Render
+
+```{r echo=FALSE}
 ggplot(mapping = aes(x=source)) + 
   geom_bar() +
   theme(axis.text.x = element_text(angle = 90)) + 
@@ -606,7 +628,42 @@ ggplot(mapping = aes(x=source)) +
     x="Journal", 
     y= "Amount")
 ```
+:::
 
+::::
+
+---
+
+**Echo Source Code** - `echo=TRUE`
+
+:::: {.columns}
+
+::: {.column width="50%"}
+##### Code
+
+<pre><code>```{r echo=TRUE}
+ggplot(mapping = aes(x=source)) + 
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90)) + 
+  labs(
+    title = "Kristen's Stafford Publications per journal",
+    x="Journal", 
+    y= "Amount")
+```</code></pre>
+:::
+
+::: {.column width="50%"}
+##### Render
+
+```{r echo=TRUE}
+ggplot(mapping = aes(x=source)) + 
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90)) + 
+  labs(
+    title = "Kristen's Stafford Publications per journal",
+    x="Journal", 
+    y= "Amount")
+```
 :::
 
 ::::
