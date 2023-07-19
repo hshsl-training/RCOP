@@ -71,7 +71,7 @@ Depending of the type of document your YAML configurations may look different. F
 
 YAML is another data structure format that can be use for data serialization or to set up configurations in a file or website.
 
-In our context, we will be using YAML as a configuration language to help us style our presentation. YAML configuration in Quarto can offer us many options to customize our presentation, from the color schema of our presentation (theme) to how we would like to display code chunks and graphics in a presentation (code-fold, code-overflow, etc). 
+In our context, we will be using YAML as a configuration language to help us style our presentation. YAML configuration in Quarto can offer us many options to customize our presentation, from the color schema of our presentation (`theme`) to how we would like to display code chunks and graphics in a presentation (`code-fold`, `code-overflow`, etc). 
 
 ::: {.callout-tip}
 ## Quarto Documentation
@@ -121,7 +121,9 @@ Take a look at the revealjs and Quarto documentation.
 
 ### RMarkdown
 
-RMarkdown is an extension of Markdown, with this language you can combine R results from data analysis with plain text producing a formatted and reproducible document. 
+RMarkdown is an extension of Markdown, with this language you can combine R results from data analysis with plain text producing a formatted and reproducible document.
+
+Let's take a look at different 
 
 #### Headings
 
@@ -173,7 +175,7 @@ It is recommended to leave a blank line before and after headings.
 
 </br>
 
-##### **How headings work in Quarto?**
+##### **How headings work in Quarto Presentations?**
 
 You can create slides in Quarto using the `##` symbol. 
 The `##` symbol can be accompanied by text, that when rendered represents the title of the slide.
@@ -189,7 +191,7 @@ The `##` symbol can be accompanied by text, that when rendered represents the ti
 </br></br>
 `Rentrez` is an R interface that allows its users to interact with NCBI API.
 </br></br>
-With Rentrez, you do not need to use any additional program or terminal to access NCBI Data.
+With `Rentrez`, you do not need to use any additional program or terminal to access NCBI Data.
 </br></br>
 This means that you can request data from multiple databases (PubMed, SNP, Clinvar, SRA, Gene, and others) in the same RStudio Session.
 ```
@@ -202,7 +204,7 @@ This means that you can request data from multiple databases (PubMed, SNP, Clinv
 
 `Rentrez` is an R interface that allows its users to interact with NCBI API.
 
-With Rentrez, you do not need to use any additional program or terminal to access NCBI Data. 
+With `Rentrez`, you do not need to use any additional program or terminal to access NCBI Data. 
 
 This means that you can request data from multiple databases (PubMed, SNP, Clinvar, SRA, Gene, and others) in the same RStudio Session.
 :::
@@ -250,11 +252,110 @@ format: revealjs
 
 ---
 
-#### Paragraphs
+#### Paragraphs and Inline Formatting
 
-Paragraphs in markdown displays as you would normally see them in a text editor. 
-![](paragraphs.jpg)
-In the th
+Paragraphs in markdown displays as you would normally see them in a text editor.
+By using markdown and Quarto, you can comment your code without the need of using the # symbol.
+
+To split text in separate paragraphs you need to use two consecutive newlines. 
+
+---
+
+##### Single newline
+
+:::: {.columns}
+
+::: {.column width="40%"}
+###### Code
+
+```
+Paragraph 1
+Paragraph 2
+```
+:::
+
+::: {.column width="40%"}
+###### Render
+
+Paragraph 1
+Paragraph 2
+:::
+::::
+
+
+##### Two newlines
+
+:::: {.columns}
+
+::: {.column width="40%"}
+###### Code
+
+```
+Paragraph 1
+
+Paragraph 2
+```
+:::
+
+::: {.column width="40%"}
+###### Render
+
+Paragraph 1
+
+Paragraph 2
+:::
+::::
+
+---
+
+The example bellow contains multiple inline formatting options that you can do with markdown, such as: 
+
+* italic letters `*txt*`
+* bold letters `**txt**`
+* backtick ``` ` ` ```
+* links`[text](url)`
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+##### Code
+```{=html}
+*entrez_search()*
+</br></br>
+Similar to PubMed, `Rentrez` allows you to perform simple or boolean searches using the same structure that you would use in the PubMed search bar. The allowed boolean terms are **AND, OR, and NOT**.
+</br></br>
+First, let's learn the syntax for a simple and a boolean search:
+</br></br>
+**Simple Search:**
+</br></br>
+To know more about this fuction, you can visit this [tutorial](https://cran.r-project.org/web/packages/rentrez/ vignettes/rentrez_tutorial.html)
+```
+
+:::
+
+::: {.column width="60%"}
+
+##### Render
+
+*entrez_search()*
+
+Similar to PubMed, `Rentrez` allows you to perform simple or boolean searches using the same structure that you would use in the PubMed search bar. The allowed boolean terms are **AND, OR, and NOT**.
+
+<br/>
+
+First, let's learn the syntax for a simple and a boolean search:
+
+<br/>
+
+**Simple Search:**
+
+To know more about this function, you can visit this [tutorial](https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html).
+
+:::
+
+::::
+
 
 #### Ordered Lists
 
@@ -331,13 +432,14 @@ My pets:
 
 #### Images
 
-#### Links
+
 
 :::{.callout-note}
-Want to learn more about Markdown, check out its [documentation](https://www.markdownguide.org/getting-started/)
+Markdown allows you to use multiple formatting elements in a plan text document. Since it can be used to write any type of document, it includes multiple functions that you can explore in this [website](https://www.markdownguide.org/cheat-sheet/).
 :::
 
-## Integrating code and graphs in your document
+
+#### Integrating code and graphs in your document
 
 ## Exercise: Let's Practice
 
