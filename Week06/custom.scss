@@ -1,0 +1,31 @@
+/*-- scss:defaults --*/
+$body-bg: #191919 !default;
+$body-color: #fff !default;
+$link-color: #42affa !default;
+$input-panel-bg: rgba(233, 236, 239, 0.2) !default;
+$code-block-font-size: 0.8em;
+$code-block-bg: #333333;
+$code-block-border-color: darken($link-color, 20%);
+
+
+/*-- scss:rules --*/
+
+.reveal h2 {
+  font-size: 2em;
+}
+.reveal pre code {
+  font-size: 0.8em;
+  background-color: #333333;
+  color: white;
+  padding: 30px;
+ }
+ 
+ .v-center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+}
+.reveal h2 {
+  padding-bottom: 10px;
+ }

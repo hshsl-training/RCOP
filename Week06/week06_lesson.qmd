@@ -1,0 +1,709 @@
+---
+title: "R Community of Practice Week 5"
+subtitle: "Creating slides using Quarto"
+title-block-banner: white
+title-block-banner-color: black
+navbar:
+    page-navigation: true
+format: 
+ html:
+    embed-resources: true
+toc: true
+editor: source
+css: ../styles.css
+---
+## Introduction
+
+This week we are going to use RStudio in a way we haven't used before.
+We will be using RStudio, to format and generate a slide show.
+
+This lesson objectives are: 
+
+1. Introduce participants to Quarto, its purpose, features and benefits.
+2. Get participants acquainted to Quarto's document structure. 
+3. Practice structuring documents using RMarkdown.
+
+::: {.callout-note}
+Quarto utilizes functions from RMarkdown, YAML, Knitr, HTML, CSS, and various other tools and programming languages to enable the creation of a wide range of documents that this tool is capable of producing.
+
+In this lesson we will be introducing you to YAML, Markdown and RMarkdown so you can create your own presentations using RStudio and feel inspired to explore other formats of documents in Quarto.
+:::
+
+## The Data
+
+For this week we are not going to work with data, but we may be referencing content from the last 5 weeks. 
+
+## What is Quarto?
+
+Quarto is a publishing tool for creating interactive and dynamic documents. One of the goals that Quarto has is "to make the process of creating and collaborating on scientific and technical documents dramatically better."
+
+With Quarto, you can create reproducible articles, presentation, websites, blogs, and books in HTML, PDF, MS Word, ePub, and more. Quarto supports reproducible research by ensuring document format standardization across multiple files. 
+
+In the same RStudio Session, you can combine data analysis and data visualization, to support your article, presentation, website or other. In the same `.qmd` file you can mix images, video, data and code, to produce a document.  
+
+In fact, the materials generated in this course, its webpages and slides, are structured as a collection of Quarto [documents](https://github.com/hshsl-training/RCOP/blob/main/Week04/week04_lesson.qmd). We uploaded all of our code and `.qmd` files to a website called GitHub, and this website does the rendering of the materials for us. 
+
+::: {.callout-note}
+## Quarto Documentation
+To learn more about the types of documents that Quarto can generate, you can visit its [documentation website](https://quarto.org/docs/presentations/) . 
+:::
+
+## Components of a .qmd file
+ 
+The structure of a `.qmd` file is simple. 
+
+Every `.qmd` presentation starts with the following lines:
+
+```yaml
+---
+title: "This is a test"
+author: "Irmarie"
+format: revealjs
+---
+```
+Anything that goes inside of the hyphens is considered a YAML text. 
+And anything that goes after the last trio of hyphens, can be a combination of R code chunks and RMarkdown, as shown in the image below. 
+
+![](qmd_example_rstudio.png)
+
+**Different format options for different types of documents**
+
+Depending of the type of document your YAML configurations may look different. For example, in the image shown above, the YAML configuration is setting up an website.
+
+## What is YAML and RMarkdown?
+
+### YAML
+
+[YAML](https://yaml.org/) is a human-friendly data serialization language for all programming languages. YAML can be use to set up configurations in a file or website.
+
+In our context, we will be using YAML as a configuration language to help us set up the format of our document (html,pdf,pptx,docx,revealjs,knitr). 
+
+Once the format of the document is selected, each format may have their own set of functions. 
+This set of functions may offer us many options such as customize our presentation, from the color schema and fonts (`theme`) to how we would like to display code chunks and graphics in a presentation (`code-fold`, `code-overflow`, etc). A YAML configuration may help apply this settings across the document, while RMarkdown may help apply settings to individual parts of the document. 
+
+Let's take a look to the YAML example below. 
+
+```yaml
+---
+title: "Accessing NCBI data with the Rentrez package"
+subtitle: "R Community of Practice June 15 - July 20"
+author: "Irmarie Fraticelli-Rodriguez"
+date: "07/13/2023"
+footer: <https://www2.hshsl.umaryland.edu/cdabs/>
+format:
+  revealjs:
+    theme: default
+    slide-number: true
+    smaller: true
+    scrollable: true
+    preview-links: true
+    code-fold: show
+    code-overflow: wrap
+    logo: rcop_hex_logo.png
+---
+```
+
+YAMl for Quarto document configuration does not have specific order in which you should place each function. As you create your YAML configuration, you may select to put the `title`, `subtitle`, `author`, `date`, `footer` at the end of the YAML and it should be okay!
+
+But it is very important to nest (indent) functions that are related to each other. 
+The example above is using specific configurations that are part of the revealjs group, and that is why those functions goes nested under revealjs. 
+
+
+![](indentation.jpg)
+
+:::{.callout-note}
+**What is the format revealjs?** Revealjs is an open source HTML presentation framework, this format uses a web browser to create interactive presentations.  One of the benefits of using revealjs is that you avoid any complication that may come with using the Power Point interface, and you ensure that any tool that you use in your document is open-source. Also, once the presentation is rendered, you can print it into a pdf. 
+
+**Want to learn more about revealjs styling options?**
+
+Take a look at the revealjs and Quarto documentation.
+
+ + [Styling Documentation, Quarto + revealjs ](https://quarto.org/docs/reference/formats/presentations/revealjs.html)
+ + [Theme Documentation, revealjs](https://revealjs.com/themes/)
+ + [Print to PDF, revealjs](https://quarto.org/docs/presentations/revealjs/presenting.html#print-to-pdf)
+ + [revealjs Website](https://revealjs.com/)
+
+:::
+
+### Markdown & RMarkdown
+
+RMarkdown is an extension of Markdown, with this language you can combine R results from data analysis with plain text producing a formatted and reproducible document.
+
+Let's take a look at the different functions that Markdown and RMarkdown offers to format a document. 
+
+#### Headings
+
+Headings represent a way to arrange content in a markdown document. 
+They represent different levels of hierarchy and help readers understand the document's outline. Markdown headings are created using hash `#` symbols at the beginning of a line, followed by a space and text.
+
+It is recommended to leave a blank line before and after headings. 
+
+Example:
+
+:::: {.columns}
+
+::: {.column width="40%"}
+##### Code
+```
+# Header 1
+
+## Header 2
+
+### Header 3
+
+#### Header 4
+
+##### Header 5
+
+###### Header 6
+```
+:::
+
+::: {.column width="40%"}
+##### Render
+
+# Header 1
+
+## Header 2
+
+### Header 3
+
+#### Header 4
+
+##### Header 5
+
+###### Header 6
+:::
+
+::::
+
+---
+
+##### **How headings work in Quarto Presentations?**
+
+You can create slides in Quarto using the `##` symbol. 
+The `##` symbol can be accompanied by text, that when rendered represents the title of the slide.
+
+Example:
+
+:::: {.columns}
+
+::: {.column width="40%"}
+##### Code
+```{=html}
+## What is Rentrez?
+</br></br>
+`Rentrez` is an R interface that allows its users to interact with NCBI API.
+</br></br>
+With `Rentrez`, you do not need to use any additional program or terminal to access NCBI Data.
+</br></br>
+This means that you can request data from multiple databases (PubMed, SNP, Clinvar, SRA, Gene, and others) in the same RStudio Session.
+```
+:::
+
+::: {.column width="40%"}
+##### Render
+
+## What is Rentrez? 
+
+`Rentrez` is an R interface that allows its users to interact with NCBI API.
+
+With `Rentrez`, you do not need to use any additional program or terminal to access NCBI Data. 
+
+This means that you can request data from multiple databases (PubMed, SNP, Clinvar, SRA, Gene, and others) in the same RStudio Session.
+:::
+
+::::
+
+---
+
+##### **Slides without title**
+
+Another way to create titles is by using three hyphens `---`. This method is used if you do not have a title for your slide. 
+
+Below an example from the [Quarto Website](https://quarto.org/docs/presentations/index.html#creating-slides):
+
+Example:
+
+:::: {.columns}
+
+::: {.column width="30%"}
+##### Code
+```
+---
+title: "Habits"
+author: "John Doe"
+format: revealjs
+---
+
+- Turn off alarm
+- Get out of bed
+
+---
+
+- Get in bed
+- Count sheep
+```
+:::
+
+::: {.column width="65%"}
+##### Render
+
+![Rendered Slides: First with title and two without title](no_title.png)
+
+:::
+::::
+
+---
+
+#### Paragraphs and Inline Formatting
+
+Paragraphs in markdown displays as you would normally see them in a text editor.
+By using markdown and Quarto, you can comment your code without the need of using the # symbol.
+
+To split text in separate paragraphs you need to use two consecutive newlines. 
+
+Example:
+
+##### Single newline
+
+:::: {.columns}
+
+::: {.column width="40%"}
+###### Code
+
+```
+Paragraph 1
+Paragraph 2
+```
+:::
+
+::: {.column width="40%"}
+###### Render
+
+Paragraph 1
+Paragraph 2
+:::
+::::
+
+
+##### Two newlines
+
+:::: {.columns}
+
+::: {.column width="40%"}
+###### Code
+
+```
+Paragraph 1
+
+Paragraph 2
+```
+:::
+
+::: {.column width="40%"}
+###### Render
+
+Paragraph 1
+
+Paragraph 2
+:::
+::::
+
+---
+
+Another example containing multiple inline formatting options such as: 
+
+* italic letters `*txt*`
+* bold letters `**txt**`
+* backtick ``` ` ` ```
+* links`[text](url)`
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+##### Code
+```{=html}
+*entrez_search()*
+</br></br>
+Similar to PubMed, `Rentrez` allows you to perform simple or boolean searches using the same structure that you would use in the PubMed search bar. The allowed boolean terms are **AND, OR, and NOT**.
+</br></br>
+First, let's learn the syntax for a simple and a boolean search:
+</br></br>
+**Simple Search:**
+</br></br>
+To know more about this fuction, you can visit this [tutorial](https://cran.r-project.org/web/packages/rentrez/ vignettes/rentrez_tutorial.html)
+```
+
+:::
+
+::: {.column width="60%"}
+
+##### Render
+
+*entrez_search()*
+
+Similar to PubMed, `Rentrez` allows you to perform simple or boolean searches using the same structure that you would use in the PubMed search bar. The allowed boolean terms are **AND, OR, and NOT**.
+
+First, let's learn the syntax for a simple and a boolean search:
+
+**Simple Search:**
+
+To know more about this function, you can visit this [tutorial](https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html).
+
+:::
+
+::::
+
+---
+
+#### Ordered Lists
+
+Ordered lists can be created in markdown very easily as shown in the example below. 
+
+It is important to insert a newline before the list so it can get render appropiatedly. 
+
+Example:
+
+:::: {.columns}
+
+::: {.column width="40%"}
+##### Code
+```
+In the morning:
+
+1. Wake Up
+2. Shut Alarm Off
+3. Brush teeth
+4. Take Bath
+5. Get Dressed
+6. Feed pets
+7. Grab Essentials
+8. Leave for work
+```
+:::
+
+
+::: {.column width="40%"}
+##### Render
+In the morning:
+
+1. Wake Up
+2. Shut Alarm Off
+3. Brush teeth
+4. Take Bath
+5. Get Dressed
+6. Feed pets
+7. Grab Essentials
+8. Leave for work
+:::
+
+::::
+
+::: {.callout-tip}
+## Markdown Ordered List Trick
+
+Sometimes ordered lists can get very large and keeping an eye to the number order can be a daunting task. 
+
+If you use the same number consistently across the list, markdown will also understand that it is an ordered list. 
+
+Example:
+
+:::: {.columns}
+
+::: {.column width="40%"}
+##### Code
+```
+In the morning:
+
+1. Wake Up
+1. Shut Alarm Off
+1. Brush teeth
+```
+:::
+
+::: {.column width="40%"}
+##### Render
+In the morning:
+
+1. Wake Up
+1. Shut Alarm Off
+1. Brush teeth
+:::
+
+::::
+
+:::
+
+---
+
+#### Un-ordered (Bullet) Lists
+
+To create unrecorded lists you need to use the `*`, `+` or `-` symbol. It is recommended to maintain consistency across the document. If you selected the `+` to create un-ordered lists, try to maintain that across the document as much as possible. 
+
+Also, it is important to create a newline before the list so it can get render appropriately. 
+
+Example:
+
+:::: {.columns}
+
+::: {.column width="40%"}
+##### Code
+```
+My pets:
+
+* Tomasina
+* Cometa
+```
+:::
+
+::: {.column width="40%"}
+##### Render
+My pets:
+
+* Tomasina
+* Cometa
+:::
+
+::::
+
+---
+
+#### Images
+
+Another option that Markdown offers is to use images in plain text. 
+To increase accessibility to your content it is recommended to use alt text, so that images can be described by screen reader machines.
+
+The syntax is the following:
+
+`![Alt](/path/to/img.jpg)`
+
+Examples: 
+
+:::: {.columns}
+
+::: {.column width="40%"}
+##### Code
+
+```
+**Image from directory path**
+![Cat in top of a wood rocking 
+horse](tomasina.jpeg)
+```
+:::
+
+::: {.column width="40%"}
+##### Render
+
+**Image from directory path**
+![Cat in top of a wood rocking horse](tomasina.jpeg)
+:::
+::::
+
+:::: {.columns}
+
+::: {.column width="40%"}
+```
+**Image from URL**
+![Cat with a shark costume]
+(https://catamazing.com/cdn/
+shop/files/catshark.jpg?
+v=1649869148)
+```
+:::
+
+::: {.column width="40%"}
+**Image from URL**
+![Cat with a shark costume](https://catamazing.com/cdn/shop/files/catshark.jpg?v=1649869148)
+:::
+::::
+
+:::{.callout-note}
+Markdown allows you to use multiple formatting elements in a plain text document. Since it can be used to write any type of document, it includes multiple functions that you can explore in this [website](https://www.markdownguide.org/cheat-sheet/).
+:::
+
+---
+
+#### Integrating code and graphs in your document
+
+Rmarkdown is an authoring framework for data science, you can use it to connect with data, analyze it, save the code and produce a report. As mentioned before, Rmarkdown is an extension of Markdown. This means that all of the functions that we learn before can be applied when integrating r code to the document. 
+
+Code chunks in RMarkdown are created by the following syntax: 
+
+```{{r}}
+
+```
+
+
+Rmarkdown allows customization of code chunks so users can decide if they want to displays any results, raw code, errors, warnings and add any caption to graphical results. Code chunks can be customized with the following options: 
+
+| Customization           | Type                    |       Usage                        |
+|-------------------------|-------------------------|------------------------------------|
+| `include =`            |logical (TRUE/FALSE)     |prevents code and results from appearing in the finished file. R Markdown still runs the code in the chunk, and the results can be used by other chunks.|
+| `echo =`                |logical (TRUE/FALSE)     |prevents code, but not the results from appearing in the finished file. This is a useful way to embed figures.|
+| `message =`             |logical (TRUE/FALSE)     |prevents messages that are generated by code from appearing in the finished file.|
+| `warning =`             |logical (TRUE/FALSE)     |prevents warnings that are generated by code from appearing in the finished.|
+| `fig.cap = "..."`       |logical (TRUE/FALSE)     |adds a caption to graphical results.|
+
+Table from [RMarkdown Documentation](https://rmarkdown.rstudio.com/lesson-3.html).
+
+To explore more code chunk options you can also visit this [Knitr Website](https://yihui.org/knitr/options/).
+
+Examples:
+
+The example below makes use of the `echo= TRUE` option which allows users to display the results of the code. 
+
+---
+
+**Setup and Data Gather** - Not interested in any output.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+##### Code
+
+<pre><code>```{r include=FALSE}
+library(rentrez)
+library(ggplot2)
+
+search &lt;- entrez_search(
+  db = "pubmed", 
+  term = "Kristen A. Stafford[AUTH]",
+  retmax=100)
+
+summary &lt;- entrez_summary(
+  db = "pubmed",
+  id=search$ids)
+
+source &lt;- extract_from_esummary(
+  summary, 
+  "source")
+```</code></pre>
+:::
+
+::: {.column width="50%"}
+
+##### Render
+```{r include=FALSE}
+library(rentrez)
+library(ggplot2)
+
+search <- entrez_search(
+  db = "pubmed", 
+  term = "Kristen A. Stafford[AUTH]",
+  retmax=100)
+
+summary <- entrez_summary(
+  db = "pubmed",
+  id=search$ids)
+
+source <- extract_from_esummary(
+  summary, 
+  "source")
+```
+:::
+
+::::
+
+---
+
+**No Source Code Displayed** - `echo=FALSE`
+
+:::: {.columns}
+
+::: {.column width="50%"}
+##### Code
+
+<pre><code>```{r echo=FALSE}
+ggplot(mapping = aes(x=source)) + 
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90)) + 
+  labs(
+    title = "Kristen's Stafford Publications per journal",
+    x="Journal", 
+    y= "Amount")
+```</code></pre>
+:::
+
+::: {.column width="50%"}
+##### Render
+
+```{r echo=FALSE}
+ggplot(mapping = aes(x=source)) + 
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90)) + 
+  labs(
+    title = "Kristen's Stafford Publications per journal",
+    x="Journal", 
+    y= "Amount")
+```
+:::
+
+::::
+
+---
+
+**Echo Source Code** - `echo=TRUE`
+
+:::: {.columns}
+
+::: {.column width="50%"}
+##### Code
+
+<pre><code>```{r echo=TRUE}
+ggplot(mapping = aes(x=source)) + 
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90)) + 
+  labs(
+    title = "Kristen's Stafford Publications per journal",
+    x="Journal", 
+    y= "Amount")
+```</code></pre>
+:::
+
+::: {.column width="50%"}
+##### Render
+
+```{r echo=TRUE}
+ggplot(mapping = aes(x=source)) + 
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90)) + 
+  labs(
+    title = "Kristen's Stafford Publications per journal",
+    x="Journal", 
+    y= "Amount")
+```
+:::
+
+::::
+
+::: {.callout-note}
+## .Rmd vs .qmd
+As you may progress learning Rmarkdown and Quarto, you may notice two file extensions `.Rmd` and `.qmd`. Although both files may look very similar and even can make usage of the same functions, one of the greatest difference is that .qmd files (Quarto files), can also interact with other programming languages. In a Quarto file you can interact with other scripting languages such as Python, R, or SQL at the same time by specifying code language at the code chunk curly brackets. 
+
+If you want to learn more about this, you can tale a look at the following link:
+
+* [Quarto sounds similar to R Markdown.](https://quarto.org/docs/faq/rmarkdown.html#quarto-sounds-similar-to-r-markdown.-what-is-the-difference-and-why-create-a-new-project)
+
+:::
+
+## Exercise: Let's Practice!
+
+**Scenario:**
+
+Your supervisor is asking you to create a slide show about the the skills you have learn for the last few weeks. In this slide show, you need to answer the following questions:
+
+1. What data do you chose to work with and why? (Markdown tip: use paragraph)
+1. What questions did you had about the data that you wanted to answer in the R community of practice? (Markdown tip: use bulleted list)
+1. What steps did you to take to process the data? (Markdown tip: use ordered list)
+1. A graphical summary of what they found out? (Markdown tip: use code chunk with graph)
+
+To accomplish this request, you will need to complete the following tasks:
+
+ 1. Create a .qmd file.
+ 1. Set up YAML configurations
+ 1. Structure your presentation using RMarkdown
+ 1. Create the requested content
+
+
