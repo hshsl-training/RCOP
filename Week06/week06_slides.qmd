@@ -29,7 +29,7 @@ So keep an eye to future announcements!!
 
 ## Introduction
 
-This week we're going to use RStudio in a way we haven't used before.
+This week we are going to use RStudio in a way we haven't used before.
 We will be using RStudio, to format and generate a slide show.
 
 This lesson objectives are: 

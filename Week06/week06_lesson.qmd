@@ -14,7 +14,7 @@ css: ../styles.css
 ---
 ## Introduction
 
-This week we're going to use RStudio in a way we haven't used before.
+This week we are going to use RStudio in a way we haven't used before.
 We will be using RStudio, to format and generate a slide show.
 
 This lesson objectives are: 
@@ -691,7 +691,6 @@ If you want to learn more about this, you can tale a look at the following link:
 ## Exercise: Let's Practice!
 
 **Scenario:**
-
 
 Your supervisor is asking you to create a slide show about the the skills you have learn for the last few weeks. In this slide show, you need to answer the following questions:
 

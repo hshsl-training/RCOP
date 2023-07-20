@@ -1,22 +1,66 @@
 ---
 title: "R Community of Practice"
 author: ""
-format: revealjs
+format: 
+  revealjs:
+   code-fold: show
 ---
 
 ## What data do you chose to work with and why?
 
-(Markdown tip: use paragraph)
+During the six week of the [R Community of Practice](https://hshsl-training.github.io/RCOP/), I chose to use *PubMed* data.
+I decided to learn how to use the R package `Rentrez` to extract data from the PubMed database. Also, I learn to create data visualizations using this package.  
 
 ## What questions did you had about the data that you wanted to answer in the R community of practice? 
 
-(Markdown tip: use bulleted list)
+My questions for *PubMed* data were:
+
+- How can I get PubMed data without leaving my RStudio window?
+- Can I extract publication dates and journals from the PubMed data using Rentrez?
+  - How can I display this data in a graph?
 
 ## What steps did you to take to process the data? 
 
-(Markdown tip: use ordered list)
+To get data from the *PubMed* database using `Rentrez`, I had to perform the following steps: 
+
+1. Read `Rentrez` documentation
+1. Install and load `Rentrez` package
+1. Perform my first search in *PubMed* using the command `entrez_search()` 
+1. Get summaries of the articles found in my search using `entrez_summary`
+1. Extract interesting and needed items using `extract_from_esummary()`
 
 ## A graphical summary of what they found out? 
 
-(Markdown tip: use code chunk with graph)
+With the skills learned at the R Community of Practice, I was able to create a graph using `PubMed` Data. 
+
+```{r echo=TRUE}
+library(rentrez)
+library(ggplot2)
+
+#Performing Search
+search <- entrez_search(db = "pubmed", term = "Kristen A. Stafford[AUTH]", retmax=100)
+
+#Getting all the summaries
+summary <- entrez_summary(db = "pubmed",id=search$ids)
+
+#Extracting information that I am interested in
+extract <- extract_from_esummary(summary, "source")
+
+```
+
+
+---
+
+```{r echo=TRUE}
+library(rentrez)
+library(ggplot2)
+
+#Creating a data visualization
+ggplot(mapping = aes(x=extract)) + 
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90)) + 
+  labs(title = "Kristen's Stafford Publications per journal",
+    x="Journal", y= "Amount")
+```
+
 
