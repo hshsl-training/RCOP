@@ -8,6 +8,7 @@ project:
     - "Week03/*.qmd"
     - "Week04/*.qmd"
     - "Week05/*.qmd"
+    - "Week06/*.qmd"
 
 website:
   title: "NNLM + CDABS R Community of Practice"
@@ -28,6 +29,8 @@ website:
         file: Week04/week04_lesson.qmd
       - text: Week05
         file: Week05/week05_lesson.qmd
+      - text: Week06
+        file: Week06/week06_lesson.qmd
 
 format:
   html:

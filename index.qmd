@@ -29,6 +29,6 @@ In the navigation bar you will find each week lesson.
 | Week 3  | Creating a bar chart with ggplot2            | <a href="Week03/week03_slides.html" target="_blank">Week 3</a> |
 | Week 4	| Transforming data from wide to long          |<a href="Week04/week04_slides.html" target="_blank">Week 4</a>|
 | Week 5  | Accessing NCBI data with the Rentrez package |<a href="Week05/week05_slides.html" target="_blank">Week 5</a>|
-| Week 6  | Communicating with Quarto                    ||
+| Week 6  | Communicating with Quarto                    |<a href="Week06/week06_slides.html" target="_blank">Week 6</a>|
 
 **Download the data by week for all the lessons [here](https://osf.io/fsg4w/).**

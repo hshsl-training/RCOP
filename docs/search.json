@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "NNLM + CDABS R Community of Practice",
     "section": "",
-    "text": "Objective:\nThe objective of this website is to provide supporting documentation for R Community of Practice. In the navigation bar you will find each week lesson.\nWeekly Topics\n\n\n\n\n\n\n\n\nWeek\nTopic\nSlides\n\n\n\n\nWeek 1\nReading multiple files\nWeek 1\n\n\nWeek 2\nWorking with Dates\nWeek 2\n\n\nWeek 3\nCreating a bar chart with ggplot2\nWeek 3\n\n\nWeek 4\nTransforming data from wide to long\nWeek 4\n\n\nWeek 5\nAccessing NCBI data with the Rentrez package\nWeek 5\n\n\nWeek 6\nCommunicating with Quarto\n\n\n\n\nDownload the data by week for all the lessons here."
+    "text": "Objective:\nThe objective of this website is to provide supporting documentation for R Community of Practice. In the navigation bar you will find each week lesson.\nWeekly Topics\n\n\n\n\n\n\n\n\nWeek\nTopic\nSlides\n\n\n\n\nWeek 1\nReading multiple files\nWeek 1\n\n\nWeek 2\nWorking with Dates\nWeek 2\n\n\nWeek 3\nCreating a bar chart with ggplot2\nWeek 3\n\n\nWeek 4\nTransforming data from wide to long\nWeek 4\n\n\nWeek 5\nAccessing NCBI data with the Rentrez package\nWeek 5\n\n\nWeek 6\nCommunicating with Quarto\nWeek 6\n\n\n\nDownload the data by week for all the lessons here."
   },
   {
     "objectID": "Week01/week01_lesson.html",
@@ -782,5 +782,138 @@
     "title": "Accessing NCBI data with the Rentrez package",
     "section": "STEP #4",
     "text": "STEP #4\nCreate a graph that represents the results of your search.\n\nggplot(mapping = aes(x=source)) + \n  geom_bar() +\n  theme(axis.text.x = element_text(angle = 90)) + # To rotate journals names\n  labs(title = \"Kristen's Stafford Publications per journal\", # Set up graph title and labels\n       x=\"Journal\", y= \"Amount\")\n\n\n\n\n\n\nggplot(mapping = aes(x=pubdate)) + \n  geom_bar() +\n  theme(axis.text.x = element_text(angle = 90)) +\n   labs(title = \"Kristen's Stafford Publications per year\", # Set up graph title and labels\n       x=\"Year\", y= \"Amount\")"
+  },
+  {
+    "objectID": "Week06/week06_lesson.html",
+    "href": "Week06/week06_lesson.html",
+    "title": "R Community of Practice Week 5",
+    "section": "",
+    "text": "This week we are going to use RStudio in a way we haven’t used before. We will be using RStudio, to format and generate a slide show.\nThis lesson objectives are:\n\nIntroduce participants to Quarto, its purpose, features and benefits.\nGet participants acquainted to Quarto’s document structure.\nPractice structuring documents using RMarkdown.\n\n\n\n\n\n\n\nNote\n\n\n\nQuarto utilizes functions from RMarkdown, YAML, Knitr, HTML, CSS, and various other tools and programming languages to enable the creation of a wide range of documents that this tool is capable of producing.\nIn this lesson we will be introducing you to YAML, Markdown and RMarkdown so you can create your own presentations using RStudio and feel inspired to explore other formats of documents in Quarto."
+  },
+  {
+    "objectID": "Week06/week06_lesson.html#the-data",
+    "href": "Week06/week06_lesson.html#the-data",
+    "title": "R Community of Practice Week 5",
+    "section": "The Data",
+    "text": "The Data\nFor this week we are not going to work with data, but we may be referencing content from the last 5 weeks."
+  },
+  {
+    "objectID": "Week06/week06_lesson.html#what-is-quarto",
+    "href": "Week06/week06_lesson.html#what-is-quarto",
+    "title": "R Community of Practice Week 5",
+    "section": "What is Quarto?",
+    "text": "What is Quarto?\nQuarto is a publishing tool for creating interactive and dynamic documents. One of the goals that Quarto has is “to make the process of creating and collaborating on scientific and technical documents dramatically better.”\nWith Quarto, you can create reproducible articles, presentation, websites, blogs, and books in HTML, PDF, MS Word, ePub, and more. Quarto supports reproducible research by ensuring document format standardization across multiple files.\nIn the same RStudio Session, you can combine data analysis and data visualization, to support your article, presentation, website or other. In the same .qmd file you can mix images, video, data and code, to produce a document.\nIn fact, the materials generated in this course, its webpages and slides, are structured as a collection of Quarto documents. We uploaded all of our code and .qmd files to a website called GitHub, and this website does the rendering of the materials for us.\n\n\n\n\n\n\nQuarto Documentation\n\n\n\nTo learn more about the types of documents that Quarto can generate, you can visit its documentation website ."
+  },
+  {
+    "objectID": "Week06/week06_lesson.html#components-of-a-.qmd-file",
+    "href": "Week06/week06_lesson.html#components-of-a-.qmd-file",
+    "title": "R Community of Practice Week 5",
+    "section": "Components of a .qmd file",
+    "text": "Components of a .qmd file\nThe structure of a .qmd file is simple.\nEvery .qmd presentation starts with the following lines:\n---\ntitle: \"This is a test\"\nauthor: \"Irmarie\"\nformat: revealjs\n---\nAnything that goes inside of the hyphens is considered a YAML text. And anything that goes after the last trio of hyphens, can be a combination of R code chunks and RMarkdown, as shown in the image below.\n\nDifferent format options for different types of documents\nDepending of the type of document your YAML configurations may look different. For example, in the image shown above, the YAML configuration is setting up an website."
+  },
+  {
+    "objectID": "Week06/week06_lesson.html#what-is-yaml-and-rmarkdown",
+    "href": "Week06/week06_lesson.html#what-is-yaml-and-rmarkdown",
+    "title": "R Community of Practice Week 5",
+    "section": "What is YAML and RMarkdown?",
+    "text": "What is YAML and RMarkdown?\n\nYAML\nYAML is a human-friendly data serialization language for all programming languages. YAML can be use to set up configurations in a file or website.\nIn our context, we will be using YAML as a configuration language to help us set up the format of our document (html,pdf,pptx,docx,revealjs,knitr).\nOnce the format of the document is selected, each format may have their own set of functions. This set of functions may offer us many options such as customize our presentation, from the color schema and fonts (theme) to how we would like to display code chunks and graphics in a presentation (code-fold, code-overflow, etc). A YAML configuration may help apply this settings across the document, while RMarkdown may help apply settings to individual parts of the document.\nLet’s take a look to the YAML example below.\n---\ntitle: \"Accessing NCBI data with the Rentrez package\"\nsubtitle: \"R Community of Practice June 15 - July 20\"\nauthor: \"Irmarie Fraticelli-Rodriguez\"\ndate: \"07/13/2023\"\nfooter: <https://www2.hshsl.umaryland.edu/cdabs/>\nformat:\n  revealjs:\n    theme: default\n    slide-number: true\n    smaller: true\n    scrollable: true\n    preview-links: true\n    code-fold: show\n    code-overflow: wrap\n    logo: rcop_hex_logo.png\n---\nYAMl for Quarto document configuration does not have specific order in which you should place each function. As you create your YAML configuration, you may select to put the title, subtitle, author, date, footer at the end of the YAML and it should be okay!\nBut it is very important to nest (indent) functions that are related to each other. The example above is using specific configurations that are part of the revealjs group, and that is why those functions goes nested under revealjs.\n\n\n\n\n\n\n\nNote\n\n\n\nWhat is the format revealjs? Revealjs is an open source HTML presentation framework, this format uses a web browser to create interactive presentations. One of the benefits of using revealjs is that you avoid any complication that may come with using the Power Point interface, and you ensure that any tool that you use in your document is open-source. Also, once the presentation is rendered, you can print it into a pdf.\nWant to learn more about revealjs styling options?\nTake a look at the revealjs and Quarto documentation.\n\nStyling Documentation, Quarto + revealjs\nTheme Documentation, revealjs\nPrint to PDF, revealjs\nrevealjs Website\n\n\n\n\n\nMarkdown & RMarkdown\nRMarkdown is an extension of Markdown, with this language you can combine R results from data analysis with plain text producing a formatted and reproducible document.\nLet’s take a look at the different functions that Markdown and RMarkdown offers to format a document.\n\nHeadings\nHeadings represent a way to arrange content in a markdown document. They represent different levels of hierarchy and help readers understand the document’s outline. Markdown headings are created using hash # symbols at the beginning of a line, followed by a space and text.\nIt is recommended to leave a blank line before and after headings.\nExample:\n\n\n\nCode\n# Header 1\n\n## Header 2\n\n### Header 3\n\n#### Header 4\n\n##### Header 5\n\n###### Header 6\n\n\n\nRender\n\n\nHeader 1\n\nHeader 2\n\nHeader 3\n\nHeader 4\n\nHeader 5\n\nHeader 6\n\n\n\n\n\n\n\n\n\n\nHow headings work in Quarto Presentations?\nYou can create slides in Quarto using the ## symbol. The ## symbol can be accompanied by text, that when rendered represents the title of the slide.\nExample:\n\n\n\n\nCode\n## What is Rentrez?\n\n`Rentrez` is an R interface that allows its users to interact with NCBI API.\n\nWith `Rentrez`, you do not need to use any additional program or terminal to access NCBI Data.\n\nThis means that you can request data from multiple databases (PubMed, SNP, Clinvar, SRA, Gene, and others) in the same RStudio Session.\n\n\n\nRender\n\n\nWhat is Rentrez?\nRentrez is an R interface that allows its users to interact with NCBI API.\nWith Rentrez, you do not need to use any additional program or terminal to access NCBI Data.\nThis means that you can request data from multiple databases (PubMed, SNP, Clinvar, SRA, Gene, and others) in the same RStudio Session.\n\n\n\n\n\nSlides without title\nAnother way to create titles is by using three hyphens ---. This method is used if you do not have a title for your slide.\nBelow an example from the Quarto Website:\nExample:\n\n\n\n\nCode\n---\ntitle: \"Habits\"\nauthor: \"John Doe\"\nformat: revealjs\n---\n\n- Turn off alarm\n- Get out of bed\n\n---\n\n- Get in bed\n- Count sheep\n\n\n\nRender\n\n\n\nRendered Slides: First with title and two without title\n\n\n\n\n\n\n\n\nParagraphs and Inline Formatting\nParagraphs in markdown displays as you would normally see them in a text editor. By using markdown and Quarto, you can comment your code without the need of using the # symbol.\nTo split text in separate paragraphs you need to use two consecutive newlines.\nExample:\n\nSingle newline\n\n\n\nCode\nParagraph 1\nParagraph 2\n\n\n\nRender\nParagraph 1 Paragraph 2\n\n\n\n\n\nTwo newlines\n\n\n\nCode\nParagraph 1\n\nParagraph 2\n\n\n\nRender\nParagraph 1\nParagraph 2\n\n\n\n\nAnother example containing multiple inline formatting options such as:\n\nitalic letters *txt*\nbold letters **txt**\nbacktick ` `\nlinks[text](url)\n\n\n\n\n\nCode\n*entrez_search()*\n\nSimilar to PubMed, `Rentrez` allows you to perform simple or boolean searches using the same structure that you would use in the PubMed search bar. The allowed boolean terms are **AND, OR, and NOT**.\n\nFirst, let's learn the syntax for a simple and a boolean search:\n\n**Simple Search:**\n\nTo know more about this fuction, you can visit this [tutorial](https://cran.r-project.org/web/packages/rentrez/ vignettes/rentrez_tutorial.html)\n\n\n\nRender\nentrez_search()\nSimilar to PubMed, Rentrez allows you to perform simple or boolean searches using the same structure that you would use in the PubMed search bar. The allowed boolean terms are AND, OR, and NOT.\nFirst, let’s learn the syntax for a simple and a boolean search:\nSimple Search:\nTo know more about this function, you can visit this tutorial.\n\n\n\n\n\n\nOrdered Lists\nOrdered lists can be created in markdown very easily as shown in the example below.\nIt is important to insert a newline before the list so it can get render appropiatedly.\nExample:\n\n\n\nCode\nIn the morning:\n\n1. Wake Up\n2. Shut Alarm Off\n3. Brush teeth\n4. Take Bath\n5. Get Dressed\n6. Feed pets\n7. Grab Essentials\n8. Leave for work\n\n\n\nRender\nIn the morning:\n\nWake Up\nShut Alarm Off\nBrush teeth\nTake Bath\nGet Dressed\nFeed pets\nGrab Essentials\nLeave for work\n\n\n\n\n\n\n\n\n\n\nMarkdown Ordered List Trick\n\n\n\nSometimes ordered lists can get very large and keeping an eye to the number order can be a daunting task.\nIf you use the same number consistently across the list, markdown will also understand that it is an ordered list.\nExample:\n\n\n\nCode\nIn the morning:\n\n1. Wake Up\n1. Shut Alarm Off\n1. Brush teeth\n\n\n\nRender\nIn the morning:\n\nWake Up\nShut Alarm Off\nBrush teeth\n\n\n\n\n\n\n\n\n\nUn-ordered (Bullet) Lists\nTo create unrecorded lists you need to use the *, + or - symbol. It is recommended to maintain consistency across the document. If you selected the + to create un-ordered lists, try to maintain that across the document as much as possible.\nAlso, it is important to create a newline before the list so it can get render appropriately.\nExample:\n\n\n\nCode\nMy pets:\n\n* Tomasina\n* Cometa\n\n\n\nRender\nMy pets:\n\nTomasina\nCometa\n\n\n\n\n\n\n\nImages\nAnother option that Markdown offers is to use images in plain text. To increase accessibility to your content it is recommended to use alt text, so that images can be described by screen reader machines.\nThe syntax is the following:\n![Alt](/path/to/img.jpg)\nExamples:\n\n\n\nCode\n**Image from directory path**\n![Cat in top of a wood rocking \nhorse](tomasina.jpeg)\n\n\n\nRender\nImage from directory path \n\n\n\n\n\n**Image from URL**\n![Cat with a shark costume]\n(https://catamazing.com/cdn/\nshop/files/catshark.jpg?\nv=1649869148)\n\nImage from URL \n\n\n\n\n\n\n\n\nNote\n\n\n\nMarkdown allows you to use multiple formatting elements in a plain text document. Since it can be used to write any type of document, it includes multiple functions that you can explore in this website.\n\n\n\n\n\nIntegrating code and graphs in your document\nRmarkdown is an authoring framework for data science, you can use it to connect with data, analyze it, save the code and produce a report. As mentioned before, Rmarkdown is an extension of Markdown. This means that all of the functions that we learn before can be applied when integrating r code to the document.\nCode chunks in RMarkdown are created by the following syntax:\n```{r}\n\n```\nRmarkdown allows customization of code chunks so users can decide if they want to displays any results, raw code, errors, warnings and add any caption to graphical results. Code chunks can be customized with the following options:\n\n\n\n\n\n\n\n\nCustomization\nType\nUsage\n\n\n\n\ninclude =\nlogical (TRUE/FALSE)\nprevents code and results from appearing in the finished file. R Markdown still runs the code in the chunk, and the results can be used by other chunks.\n\n\necho =\nlogical (TRUE/FALSE)\nprevents code, but not the results from appearing in the finished file. This is a useful way to embed figures.\n\n\nmessage =\nlogical (TRUE/FALSE)\nprevents messages that are generated by code from appearing in the finished file.\n\n\nwarning =\nlogical (TRUE/FALSE)\nprevents warnings that are generated by code from appearing in the finished.\n\n\nfig.cap = \"...\"\nlogical (TRUE/FALSE)\nadds a caption to graphical results.\n\n\n\nTable from RMarkdown Documentation.\nTo explore more code chunk options you can also visit this Knitr Website.\nExamples:\nThe example below makes use of the echo= TRUE option which allows users to display the results of the code.\n\nSetup and Data Gather - Not interested in any output.\n\n\n\nCode\n```{r include=FALSE}\nlibrary(rentrez)\nlibrary(ggplot2)\n\nsearch <- entrez_search(\n  db = \"pubmed\", \n  term = \"Kristen A. Stafford[AUTH]\",\n  retmax=100)\n\nsummary <- entrez_summary(\n  db = \"pubmed\",\n  id=search$ids)\n\nsource <- extract_from_esummary(\n  summary, \n  \"source\")\n```\n\n\n\nRender\n\n\n\n\nNo Source Code Displayed - echo=FALSE\n\n\n\nCode\n```{r echo=FALSE}\nggplot(mapping = aes(x=source)) + \n  geom_bar() +\n  theme(axis.text.x = element_text(angle = 90)) + \n  labs(\n    title = \"Kristen's Stafford Publications per journal\",\n    x=\"Journal\", \n    y= \"Amount\")\n```\n\n\n\nRender\n\n\n\n\n\n\n\n\n\nEcho Source Code - echo=TRUE\n\n\n\nCode\n```{r echo=TRUE}\nggplot(mapping = aes(x=source)) + \n  geom_bar() +\n  theme(axis.text.x = element_text(angle = 90)) + \n  labs(\n    title = \"Kristen's Stafford Publications per journal\",\n    x=\"Journal\", \n    y= \"Amount\")\n```\n\n\n\nRender\n\nggplot(mapping = aes(x=source)) + \n  geom_bar() +\n  theme(axis.text.x = element_text(angle = 90)) + \n  labs(\n    title = \"Kristen's Stafford Publications per journal\",\n    x=\"Journal\", \n    y= \"Amount\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n.Rmd vs .qmd\n\n\n\nAs you may progress learning Rmarkdown and Quarto, you may notice two file extensions .Rmd and .qmd. Although both files may look very similar and even can make usage of the same functions, one of the greatest difference is that .qmd files (Quarto files), can also interact with other programming languages. In a Quarto file you can interact with other scripting languages such as Python, R, or SQL at the same time by specifying code language at the code chunk curly brackets.\nIf you want to learn more about this, you can tale a look at the following link:\n\nQuarto sounds similar to R Markdown."
+  },
+  {
+    "objectID": "Week06/week06_lesson.html#header-2",
+    "href": "Week06/week06_lesson.html#header-2",
+    "title": "R Community of Practice Week 5",
+    "section": "Header 2",
+    "text": "Header 2\n\nHeader 3\n\nHeader 4\n\nHeader 5\n\nHeader 6"
+  },
+  {
+    "objectID": "Week06/week06_lesson.html#what-is-rentrez",
+    "href": "Week06/week06_lesson.html#what-is-rentrez",
+    "title": "R Community of Practice Week 5",
+    "section": "What is Rentrez?",
+    "text": "What is Rentrez?\nRentrez is an R interface that allows its users to interact with NCBI API.\nWith Rentrez, you do not need to use any additional program or terminal to access NCBI Data.\nThis means that you can request data from multiple databases (PubMed, SNP, Clinvar, SRA, Gene, and others) in the same RStudio Session."
+  },
+  {
+    "objectID": "Week06/week06_lesson.html#exercise-lets-practice",
+    "href": "Week06/week06_lesson.html#exercise-lets-practice",
+    "title": "R Community of Practice Week 5",
+    "section": "Exercise: Let’s Practice!",
+    "text": "Exercise: Let’s Practice!\nScenario:\nYour supervisor is asking you to create a slide show about the the skills you have learn for the last few weeks. In this slide show, you need to answer the following questions:\n\nWhat data do you chose to work with and why? (Markdown tip: use paragraph)\nWhat questions did you had about the data that you wanted to answer in the R community of practice? (Markdown tip: use bulleted list)\nWhat steps did you to take to process the data? (Markdown tip: use ordered list)\nA graphical summary of what they found out? (Markdown tip: use code chunk with graph)\n\nTo accomplish this request, you will need to complete the following tasks:\n\nCreate a .qmd file.\nSet up YAML configurations\nStructure your presentation using RMarkdown\nCreate the requested content"
+  },
+  {
+    "objectID": "Week06/week06_exercise.html",
+    "href": "Week06/week06_exercise.html",
+    "title": "R Community of Practice",
+    "section": "",
+    "text": "During the six week of the R Community of Practice, I chose to use PubMed data. I decided to learn how to use the R package Rentrez to extract data from the PubMed database. Also, I learn to create data visualizations using this package."
+  },
+  {
+    "objectID": "Week06/week06_exercise.html#what-questions-did-you-had-about-the-data-that-you-wanted-to-answer-in-the-r-community-of-practice",
+    "href": "Week06/week06_exercise.html#what-questions-did-you-had-about-the-data-that-you-wanted-to-answer-in-the-r-community-of-practice",
+    "title": "R Community of Practice",
+    "section": "What questions did you had about the data that you wanted to answer in the R community of practice?",
+    "text": "What questions did you had about the data that you wanted to answer in the R community of practice?\nMy questions for PubMed data were:\n\nHow can I get PubMed data without leaving my RStudio window?\nCan I extract publication dates and journals from the PubMed data using Rentrez?\n\nHow can I display this data in a graph?"
+  },
+  {
+    "objectID": "Week06/week06_exercise.html#what-steps-did-you-to-take-to-process-the-data",
+    "href": "Week06/week06_exercise.html#what-steps-did-you-to-take-to-process-the-data",
+    "title": "R Community of Practice",
+    "section": "What steps did you to take to process the data?",
+    "text": "What steps did you to take to process the data?\nTo get data from the PubMed database using Rentrez, I had to perform the following steps:\n\nRead Rentrez documentation\nInstall and load Rentrez package\nPerform my first search in PubMed using the command entrez_search()\nGet summaries of the articles found in my search using entrez_summary\nExtract interesting and needed items using extract_from_esummary()"
+  },
+  {
+    "objectID": "Week06/week06_exercise.html#a-graphical-summary-of-what-they-found-out",
+    "href": "Week06/week06_exercise.html#a-graphical-summary-of-what-they-found-out",
+    "title": "R Community of Practice",
+    "section": "A graphical summary of what they found out?",
+    "text": "A graphical summary of what they found out?\nWith the skills learned at the R Community of Practice, I was able to create a graph using PubMed Data.\n\nlibrary(rentrez)\nlibrary(ggplot2)\n\n#Performing Search\nsearch <- entrez_search(db = \"pubmed\", term = \"Kristen A. Stafford[AUTH]\", retmax=100)\n\n#Getting all the summaries\nsummary <- entrez_summary(db = \"pubmed\",id=search$ids)\n\n#Extracting information that I am interested in\nextract <- extract_from_esummary(summary, \"source\")\n\n\n\nlibrary(rentrez)\nlibrary(ggplot2)\n\n#Creating a data visualization\nggplot(mapping = aes(x=extract)) + \n  geom_bar() +\n  theme(axis.text.x = element_text(angle = 90)) + \n  labs(title = \"Kristen's Stafford Publications per journal\",\n    x=\"Journal\", y= \"Amount\")"
+  },
+  {
+    "objectID": "Week06/week06_slides.html",
+    "href": "Week06/week06_slides.html",
+    "title": "Creating Slides Using Quarto",
+    "section": "",
+    "text": "Congratulations!!!\nThis is our 6th and last R community of Practice meet up. We hope to continue this conversation and to expand this program to new members. So keep an eye to future announcements!!"
+  },
+  {
+    "objectID": "Week06/week06_slides.html#introduction",
+    "href": "Week06/week06_slides.html#introduction",
+    "title": "Creating Slides Using Quarto",
+    "section": "Introduction",
+    "text": "Introduction\nThis week we are going to use RStudio in a way we haven’t used before. We will be using RStudio, to format and generate a slide show.\nThis lesson objectives are:\n\nIntroduce participants to Quarto, its purpose, features and benefits.\nGet participants acquainted to Quarto’s document structure.\nPractice structuring documents using RMarkdown."
+  },
+  {
+    "objectID": "Week06/week06_slides.html#what-is-quarto",
+    "href": "Week06/week06_slides.html#what-is-quarto",
+    "title": "Creating Slides Using Quarto",
+    "section": "What is Quarto?",
+    "text": "What is Quarto?\n\n\n\nA publishing tool for creating interactive and dynamic documents.\nWith Quarto, you can create reproducible articles, presentation, websites, blogs, and books in HTML, PDF, MS Word, ePub, and more.\nIn the same RStudio Session, you can combine data analysis and data visualization, to support your article, presentation, website or other."
+  },
+  {
+    "objectID": "Week06/week06_slides.html#components-of-a-.qmd-file",
+    "href": "Week06/week06_slides.html#components-of-a-.qmd-file",
+    "title": "Creating Slides Using Quarto",
+    "section": "Components of a .qmd file",
+    "text": "Components of a .qmd file\n\n\nThe structure of a .qmd file is simple.\nAnything that goes inside of the hyphens is considered a YAML text. And anything that goes after the last trio of hyphens, can be a combination of R code chunks, Markdown and RMarkdown."
+  },
+  {
+    "objectID": "Week06/week06_slides.html#what-is-yaml-rmarkdown",
+    "href": "Week06/week06_slides.html#what-is-yaml-rmarkdown",
+    "title": "Creating Slides Using Quarto",
+    "section": "What is YAML & RMarkdown?",
+    "text": "What is YAML & RMarkdown?\n\n\nYAML\n\nYAML is a data serialization language for all programming languages.\nCan be use to set up configurations in a file or website.\n\n\nRMarkdown\n\nRMarkdown is an extension of Markdown\nWith this language you can format plain text with options such as:\n\nheadings\nbold letters\nitalics\netc…\ncode chunks"
+  },
+  {
+    "objectID": "Week06/week06_slides.html#exercise-lets-practice",
+    "href": "Week06/week06_slides.html#exercise-lets-practice",
+    "title": "Creating Slides Using Quarto",
+    "section": "Exercise: Let’s Practice!",
+    "text": "Exercise: Let’s Practice!\n\nScenario:\nYour supervisor is asking you to create a slide show about the the skills you have learn for the last few weeks. In this slide show, you need to answer the following questions:\n\nWhat data do you chose to work with and why? (Markdown tip: use paragraph)\nWhat questions did you had about the data that you wanted to answer in the R community of practice? (Markdown tip: use bulleted list)\nWhat steps did you to take to process the data? (Markdown tip: use ordered list)\nA graphical summary of what they found out? (Markdown tip: use code chunk with graph)\n\nTo accomplish this request, you will need to complete the following tasks:\n\nCreate a .qmd file.\nSet up YAML configurations\nStructure your presentation using RMarkdown\nCreate the requested content\n\n\n\n\n\nhttps://www2.hshsl.umaryland.edu/cdabs/"
+  },
+  {
+    "objectID": "Week06/week06_slides.html#thanks",
+    "href": "Week06/week06_slides.html#thanks",
+    "title": "Creating Slides Using Quarto",
+    "section": "Thanks!!!",
+    "text": "Thanks!!!\n\nCongratulations!!!\nThis is our 6th and last R community of Practice meet up. We hope to continue this conversation and to expand this program to new members. So keep an eye to future announcements!!"
   }
 ]
