@@ -6,7 +6,7 @@ title-block-banner-color: black
 navbar:
     page-navigation: true
 format: 
-  html:
+ html:
     embed-resources: true
 toc: true
 editor: source
@@ -23,9 +23,15 @@ This lesson objectives are:
 2. Get participants acquainted to Quarto's document structure. 
 3. Practice structuring documents using RMarkdown.
 
+::: {.callout-note}
+Quarto utilizes functions from RMarkdown, YAML, Knitr, HTML, CSS, and various other tools and programming languages to enable the creation of a wide range of documents that this tool is capable of producing.
+
+In this lesson we will be introducing you to YAML, Markdown and RMarkdown so you can create your own presentations using RStudio and feel inspired to explore other formats of documents in Quarto.
+:::
+
 ## The Data
 
-For this week we are not going to work with data, but we will be referencing content from the last 5 weeks. 
+For this week we are not going to work with data, but we may be referencing content from the last 5 weeks. 
 
 ## What is Quarto?
 
@@ -36,6 +42,11 @@ With Quarto, you can create reproducible articles, presentation, websites, blogs
 In the same RStudio Session, you can combine data analysis and data visualization, to support your article, presentation, website or other. In the same `.qmd` file you can mix images, video, data and code, to produce a document.  
 
 In fact, the materials generated in this course, its webpages and slides, are structured as a collection of Quarto [documents](https://github.com/hshsl-training/RCOP/blob/main/Week04/week04_lesson.qmd). We uploaded all of our code and `.qmd` files to a website called GitHub, and this website does the rendering of the materials for us. 
+
+::: {.callout-note}
+## Quarto Documentation
+To learn more about the types of documents that Quarto can generate, you can visit its [documentation website](https://quarto.org/docs/presentations/) . 
+:::
 
 ## Components of a .qmd file
  
@@ -59,20 +70,16 @@ And anything that goes after the last trio of hyphens, can be a combination of R
 
 Depending of the type of document your YAML configurations may look different. For example, in the image shown above, the YAML configuration is setting up an website.
 
-
-
 ## What is YAML and RMarkdown?
 
 ### YAML
 
 [YAML](https://yaml.org/) is a human-friendly data serialization language for all programming languages. YAML can be use to set up configurations in a file or website.
 
-In our context, we will be using YAML as a configuration language to help us style our Quarto presentation. YAML configuration in Quarto can offer us many options to customize our presentation, from the color schema of our presentation (`theme`) to how we would like to display code chunks and graphics in a presentation (`code-fold`, `code-overflow`, etc). 
+In our context, we will be using YAML as a configuration language to help us set up the format of our document (html,pdf,pptx,docx,revealjs,knitr). 
 
-::: {.callout-tip}
-## Quarto Documentation
-To learn more about the types of documents that Quarto can generate, you can visit its [documentation website](https://quarto.org/docs/presentations/) . 
-:::
+Once the format of the document is selected, each format may have their own set of functions. 
+This set of functions may offer us many options such as customize our presentation, from the color schema and fonts (`theme`) to how we would like to display code chunks and graphics in a presentation (`code-fold`, `code-overflow`, etc). A YAML configuration may help apply this settings across the document, while RMarkdown may help apply settings to individual parts of the document. 
 
 Let's take a look to the YAML example below. 
 
@@ -96,7 +103,10 @@ format:
 ---
 ```
 
-In this YAML example, you can see that indentation is very important. Anything that sets up the metadata of the document such as `title`, `subtitle`, `author`, `date`, `footer` does not go indented. But anything that sets up the type of document (pptx, revealjs, html, etc.) needs to be indented. Any specific stylistic choice, such as `theme`,`slide-number`,`preview-link`,`code-overflow`, and the others, goes nested under format of document selected.
+YAMl for Quarto document configuration does not have specific order in which you should place each function. As you create your YAML configuration, you may select to put the `title`, `subtitle`, `author`, `date`, `footer` at the end of the YAML and it should be okay!
+
+But it is very important to nest (indent) functions that are related to each other. 
+The example above is using specific configurations that are part of the revealjs group, and that is why those functions goes nested under revealjs. 
 
 
 ![](indentation.jpg)
@@ -115,11 +125,11 @@ Take a look at the revealjs and Quarto documentation.
 
 :::
 
-### RMarkdown
+### Markdown & RMarkdown
 
 RMarkdown is an extension of Markdown, with this language you can combine R results from data analysis with plain text producing a formatted and reproducible document.
 
-Let's take a look at different 
+Let's take a look at the different functions that Markdown and RMarkdown offers to format a document. 
 
 #### Headings
 
@@ -432,7 +442,7 @@ In the morning:
 
 To create unrecorded lists you need to use the `*`, `+` or `-` symbol. It is recommended to maintain consistency across the document. If you selected the `+` to create un-ordered lists, try to maintain that across the document as much as possible. 
 
-Also, it is important to create a newline before the list so it can get render appropiatedly. 
+Also, it is important to create a newline before the list so it can get render appropriately. 
 
 Example:
 
@@ -510,7 +520,7 @@ v=1649869148)
 ::::
 
 :::{.callout-note}
-Markdown allows you to use multiple formatting elements in a plan text document. Since it can be used to write any type of document, it includes multiple functions that you can explore in this [website](https://www.markdownguide.org/cheat-sheet/).
+Markdown allows you to use multiple formatting elements in a plain text document. Since it can be used to write any type of document, it includes multiple functions that you can explore in this [website](https://www.markdownguide.org/cheat-sheet/).
 :::
 
 ---
@@ -678,9 +688,11 @@ If you want to learn more about this, you can tale a look at the following link:
 
 :::
 
-## Exercise: Let's Practice
+## Exercise: Let's Practice!
 
-**Scenario**
+**Scenario:**
+
+
 Your supervisor is asking you to create a slide show about the the skills you have learn for the last few weeks. In this slide show, you need to answer the following questions:
 
 1. What data do you chose to work with and why? (Markdown tip: use paragraph)
