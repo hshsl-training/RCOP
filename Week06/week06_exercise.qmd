@@ -1,0 +1,22 @@
+---
+title: "R Community of Practice"
+author: ""
+format: revealjs
+---
+
+## What data do you chose to work with and why?
+
+(Markdown tip: use paragraph)
+
+## What questions did you had about the data that you wanted to answer in the R community of practice? 
+
+(Markdown tip: use bulleted list)
+
+## What steps did you to take to process the data? 
+
+(Markdown tip: use ordered list)
+
+## A graphical summary of what they found out? 
+
+(Markdown tip: use code chunk with graph)
+

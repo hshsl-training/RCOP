@@ -112,8 +112,8 @@ Your supervisor is asking you to create a slide show about the the skills you ha
 To accomplish this request, you will need to complete the following tasks:
 
  1. Create a .qmd file.
- 2. Structure your presentation using RMarkdown
- 3. Create the requested content
- 4. Stylish your presentation using YAML
- 
+ 1. Set up YAML configurations
+ 1. Structure your presentation using RMarkdown
+ 1. Create the requested content
+
 :::
