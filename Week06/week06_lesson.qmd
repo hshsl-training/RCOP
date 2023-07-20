@@ -1,6 +1,6 @@
 ---
 title: "R Community of Practice Week 5"
-subtitle: "Creating slide shows using Quarto"
+subtitle: "Creating slides using Quarto"
 title-block-banner: white
 title-block-banner-color: black
 navbar:
